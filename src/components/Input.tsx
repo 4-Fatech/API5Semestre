@@ -1,22 +1,31 @@
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
-import React from 'react';
-export const InputPersonalizado = () => {
+import React from "react";
+import { StyleSheet, TextInput } from "react-native";
+
+interface InputProps {
+    placeholder: string;
+    onChangeText: (text: string) => void;
+    value: string;
+}
+
+export const Input: React.FC<InputProps> = ({ placeholder, onChangeText, value }) => {
     return (
-    <><Input
-            placeholder='BASIC INPUT' /><Input
-                placeholder='INPUT WITH ICON'
-                leftIcon={{ type: 'font-awesome', name: 'chevron-left' }} /><Input
-                placeholder='INPUT WITH CUSTOM ICON'
-                leftIcon={<Icon
-                    name='user'
-                    size={24}
-                    color='black' />} /><Input
-                placeholder="Comment"
-                leftIcon={{ type: 'font-awesome', name: 'comment' }}
-                /><Input
-                placeholder='INPUT WITH ERROR MESSAGE'
-                errorStyle={{ color: 'red' }}
-                errorMessage='ENTER A VALID ERROR HERE' /><Input placeholder="Password" secureTextEntry={true} /></>
+        <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            value={value}
+            placeholder={placeholder}
+            placeholderTextColor='gray'
+        />
     );
 }
+
+
+const styles = StyleSheet.create({
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+        color: 'black'
+    }
+});
