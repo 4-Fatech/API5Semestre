@@ -1,7 +1,8 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import { Label } from "../components/Label";
 import { Input } from "../components/Input";
+import  ImageInput from "../components/ImageInput/ImageInput";
 
 export const Equipamentos = () => {
     const [tipoEquipamento, onChangeTipoEquipamento] = React.useState('');
@@ -10,8 +11,6 @@ export const Equipamentos = () => {
     const [latitude, onChangeLatitude] = React.useState('');
     const [longitude, onChangeLongitude] = React.useState('');
     const [obs, onChangeObs] = React.useState('');
-
-    console.log(modeloEquipamento)
 
     return (
         <ScrollView>
@@ -47,13 +46,13 @@ export const Equipamentos = () => {
                     placeholder="Ex.: 45.22837"
                 />
                 <Label titulo='Observações' />
-                <Input  
+                <Input
                     onChangeText={onChangeObs}
                     value={obs}
                     placeholder="Ex.: Equipamento localizado próximo a uma esquina" />
 
                 <Label titulo='Imagens do equipamento' />
-                {/* <Image source={require('../imgs/btn-enviar.png')} /> */}
+                <ImageInput />
             </View>
         </ScrollView>
     );
