@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Text, View } from "react-native";
+import { CustomButton } from "../components/Common/Button";
 
 export const Home = ({ navigation }:any) => {
     const goToScreen2 = () => {
