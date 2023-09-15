@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Text, View } from "react-native";
-
+import { CustomButton } from "../components/Common/Button";
 export const Home = ({ navigation }:any) => {
     const goToScreen2 = () => {
         navigation.push("Gestão de Equipamentos");
@@ -9,11 +9,10 @@ export const Home = ({ navigation }:any) => {
     return (
         <View >
             <Text>Home</Text>
-            <Button
+            <CustomButton
                 color="#0fa36b"
                 title="Navigate to screen 2"
-                onPress={goToScreen2}
-            ></Button>
+                onPress={goToScreen2}/>
         </View>
     );
 };
