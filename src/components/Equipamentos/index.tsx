@@ -2,7 +2,7 @@ import React from "react";
 import { View, ScrollView } from "react-native";
 import { Label } from "../Common/Label/Label";
 import { Input } from "../Common/Input/Input";
-import  ImageInput from "../ImageInput/ImageInput";
+import  ImageInput from "../Common/ImageInput/ImageInput";
 
 export const EquipamentosComponente = ({onChangeText, form}:any) => {
  
