@@ -1,20 +1,18 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import Card from "../components/Card";
-import { useNavigation } from "@react-navigation/native";
-import { Image } from "react-native-reanimated/lib/typescript/Animated";
+import React from "react";
+import { Button, Text, View } from "react-native";
 
-export const Home = () => {
+export const Home = ({ navigation }:any) => {
+    const goToScreen2 = () => {
+        navigation.push("Gestão de Equipamentos");
+    };
+
     return (
-
-        <Card children={<Text>brbrbr</Text>} />
-
+        <View >
+            <Text>Home</Text>
+            <CustomButton
+                color="#0fa36b"
+                title="Navigate to screen 2"
+                onPress={goToScreen2}/>
+        </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#565656',
-    },
-});
