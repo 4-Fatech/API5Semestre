@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity, TouchableOpacityProps, Image, Text } from 'react-native';
-
+import { EquipamentoVazio } from '../../../assets/image'
 interface CardProps extends TouchableOpacityProps {
     image: string;
     title: string;
@@ -14,7 +14,9 @@ const Card: React.FC<CardProps> = ({ title, style, image, nSerie }) => {
             style={[styles.card, style]}
         >
             <View style={styles.inner}>
-                <Image style={styles.imagem} source={require('C:/API5Semestre/src/assets/image/equipa_vazio.png')} />
+                <Image style={styles.imagem}
+                    source={
+                        image ? { uri: image } : EquipamentoVazio } />
                 <View style={styles.legenda}>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.subtitle}>N°Serie: {nSerie}</Text>
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     legenda: {
-        flex: 1, 
+        flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 5,
         backgroundColor: 'white',
