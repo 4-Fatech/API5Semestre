@@ -1,22 +1,25 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, TouchableOpacityProps, Image, Text } from 'react-native';
-import { EquipamentoVazio } from '../../../assets/image'
+import { EquipamentoVazio } from '../../../assets/image';
+
 interface CardProps extends TouchableOpacityProps {
     image: string;
     title: string;
     nSerie: string;
+    onCardPress: (nSerie: string) => void; // Renomeie a propriedade onPress
 }
 
-const Card: React.FC<CardProps> = ({ title, style, image, nSerie }) => {
+const Card: React.FC<CardProps> = ({ title, style, image, nSerie, onCardPress }) => {
     return (
         <TouchableOpacity
-            //   onPress={onPress}
+            onPress={() => onCardPress(nSerie)} // Chame onCardPress com o ID do equipamento
             style={[styles.card, style]}
         >
             <View style={styles.inner}>
-                <Image style={styles.imagem}
-                    source={
-                        image ? { uri: image } : EquipamentoVazio } />
+                <Image
+                    style={styles.imagem}
+                    source={image ? { uri: image } : EquipamentoVazio}
+                />
                 <View style={styles.legenda}>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.subtitle}>N°Serie: {nSerie}</Text>
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         margin: 5,
         marginTop: 15,
-        paddingTop: 5
+        paddingTop: 5,
     },
     inner: {
         width: '100%',
@@ -51,14 +54,14 @@ const styles = StyleSheet.create({
     imagem: {
         borderRadius: 10,
         width: '100%',
-        height: '75%'
+        height: '75%',
     },
     title: {
         color: 'black',
     },
     subtitle: {
         color: 'gray',
-    }
+    },
 });
 
 export default Card;
