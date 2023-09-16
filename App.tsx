@@ -6,6 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { DetalhesEquipamento } from './src/components/Equipamentos/DetalhesEquipamento';
 import { Home } from './src/screens/Home';
 import { LogBox } from 'react-native';
+import { Usuarios } from './src/screens/Usuarios';
+import { ListarUsu } from './src/screens/ListarUsu';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -33,6 +35,8 @@ export default function DrawerNavigation() {
         </Drawer.Screen>
         <Drawer.Screen name="Home2" options={{ drawerLabel: 'Home', headerTitle: 'Home' }} component={Home}/>
         <Drawer.Screen name="Cadastro de Equipamentos" component={Equipamentos} />
+        <Drawer.Screen name="Cadastro de Usuários" component={Usuarios} />
+        <Drawer.Screen name="Listar Usuários" component={ListarUsu} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
