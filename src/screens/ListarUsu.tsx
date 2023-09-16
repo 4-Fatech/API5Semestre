@@ -2,6 +2,7 @@
 import CardUsu from "../components/Common/Card/carUsu";
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { ScrollView } from "react-native-gesture-handler";
 
 
 interface Usuario {
@@ -15,8 +16,8 @@ export const ListarUsu = ({ navigation }: any) => {
 
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
-    const handleCardPress = (matricula: string) => {
-        navigation.navigate("Atualizar Usuario", { matricula });
+    const handleCardPress = (id: string) => {
+        navigation.navigate("Atualizar Usuario", { id });
     };
 
     function getUsuarios() {
@@ -36,10 +37,10 @@ export const ListarUsu = ({ navigation }: any) => {
                     nome: element.nome,
                     matricula: element.matricula,
                     foto: element.foto,
-                    id:element.id
+                    id: element.id
                 }));
                 setUsuarios(usuariosFormatados);
-                
+
             });
     }
 
@@ -48,17 +49,21 @@ export const ListarUsu = ({ navigation }: any) => {
     }, []);
 
     return (
-        <View style={styles.container}>
-            {usuarios.map((usuario) => (
-                <CardUsu
-                    matricula={usuario.matricula}
-                    image={usuario.foto}
-                    nome={usuario.nome}
-                    onUsuPress={handleCardPress}
-                    title={""}
-                />
-            ))}
-        </View>
+
+        <ScrollView>
+            <View style={styles.container}>
+                {usuarios.map((usuario) => (
+                    <CardUsu
+                        matricula={usuario.matricula}
+                        image={usuario.foto}
+                        nome={usuario.nome}
+                        onUsuPress={handleCardPress}
+                        title={""}
+                    />
+                ))}
+            </View>
+        </ScrollView>
+
     );
 };
 
@@ -67,6 +72,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
-        marginLeft: 5
+        marginLeft: 5,
+        overflow: 'scroll'
     }
 })

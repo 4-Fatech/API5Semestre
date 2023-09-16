@@ -1,12 +1,14 @@
 
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { UsuariosComponente } from "../components/Usuarios";
+
 
 
 export const UpdateUsu = () => {
 
-    
-    const [form, onChangeForm] = React.useState({
+
+    const [form, onChangeForm] = useState({
+        id: "",
         nome: "",
         sobrenome: "",
         email: "",
@@ -21,12 +23,39 @@ export const UpdateUsu = () => {
     const onChangeText = (name: any, value: any) => {
         onChangeForm({ ...form, [name]: value });
         console.log(form)
-    };
+    }
+
+
+    function getUsuario() {
+
+        const url = `http://10.0.2.2:3001/user/list/`;
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
+            .then((resposta) => resposta.json())
+            .then((data) => {
+                console.log(data);
+                if (data != null) {
+
+                }
+
+            });
+    }
+
+    useEffect(() => {
+        getUsuario();
+    }, []);
+
+
 
     function updateUsuario() {
-        const url = "http://10.0.2.2:3001/user/create";     
+
+        const url = "http://10.0.2.2:3001/user/update";
         fetch(url, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             },

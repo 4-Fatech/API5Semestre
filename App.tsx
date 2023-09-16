@@ -8,6 +8,7 @@ import { Home } from './src/screens/Home';
 import { LogBox } from 'react-native';
 import { Usuarios } from './src/screens/Usuarios';
 import { ListarUsu } from './src/screens/ListarUsu';
+import { UpdateUsu } from './src/screens/UpdateUsu';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -37,6 +38,8 @@ export default function DrawerNavigation() {
         <Drawer.Screen name="Cadastro de Equipamentos" component={Equipamentos} />
         <Drawer.Screen name="Cadastro de Usuários" component={Usuarios} />
         <Drawer.Screen name="Listar Usuários" component={ListarUsu} />
+        <Drawer.Screen name="Test Update Usuários" component={UpdateUsu} />
+
       </Drawer.Navigator>
     </NavigationContainer>
   );
