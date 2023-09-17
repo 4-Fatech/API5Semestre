@@ -1,5 +1,5 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, useRoute } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { Equipamentos } from './src/screens/Equipamentos';
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -34,11 +34,21 @@ export default function DrawerNavigation() {
             </Stack.Navigator>
           )}
         </Drawer.Screen>
+        <Drawer.Screen name="Atualizar usuário" options={{headerTitle: undefined, drawerLabel: () => null, drawerActiveBackgroundColor: 'none'}}>
+          {() => (
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Atualizar usuário"
+                component={UpdateUsu}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          )}
+        </Drawer.Screen>
         <Drawer.Screen name="Home2" options={{ drawerLabel: 'Home', headerTitle: 'Home' }} component={Home}/>
         <Drawer.Screen name="Cadastro de Equipamentos" component={Equipamentos} />
         <Drawer.Screen name="Cadastro de Usuários" component={Usuarios} />
         <Drawer.Screen name="Listar Usuários" component={ListarUsu} />
-        <Drawer.Screen name="Test Update Usuários" component={UpdateUsu} />
 
       </Drawer.Navigator>
     </NavigationContainer>

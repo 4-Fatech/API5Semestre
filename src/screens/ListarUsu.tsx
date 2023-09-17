@@ -16,8 +16,8 @@ export const ListarUsu = ({ navigation }: any) => {
 
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
-    const handleCardPress = (id: string) => {
-        navigation.navigate("Atualizar Usuario", { id });
+    const handleCardPress = (id: string) => {        
+        navigation.navigate("Atualizar usuário", { id });
     };
 
     function getUsuarios() {
@@ -54,11 +54,11 @@ export const ListarUsu = ({ navigation }: any) => {
             <View style={styles.container}>
                 {usuarios.map((usuario) => (
                     <CardUsu
+                        id={usuario.id}
                         matricula={usuario.matricula}
                         image={usuario.foto}
                         nome={usuario.nome}
                         onUsuPress={handleCardPress}
-                        title={""}
                     />
                 ))}
             </View>

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 export const DetalhesEquipamento = ({ route }: any) => {
   const { nSerie } = route.params;
+  
 
   return (
     <View style={styles.container}>

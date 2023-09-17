@@ -16,8 +16,7 @@ export default function DrawerNavigation() {
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="Cadastro de Equipamentos" component={Equipamentos} />
         <Drawer.Screen name="Cadastro de usuários" component={Usuarios} />
-        <Drawer.Screen name="Listagem de usuários" component={ListarUsu} />
-        <Drawer.Screen name="Atualizar usuário" component={UpdateUsu} />
+        <Drawer.Screen name="Listagem de usuários" component={ListarUsu} />       
 
       </Drawer.Navigator>
     </NavigationContainer>

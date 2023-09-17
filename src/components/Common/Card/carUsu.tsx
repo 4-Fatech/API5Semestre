@@ -4,16 +4,16 @@ import { EquipamentoVazio } from '../../../assets/image';
 
 interface CardProps extends TouchableOpacityProps {
     matricula: string;
+    id: string;
     image: string;
-    title: string;
     nome: string;
-    onUsuPress: (matricula: string) => void; // Renomeie a propriedade onPress
+    onUsuPress: (id: string) => void; // Renomeie a propriedade onPress
 }
 
-const CardUsu: React.FC<CardProps> = ({ style, image, nome, onUsuPress, matricula }) => {
+const CardUsu: React.FC<CardProps> = ({ id, style, image, nome, onUsuPress, matricula }) => {
     return (
         <TouchableOpacity
-            onPress={() => onUsuPress(matricula)}
+            onPress={() => onUsuPress(id)}
             style={[styles.card, style]}
         >
             <View style={styles.inner}>
