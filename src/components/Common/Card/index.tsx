@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, TouchableOpacityProps, Image, Text } from 'react-native';
-import { EquipamentoVazio } from '../../../Assets/image';
+import { EquipamentoVazio } from '../../../assets/image/index';
 
 interface CardProps extends TouchableOpacityProps {
     image: string;

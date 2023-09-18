@@ -10,7 +10,7 @@ interface ButtonProps {
 export const CustomButton: React.FC<ButtonProps> = ({ title, onPress, color }) => {
     return (
         <Button
-          
+
             color={color}
             title={title}
             onPress={onPress}

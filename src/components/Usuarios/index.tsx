@@ -19,9 +19,9 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }
           value={form.nome}
           placeholder="Ex.: José"
         />
-
+        
         {/*  */}
-        <Label titulo='Sobrenome' />
+        <Label  titulo='Sobrenome' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('sobrenome', value);

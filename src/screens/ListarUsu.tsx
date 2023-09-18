@@ -3,6 +3,7 @@ import CardUsu from "../components/Common/Card/carUsu";
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
+import { CustomButton } from "../components/Common/Button";
 
 
 interface Usuario {
@@ -17,7 +18,8 @@ export const ListarUsu = ({ navigation }: any) => {
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
     const handleCardPress = (id: string)=> {        
-        navigation.navigate("Atualizar usuário", { id });
+        navigation.navigate("AtualizarUsuario", { id:id });
+        
     };
 
     function getUsuarios() {
@@ -61,6 +63,7 @@ export const ListarUsu = ({ navigation }: any) => {
                     />
                 ))}
             </View>
+            {/* <CustomButton title={"Cad"} onPress={undefined} color={""} ></CustomButton> */}
         </ScrollView>
 
     );

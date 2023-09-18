@@ -5,8 +5,12 @@ import { View } from 'react-native-reanimated/lib/typescript/Animated';
 
 
 
-export const UpdateUsu = ({ route }: any) => {    
-   
+export const UpdateUsu = ({ route }: any) => {
+
+    // const { id } = route.params.id
+    
+    
+
 
     const [form, onChangeForm] = useState({
         nome: "",
@@ -27,8 +31,8 @@ export const UpdateUsu = ({ route }: any) => {
 
 
     function getUsuario() {
-        console.log("aaaaaaaaaaaaaa",route)
-        const url = `http://10.0.2.2:3001/user/list/64ffaaf50413444ce8801b58`;
+        console.log("aaaaaaaaaaaaaa", route)
+        const url = `http://10.0.2.2:3001/user/list`;
 
         fetch(url, {
             method: 'GET',
@@ -62,9 +66,9 @@ export const UpdateUsu = ({ route }: any) => {
     useEffect(() => {
         getUsuario();
     }, []);
-    
 
-    
+
+
     function updateUsuario() {
 
         const url = "http://10.0.2.2:3001/user/update/64ffaaf50413444ce8801b55";
@@ -87,7 +91,7 @@ export const UpdateUsu = ({ route }: any) => {
                 }
             })
     }
-   
+
 
     return (
         <UsuariosComponente
@@ -99,6 +103,6 @@ export const UpdateUsu = ({ route }: any) => {
 
         />
 
-    ); 
+    );
 };
 

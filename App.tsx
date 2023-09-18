@@ -34,7 +34,7 @@ export default function DrawerNavigation() {
             </Stack.Navigator>
           )}
         </Drawer.Screen>
-        <Drawer.Screen name="Atualizar usuário" options={{headerTitle: undefined, drawerLabel: () => null, drawerActiveBackgroundColor: 'none'}}>
+        <Drawer.Screen name="AtualizarUsuario" options={{headerTitle: undefined, drawerLabel: () => null, drawerActiveBackgroundColor: 'none'}}>
           {() => (
             <Stack.Navigator>
               <Stack.Screen
@@ -49,6 +49,7 @@ export default function DrawerNavigation() {
         <Drawer.Screen name="Cadastro de Equipamentos" component={Equipamentos} />
         <Drawer.Screen name="Cadastro de Usuários" component={Usuarios} />
         <Drawer.Screen name="Listar Usuários" component={ListarUsu} />
+        {/* <Drawer.Screen name="AtualizarUsuario" options={{ drawerLabel: 'Atualizar Usuario', headerTitle: 'Atualizar Usuario' }} component={UpdateUsu} /> */}
 
       </Drawer.Navigator>
     </NavigationContainer>

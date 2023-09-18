@@ -1,6 +1,7 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { UsuariosComponente } from "../components/Usuarios";
+import { Text } from 'react-native';
 
 
 export const Usuarios = () => {
@@ -16,13 +17,27 @@ export const Usuarios = () => {
         senha: "",
 
     })
+
+    const [valida, setValida] = useState(false)
+
     const onChangeText = (name: any, value: any) => {
         onChangeForm({ ...form, [name]: value });
-      
+
+
     };
 
+
     function cadastrarUsuario() {
-        const url = "http://10.0.2.2:3001/user/create";     
+
+     
+        if (!form.nome) {
+            setValida(true)
+            return
+        }else {
+            setValida(false)
+            
+        }
+        const url = "http://10.0.2.2:3001/user/create";
         fetch(url, {
             method: 'POST',
             headers: {
@@ -45,15 +60,23 @@ export const Usuarios = () => {
 
 
     return (
-        <UsuariosComponente
-            form={form}
-            onChangeText={onChangeText}
-            onPress={cadastrarUsuario}
-            title={'Cadastrar'}
-            color={'steelblue'}
+        <>
+            {valida ?
+                <Text style={{ color: "red" }}>Campos com * são obrigatórios.</Text>
+                : ""
+            }
+            <UsuariosComponente
+                form={form}
+                onChangeText={onChangeText}
+                onPress={cadastrarUsuario}
+                title={'Cadastrar'}
+                color={'steelblue'}
 
-        />
+            />
+        </>
+
 
     );
 };
+
 
