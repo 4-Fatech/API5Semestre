@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect}from "react";
 import { View, ScrollView } from "react-native";
 import { Label } from "../Common/Label/Label";
 import { Input } from "../Common/Input/Input";
@@ -6,7 +6,17 @@ import ImageInput from "../Common/ImageInput/ImageInput";
 import { CustomButton } from "../Common/Button";
 
 export const EquipamentosComponente = ({ onChangeText, form, onPress, title, color }: any) => {
+  useEffect(() => {
 
+    onChangeText('latitude', '');
+    onChangeText('longitude', '');
+    onChangeText('observacoes', '');
+    onChangeText('foto', []);
+    onChangeText('status', '');
+    onChangeText('tipo', '');
+    onChangeText('modelo', '');
+ 
+}, []);
 
   return (
     <ScrollView>
@@ -14,9 +24,9 @@ export const EquipamentosComponente = ({ onChangeText, form, onPress, title, col
         <Label titulo='Tipo do Equipamento' />
         <Input
           onChangeText={(value: any) => {
-            onChangeText('tipoEquipamento', value);
+            onChangeText('tipo', value);
           }}
-          value={form.tipoEquipamento}
+          value={form.tipo}
           placeholder="Ex.: Transformador"
         />
 
@@ -24,9 +34,9 @@ export const EquipamentosComponente = ({ onChangeText, form, onPress, title, col
         <Label titulo='Modelo do Equipamento' />
         <Input
           onChangeText={(value: any) => {
-            onChangeText('modeloEquipamento', value);
+            onChangeText('modelo', value);
           }}
-          value={form.modeloEquipamento}
+          value={form.modelo}
           placeholder="Ex.: NBXL-5686G"
         />
 
@@ -34,9 +44,9 @@ export const EquipamentosComponente = ({ onChangeText, form, onPress, title, col
         <Label titulo='N° de Série' />
         <Input
           onChangeText={(value: any) => {
-            onChangeText('nSerie', value);
+            onChangeText('serial', value);
           }}
-          value={form.nSerie}
+          value={form.serial}
           placeholder="Ex.: 74638294875AE"
         />
 
@@ -63,14 +73,17 @@ export const EquipamentosComponente = ({ onChangeText, form, onPress, title, col
         <Label titulo='Observações' />
         <Input
           onChangeText={(value: any) => {
-            onChangeText('obs', value);
+            onChangeText('observacoes', value);
           }}
-          value={form.obs}
+          value={form.observacoes}
           placeholder="Ex.: Equipamento localizado próximo a uma esquina" />
 
         {/*  */}
         <Label titulo='Imagens do equipamento' />
-        <ImageInput />
+        <ImageInput 
+            form={form}
+            onChange={onChangeText}
+          />
         <CustomButton  title={title} onPress={onPress} color={color} />
       </View>
     </ScrollView>

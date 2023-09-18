@@ -87,7 +87,9 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }
 
         {/*  */}
         <Label titulo='Foto Usuário' />
-        <ImageInput />
+        <ImageInput 
+          form={form}
+          onChange={onChangeText}/>
         <CustomButton  title={title} onPress={onPress} color={color} />
       </View>
     </ScrollView>

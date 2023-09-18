@@ -16,7 +16,7 @@ export const ListarUsu = ({ navigation }: any) => {
 
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
-    const handleCardPress = (id: string) => {        
+    const handleCardPress = (id: string)=> {        
         navigation.navigate("Atualizar usuário", { id });
     };
 
@@ -31,7 +31,6 @@ export const ListarUsu = ({ navigation }: any) => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
-                console.log(data);
 
                 const usuariosFormatados: Usuario[] = data.map((element: any) => ({
                     nome: element.nome,
@@ -56,7 +55,7 @@ export const ListarUsu = ({ navigation }: any) => {
                     <CardUsu
                         id={usuario.id}
                         matricula={usuario.matricula}
-                        image={usuario.foto}
+                        image={usuario.foto?.[0]}
                         nome={usuario.nome}
                         onUsuPress={handleCardPress}
                     />

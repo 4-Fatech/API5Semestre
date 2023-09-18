@@ -5,8 +5,8 @@ import { View } from 'react-native-reanimated/lib/typescript/Animated';
 
 
 
-export const UpdateUsu = () => {    
-
+export const UpdateUsu = ({ route }: any) => {    
+   
 
     const [form, onChangeForm] = useState({
         nome: "",
@@ -27,7 +27,8 @@ export const UpdateUsu = () => {
 
 
     function getUsuario() {
-        const url = `http://10.0.2.2:3001/user/list/64ffaaf50413444ce8801b55`;
+        console.log("aaaaaaaaaaaaaa",route)
+        const url = `http://10.0.2.2:3001/user/list/64ffaaf50413444ce8801b58`;
 
         fetch(url, {
             method: 'GET',
@@ -37,7 +38,6 @@ export const UpdateUsu = () => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
-                console.log(data);
                 if (data !== null) {
                     // Atualize os campos do formulário com os dados obtidos
                     onChangeForm({
@@ -49,7 +49,7 @@ export const UpdateUsu = () => {
                         telefone2: data.telefone2 || "",
                         matricula: data.matricula || "",
                         cpf: data.cpf || "",
-                        foto: data.foto || "",
+                        foto: data.foto || [],
                         senha: data.senha || ""
                     });
                 }

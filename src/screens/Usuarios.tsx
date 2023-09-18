@@ -12,13 +12,13 @@ export const Usuarios = () => {
         telefone2: "",
         matricula: "",
         cpf: "",
-        foto: "",
+        foto: [],
         senha: "",
 
     })
     const onChangeText = (name: any, value: any) => {
         onChangeForm({ ...form, [name]: value });
-        console.log(form)
+      
     };
 
     function cadastrarUsuario() {
