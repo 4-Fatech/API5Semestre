@@ -19,12 +19,7 @@ export const ListarUsu = ({ route, navigation }: any) => {
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
     const { userAlterado, userDeletado, userCadastrado } = route.params || {};
 
-    // const [userUpdated, setUserUpdated] = useState(false);
-    // const [userDeleted, setUserDeleted] = useState(false);
-
-
-
-
+    
     const handleCardPress = (id: string) => {
         navigation.navigate("Atualizar Usuário", { id: id });
 
@@ -57,8 +52,7 @@ export const ListarUsu = ({ route, navigation }: any) => {
         getUsuarios();
         if (userAlterado || userDeletado || userCadastrado) {
             getUsuarios();
-        }
-       
+        }       
     }, [userAlterado, userCadastrado, userDeletado]);   
 
     return (
