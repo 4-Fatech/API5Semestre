@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 import { apiurl } from "../Helpers/ApiUrl";
 
 
-export const Usuarios = () => {
+export const Usuarios = ({ navigation }: any) => {
     const [form, onChangeForm] = React.useState({
         nome: "",
         sobrenome: "",
@@ -29,15 +29,15 @@ export const Usuarios = () => {
 
 
     function cadastrarUsuario() {
-     
+
         if (!form.nome) {
             setValida(true)
             return
-        }else {
+        } else {
             setValida(false)
-            
+
         }
-        const url = apiurl+"/user/create";
+        const url = apiurl + "/user/create";
         fetch(url, {
             method: 'POST',
             headers: {
@@ -53,6 +53,7 @@ export const Usuarios = () => {
 
                 } else {
                     console.log("Usuário cadastrado");
+                    navigation.navigate("Usuários", { userCadastrado: true });
 
                 }
             })

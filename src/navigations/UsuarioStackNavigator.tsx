@@ -7,8 +7,7 @@ import { UpdateUsu } from "../screens/UpdateUsu";
 export default function UsuarioStackNavigator  () {
     const Stack = createStackNavigator();
     return (
-    <Stack.Navigator >
-       
+    <Stack.Navigator >       
         < Stack.Screen
                 name="Usuários"
                 component={ListarUsu}
@@ -22,7 +21,6 @@ export default function UsuarioStackNavigator  () {
                 name="Atualizar Usuário"
                 component={UpdateUsu}
               />
-
     </Stack.Navigator>
     
     )

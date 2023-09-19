@@ -13,18 +13,26 @@ interface Usuario {
     id: string;
 }
 
-export const ListarUsu = ({ navigation }: any) => {
+export const ListarUsu = ({ route, navigation }: any) => {
+
 
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+    const { userAlterado, userDeletado, userCadastrado } = route.params || {};
 
-    const handleCardPress = (id: string)=> {        
-        navigation.navigate("Atualizar Usuário", { id:id });
-        
+    // const [userUpdated, setUserUpdated] = useState(false);
+    // const [userDeleted, setUserDeleted] = useState(false);
+
+
+
+
+    const handleCardPress = (id: string) => {
+        navigation.navigate("Atualizar Usuário", { id: id });
+
     };
 
     function getUsuarios() {
 
-        const url = apiurl+"/user/list";
+        const url = apiurl + "/user/list";
         fetch(url, {
             method: 'GET',
             headers: {
@@ -46,25 +54,29 @@ export const ListarUsu = ({ navigation }: any) => {
     }
 
     useEffect(() => {
-        getUsuarios();        
-    }, []);
+        getUsuarios();
+        if (userAlterado || userDeletado || userCadastrado) {
+            getUsuarios();
+        }
+       
+    }, [userAlterado, userCadastrado, userDeletado]);   
 
     return (
         <>
-        <ScrollView>
-            <View style={styles.container}>
-                {usuarios.map((usuario) => (
-                    <CardUsu
-                        id={usuario.id}
-                        matricula={usuario.matricula}
-                        image={usuario.foto?.[0]}
-                        nome={usuario.nome}
-                        onUsuPress={handleCardPress}
-                    />
-                ))}
-            </View>
-        </ScrollView>
-        <CustomButton title={"Cadastrar"} onPress={()=> navigation.navigate("Cadastro de Usuários")} color={"green"}/>
+            <ScrollView>
+                <View style={styles.container}>
+                    {usuarios.map((usuario) => (
+                        <CardUsu
+                            id={usuario.id}
+                            matricula={usuario.matricula}
+                            image={usuario.foto?.[0]}
+                            nome={usuario.nome}
+                            onUsuPress={handleCardPress}
+                        />
+                    ))}
+                </View>
+            </ScrollView>
+            <CustomButton title={"Cadastrar"} onPress={() => navigation.navigate("Cadastro de Usuários")} color={"green"} />
         </>
 
     );

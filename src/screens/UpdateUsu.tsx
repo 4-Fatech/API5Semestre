@@ -5,7 +5,7 @@ import { apiurl } from '../Helpers/ApiUrl';
 import { CustomButton } from '../components/Common/Button';
 
 
-export const UpdateUsu = ({ route }: any) => {
+export const UpdateUsu = ({ route, navigation }: any) => {
 
     const { id } = route.params
     const [form, onChangeForm] = useState({
@@ -53,6 +53,7 @@ export const UpdateUsu = ({ route }: any) => {
                         foto: data.foto || [],
                         senha: data.senha || ""
                     });
+
                 }
                 console.log(data)
             });
@@ -85,6 +86,7 @@ export const UpdateUsu = ({ route }: any) => {
 
                 } else {
                     console.log("Usuário alterado");
+                    navigation.navigate("Usuários", { userAlterado: true });
 
                 }
             })
@@ -105,6 +107,8 @@ export const UpdateUsu = ({ route }: any) => {
 
             } else {
                 console.log('Usuário deletado');
+                navigation.navigate("Usuários", { userDeletado: true });
+
 
             }
 
