@@ -9,8 +9,8 @@ export default function DrawerNavigator() {
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name='Home' component={StackNavigator} options={{ headerShown: false }} />
-      <Drawer.Screen name='Usuários' component={UsuarioStackNavigator} options={{ headerShown: false }} />
+      <Drawer.Screen name='Home ' component={StackNavigator} options={{ headerShown: false }} />
+      <Drawer.Screen name='Usuários ' component={UsuarioStackNavigator} options={{ headerShown: false }} />
 
     </Drawer.Navigator>
   );

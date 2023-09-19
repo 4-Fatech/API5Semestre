@@ -43,8 +43,8 @@ export const Home = ({ navigation }: any) => {
         getUsuarios();
     }, []);
 
-    const handleCardPress = (nSerie: string) => {
-        navigation.navigate("Detalhes do Equipamento", { nSerie });
+    const handleCardPress = (id: string) => {
+        navigation.navigate("Atualizar Equipamento", { id });
       };      
 
     return (
@@ -52,7 +52,7 @@ export const Home = ({ navigation }: any) => {
         <ScrollView>
         <View style={styles.container}>
             {equipamento.map(e=>
-                 <Card title={e.tipo} nSerie={e.serial} image={typeof e.foto == 'string'?  e.foto: e.foto[0]} onCardPress={handleCardPress}></Card>
+                 <Card title={e.tipo} id={e.id} image={typeof e.foto == 'string'?  e.foto: e.foto[0]} onCardPress={handleCardPress}></Card>
             
            
             )}

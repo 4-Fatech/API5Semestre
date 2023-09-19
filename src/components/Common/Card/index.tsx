@@ -1,28 +1,28 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, TouchableOpacityProps, Image, Text } from 'react-native';
-// import { EquipamentoVazio } from '../../../assets/image/index';
+import { EquipamentoVazio } from '../../../Assets/image';
 
 interface CardProps extends TouchableOpacityProps {
     image: string;
     title: string;
-    nSerie: string;
+    id: string;
     onCardPress: (nSerie: string) => void; // Renomeie a propriedade onPress
 }
 
-const Card: React.FC<CardProps> = ({ title, style, image, nSerie, onCardPress }) => {
+const Card: React.FC<CardProps> = ({ title, style, image, id, onCardPress }) => {
     return (
         <TouchableOpacity
-            onPress={() => onCardPress(nSerie)} // Chame onCardPress com o ID do equipamento
+            onPress={() => onCardPress(id)} // Chame onCardPress com o ID do equipamento
             style={[styles.card, style]}
         >
             <View style={styles.inner}>
                 <Image
                     style={styles.imagem}
-                    source={image ? { uri: image } : {}}
+                    source={image ? { uri: image } : EquipamentoVazio}
                 />
                 <View style={styles.legenda}>
                     <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.subtitle}>N°Serie: {nSerie}</Text>
+                    <Text style={styles.subtitle}>N°Serie: {}</Text>
                 </View>
             </View>
         </TouchableOpacity>
