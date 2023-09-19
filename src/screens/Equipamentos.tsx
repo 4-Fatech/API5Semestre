@@ -1,6 +1,6 @@
 import React from "react";
 import { EquipamentosComponente } from "../components/Equipamentos";
-import { blue } from "react-native-reanimated";
+import { apiurl } from "../Helpers/ApiUrl";
 
 export const Equipamentos = () => {
     const [form, onChangeForm] = React.useState({
@@ -20,7 +20,7 @@ export const Equipamentos = () => {
 
     function cadastrar() {
       console.log(form)
-            const url = "http://10.0.2.2:3001/equipment/create";     
+            const url = apiurl+"/equipment/create";     
             fetch(url, {
                 method: 'POST',
                 headers: {

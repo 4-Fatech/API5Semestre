@@ -1,6 +1,8 @@
 import React, {useEffect} from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import Card from "../components/Common/Card";
+import { CustomButton } from "../components/Common/Button";
+import { apiurl } from "../Helpers/ApiUrl";
 interface Props{
     serial:string,
     latitude: string,
@@ -20,7 +22,7 @@ export const Home = ({ navigation }: any) => {
     function getUsuarios() {
        
 
-        const url = "http://10.0.2.2:3001/equipment/list";
+        const url = apiurl+"/equipment/list";
         fetch(url, {
             method: 'GET',
             headers: {
@@ -46,6 +48,7 @@ export const Home = ({ navigation }: any) => {
       };      
 
     return (
+        <>
         <ScrollView>
         <View style={styles.container}>
             {equipamento.map(e=>
@@ -55,6 +58,8 @@ export const Home = ({ navigation }: any) => {
             )}
          </View>
          </ScrollView>
+         <CustomButton title={"Cadastrar"} onPress={()=> navigation.navigate("Cadastro de Equipamento")} color={"green"}/>
+        </>
     );
 };
 

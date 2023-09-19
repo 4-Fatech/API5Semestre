@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
 import { CustomButton } from "../components/Common/Button";
-
+import { apiurl } from "../Helpers/ApiUrl";
 
 interface Usuario {
     nome: string;
@@ -18,13 +18,13 @@ export const ListarUsu = ({ navigation }: any) => {
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
     const handleCardPress = (id: string)=> {        
-        navigation.navigate("AtualizarUsuario", { id:id });
+        navigation.navigate("Atualizar Usuário", { id:id });
         
     };
 
     function getUsuarios() {
 
-        const url = "http://10.0.2.2:3001/user/list";
+        const url = apiurl+"/user/list";
         fetch(url, {
             method: 'GET',
             headers: {
@@ -47,10 +47,11 @@ export const ListarUsu = ({ navigation }: any) => {
 
     useEffect(() => {
         getUsuarios();
+        
     }, []);
 
     return (
-
+        <>
         <ScrollView>
             <View style={styles.container}>
                 {usuarios.map((usuario) => (
@@ -65,6 +66,8 @@ export const ListarUsu = ({ navigation }: any) => {
             </View>
             {/* <CustomButton title={"Cad"} onPress={undefined} color={""} ></CustomButton> */}
         </ScrollView>
+        <CustomButton title={"Cadastrar"} onPress={()=> navigation.navigate("Cadastro de Usuários")} color={"green"}/>
+        </>
 
     );
 };

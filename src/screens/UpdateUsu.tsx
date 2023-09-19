@@ -1,17 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { UsuariosComponente } from "../components/Usuarios";
-import { View } from 'react-native-reanimated/lib/typescript/Animated';
-
+import { apiurl } from '../Helpers/ApiUrl';
 
 
 export const UpdateUsu = ({ route }: any) => {
 
-    // const { id } = route.params.id
-    
-    
-
-
+    const {id} = route.params
     const [form, onChangeForm] = useState({
         nome: "",
         sobrenome: "",
@@ -31,8 +26,9 @@ export const UpdateUsu = ({ route }: any) => {
 
 
     function getUsuario() {
-        console.log("aaaaaaaaaaaaaa", route)
-        const url = `http://10.0.2.2:3001/user/list`;
+        
+        const url = apiurl+'/user/list/'+id;
+        console.log(url)
 
         fetch(url, {
             method: 'GET',
@@ -43,6 +39,7 @@ export const UpdateUsu = ({ route }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data !== null) {
+                    console.log(data)
                     // Atualize os campos do formulário com os dados obtidos
                     onChangeForm({
                         ...form,
@@ -57,6 +54,7 @@ export const UpdateUsu = ({ route }: any) => {
                         senha: data.senha || ""
                     });
                 }
+                console.log(data)
             });
 
 
@@ -71,7 +69,7 @@ export const UpdateUsu = ({ route }: any) => {
 
     function updateUsuario() {
 
-        const url = "http://10.0.2.2:3001/user/update/64ffaaf50413444ce8801b55";
+        const url = apiurl+"/user/update/"+{id};
         fetch(url, {
             method: 'PATCH',
             headers: {

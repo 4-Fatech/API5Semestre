@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, TouchableOpacityProps, Image, Text } from 'react-native';
-import { EquipamentoVazio } from '../../../assets/image';
+
 
 interface CardProps extends TouchableOpacityProps {
     matricula: string;
@@ -19,7 +19,7 @@ const CardUsu: React.FC<CardProps> = ({ id, style, image, nome, onUsuPress, matr
             <View style={styles.inner}>
                 <Image
                     style={styles.imagem}
-                    source={image ? { uri: image } : EquipamentoVazio}
+                    source={image ? { uri: image } : {}}
                 />
                 <View style={styles.legenda}>
                     <Text style={styles.title}>{nome}</Text>

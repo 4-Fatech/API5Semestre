@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { UsuariosComponente } from "../components/Usuarios";
 import { Text } from 'react-native';
+import { apiurl } from "../Helpers/ApiUrl";
 
 
 export const Usuarios = () => {
@@ -28,7 +29,6 @@ export const Usuarios = () => {
 
 
     function cadastrarUsuario() {
-
      
         if (!form.nome) {
             setValida(true)
@@ -37,7 +37,7 @@ export const Usuarios = () => {
             setValida(false)
             
         }
-        const url = "http://10.0.2.2:3001/user/create";
+        const url = apiurl+"/user/create";
         fetch(url, {
             method: 'POST',
             headers: {
