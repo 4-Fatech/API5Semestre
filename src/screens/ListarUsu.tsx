@@ -46,8 +46,7 @@ export const ListarUsu = ({ navigation }: any) => {
     }
 
     useEffect(() => {
-        getUsuarios();
-        
+        getUsuarios();        
     }, []);
 
     return (
@@ -64,7 +63,6 @@ export const ListarUsu = ({ navigation }: any) => {
                     />
                 ))}
             </View>
-            {/* <CustomButton title={"Cad"} onPress={undefined} color={""} ></CustomButton> */}
         </ScrollView>
         <CustomButton title={"Cadastrar"} onPress={()=> navigation.navigate("Cadastro de Usuários")} color={"green"}/>
         </>

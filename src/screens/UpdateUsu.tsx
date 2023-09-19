@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { UsuariosComponente } from "../components/Usuarios";
 import { apiurl } from '../Helpers/ApiUrl';
+import { CustomButton } from '../components/Common/Button';
 
 
 export const UpdateUsu = ({ route }: any) => {
 
-    const {id} = route.params
+    const { id } = route.params
     const [form, onChangeForm] = useState({
         nome: "",
         sobrenome: "",
@@ -26,8 +27,8 @@ export const UpdateUsu = ({ route }: any) => {
 
 
     function getUsuario() {
-        
-        const url = apiurl+'/user/list/'+id;
+
+        const url = apiurl + '/user/list/' + id;
         console.log(url)
 
         fetch(url, {
@@ -39,7 +40,6 @@ export const UpdateUsu = ({ route }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data !== null) {
-                    console.log(data)
                     // Atualize os campos do formulário com os dados obtidos
                     onChangeForm({
                         ...form,
@@ -69,7 +69,7 @@ export const UpdateUsu = ({ route }: any) => {
 
     function updateUsuario() {
 
-        const url = apiurl+"/user/update/"+{id};
+        const url = apiurl + "/user/update/" + id;
         fetch(url, {
             method: 'PATCH',
             headers: {
@@ -90,16 +90,46 @@ export const UpdateUsu = ({ route }: any) => {
             })
     }
 
+    function deletarUsuario() {
+        let url = apiurl + "/user/delete"
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({ id: id })
+        }).then((resp) => resp.json()).then((data) => {
+
+            if (data.error) {
+                console.log("Erro");
+
+            } else {
+                console.log('Usuário deletado');
+
+            }
+
+        })
+    }
+
+
 
     return (
-        <UsuariosComponente
-            form={form}
-            onChangeText={onChangeText}
-            onPress={updateUsuario}
-            title={'Alterar'}
-            color={'steelblue'}
+        <>
+            <UsuariosComponente
+                form={form}
+                onChangeText={onChangeText}
+                onPress={updateUsuario}
+                title={'Alterar'}
+                color={'steelblue'}
 
-        />
+
+            />
+            <CustomButton
+                title={'Deletar'}
+                onPress={deletarUsuario}
+                color={'red'} />
+
+        </>
 
     );
 };
