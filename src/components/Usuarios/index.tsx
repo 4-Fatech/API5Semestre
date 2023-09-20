@@ -47,7 +47,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress,onpress2, title
             onChangeText('telefone1', value);
           }}
           value={form.telefone1}
-          placeholder="Ex.: 12 99999-9999"
+          placeholder="Ex.: 12999999999"
         />
         {/*  */}
         <Label titulo='Telefone de recado' />
@@ -56,7 +56,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress,onpress2, title
             onChangeText('telefone2', value);
           }}
           value={form.telefone2}
-          placeholder="Ex.: 12 9999-9999" />
+          placeholder="Ex.: 1299999999" />
 
         {/*  */}
         <Label titulo='Matrícula' requirido='*' />
