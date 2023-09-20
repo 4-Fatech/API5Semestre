@@ -127,5 +127,3 @@ equipamentos cadastrados no banco de dados.
 | Gabriel Coutinho | Desenvolvedor | <a href="https://github.com/Gabriel-Coutinho0" target="_blank">Github</a> | <a href="https://www.linkedin.com/in/gabriel-silva-b778a31aa" target="_blank">Link</a>                         |
 
 </br>
-
- <h1 align="center"> <img src = "https://fatecsjc-prd.azurewebsites.net/images/logo/fatecsjc_400x192.png" height="70"  align="auto">

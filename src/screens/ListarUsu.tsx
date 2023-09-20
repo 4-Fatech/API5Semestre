@@ -69,7 +69,7 @@ export const ListarUsu = ({ route, navigation }: any) => {
                             key={usuario.id} // Adicione uma chave única para cada item da lista
                             id={usuario.id}
                             matricula={usuario.matricula}
-                            image={usuario.foto?.[0]}
+                            image={typeof usuario.foto == 'string' ? usuario.foto : usuario.foto[0]}
                             nome={usuario.nome}
                             onUsuPress={handleCardPress}
                         />
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
-        marginLeft: 5,
-        overflow: 'scroll'
+        overflow: 'scroll',
+        justifyContent: 'center'
     },
     searchInput: {
         paddingHorizontal: 10,

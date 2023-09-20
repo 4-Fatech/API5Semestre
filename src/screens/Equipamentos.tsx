@@ -19,7 +19,6 @@ export const Equipamentos = ({ navigation }: any) => {
     };
 
     function cadastrar() {
-        console.log(form)
         const url = apiurl + "/equipment/create";
         fetch(url, {
             method: 'POST',

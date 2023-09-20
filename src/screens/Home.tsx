@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import Card from "../components/Common/Card";
 import { CustomButton } from "../components/Common/Button";
 import { apiurl } from "../Helpers/ApiUrl";
@@ -31,7 +31,6 @@ export const Home = ({ route, navigation }: any) => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
-                console.log(data)
                 setEquipamento(data)
             });
     }
@@ -53,14 +52,14 @@ export const Home = ({ route, navigation }: any) => {
                 <View style={styles.container}>
                     {equipamento.map(e =>
                         <Card
+                            key={e.id}
                             title={e.tipo}
                             nserie={e.serial}
                             id={e.id}
                             image={typeof e.foto == 'string' ? e.foto : e.foto[0]}
+                            ativo={e.status}
                             onCardPress={handleCardPress}>
                         </Card>
-
-
                     )}
                 </View>
                 <CustomButton title={"Cadastrar"} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={"green"} />
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        alignItems: 'flex-start',
-        marginLeft: 5
+        alignItems: "flex-start",
+        justifyContent: 'center'
     }
 })
