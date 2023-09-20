@@ -75,8 +75,8 @@ export const ListarUsu = ({ route, navigation }: any) => {
                         />
                     ))}
                 </View>
+                <CustomButton title={"Cadastrar"} onPress={() => navigation.navigate("Cadastro de Usuários")} color={"green"} />
             </ScrollView>
-            <CustomButton title={"Cadastrar"} onPress={() => navigation.navigate("Cadastro de Usuários")} color={"green"} />
         </>
 
     );

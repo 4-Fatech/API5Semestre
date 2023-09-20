@@ -63,8 +63,8 @@ export const Home = ({ route, navigation }: any) => {
 
                     )}
                 </View>
+                <CustomButton title={"Cadastrar"} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={"green"} />
             </ScrollView>
-            <CustomButton title={"Cadastrar"} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={"green"} />
         </>
     );
 };
