@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { UsuariosComponente } from "../components/Usuarios";
 import { Text, View } from 'react-native';
 import { apiurl } from "../Helpers/ApiUrl";
-
+import { validador } from "../utils/validador";
 
 export const Usuarios = ({ navigation }: any) => {
     const [form, onChangeForm] = React.useState({
