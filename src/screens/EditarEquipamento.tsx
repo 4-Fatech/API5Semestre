@@ -21,7 +21,6 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     };
 
     function update() {
-        console.log(form)
         const url = apiurl + "/equipment/update";
         fetch(url, {
             method: 'PATCH',
@@ -47,7 +46,6 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     function getEquipamento() {
 
         const url = apiurl + '/equipment/get/' + id;
-        console.log(url)
 
         fetch(url, {
             method: 'GET',
