@@ -5,9 +5,9 @@ interface LabelProps {
     titulo: string;
 }
 
-export const Label: React.FC<LabelProps> = ({ titulo }) => {
+export const Label: React.FC<LabelProps> = ({ titulo, requirido }) => {
     return (
-        <Text style={styles.label}>{titulo}</Text>
+        <Text style={styles.label}>{titulo} <Text style={{ color: "red"}} >{requirido}</Text></Text> 
     );
 }
 

@@ -1,17 +1,17 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { Label } from "../Common/Label/Label";
 import { Input } from "../Common/Input/Input";
 import ImageInput from "../Common/ImageInput/ImageInput";
 import { CustomButton } from "../Common/Button";
 
-export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }: any) => {
+export const UsuariosComponente = ({ onChangeText, form, onPress,onpress2, title, title2, color, color2 }: any) => {
 
 
   return (
     <ScrollView>
       <View >
-        <Label titulo='Nome' />
+        <Label titulo='Nome' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('nome', value);
@@ -19,9 +19,9 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }
           value={form.nome}
           placeholder="Ex.: José"
         />
-        
+
         {/*  */}
-        <Label  titulo='Sobrenome' />
+        <Label titulo='Sobrenome' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('sobrenome', value);
@@ -31,7 +31,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }
         />
 
         {/*  */}
-        <Label titulo='E-mail' />
+        <Label titulo='E-mail' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('email', value);
@@ -41,25 +41,25 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }
         />
 
         {/*  */}
-        <Label titulo='Telefone 1' />
+        <Label titulo='Telefone Celular' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('telefone1', value);
           }}
           value={form.telefone1}
-          placeholder="Ex.: 12999999999"
+          placeholder="Ex.: 12 99999-9999"
         />
         {/*  */}
-        <Label titulo='Telefone 2' />
+        <Label titulo='Telefone de recado' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('telefone2', value);
           }}
           value={form.telefone2}
-          placeholder="Ex.: 12999999999" />
+          placeholder="Ex.: 12 9999-9999" />
 
         {/*  */}
-        <Label titulo='Matricula' />
+        <Label titulo='Matrícula' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('matricula', value);
@@ -68,7 +68,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }
           placeholder="Ex.: 1613459" />
 
         {/*  */}
-        <Label titulo='Cpf' />
+        <Label titulo='CPF' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('cpf', value);
@@ -77,8 +77,9 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }
           placeholder="Ex.: xxx.xxx.xxx-xx" />
 
         {/*  */}
-        <Label titulo='Senha' />
+        <Label titulo='Senha' requirido='*' />
         <Input
+           secureTextEntry="true"
           onChangeText={(value: any) => {
             onChangeText('senha', value);
           }}
@@ -87,11 +88,17 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, title, color }
 
         {/*  */}
         <Label titulo='Foto Usuário' />
-        <ImageInput 
+        <ImageInput
           form={form}
-          onChange={onChangeText}/>
-        <CustomButton  title={title} onPress={onPress} color={color} />
+          onChange={onChangeText} />
+        <View style={{ width: 415, flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'center' }}>
+          <CustomButton title={title2} onPress={onpress2} color={color2} />
+          <View style={{ width: 15 }} />
+          <CustomButton title={title} onPress={onPress} color={color} />
+        </View>
       </View>
     </ScrollView>
   );
 };
+
+
