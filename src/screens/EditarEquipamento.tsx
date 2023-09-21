@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EquipamentosComponente } from "../components/Equipamentos";
+import { CadastrarEquipamento } from "../components/Equipamentos/CadastrarEquipamento";
 import { Text } from 'react-native';
 import { apiurl } from "../Helpers/ApiUrl";
 
@@ -26,7 +26,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     const [validaLatLong, setValidaLatLong] = useState(false) //sem letra
 
     function validarVazio(serial: string, latitude: string, longitude: string, observacoes: string, tipo: string, modelo: string) {
-        if (!serial || !latitude || !longitude || !observacoes || !tipo || !modelo) {
+        if (!serial || !latitude || !longitude || !tipo || !modelo) {
             setValidaVazio(true)
             return true
         }
@@ -101,7 +101,6 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             .then((data) => {
                 console.log(data)
                 if (data !== null) {
-                    // Atualize os campos do formulário com os dados obtidos
                     onChangeForm({
                         ...form,
                         serial: data.serial || '',
@@ -143,7 +142,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                 <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números.</Text>
                 : ""
             }
-            <EquipamentosComponente
+            <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
                 onPress3={update}

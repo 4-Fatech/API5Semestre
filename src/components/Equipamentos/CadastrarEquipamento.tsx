@@ -5,18 +5,18 @@ import { Input } from "../Common/Input/Input";
 import ImageInput from "../Common/ImageInput/ImageInput";
 import { CustomButton } from "../Common/Button";
 
-export const EquipamentosComponente = ({ onChangeText, form, onPress, onpress2,onPress3, title, title2,title3, color, color2, color3, color4,color5,color6, corTexto }: any) => {
-  // useEffect(() => {
+export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2,onPress3, title, title2,title3, color, color2, color3, color4,color5,color6, corTexto }: any) => {
+  useEffect(() => {
 
-  //   onChangeText('latitude', '');
-  //   onChangeText('longitude', '');
-  //   onChangeText('observacoes', '');
-  //   onChangeText('foto', []);
-  //   onChangeText('status', '');
-  //   onChangeText('tipo', '');
-  //   onChangeText('modelo', '');
+    onChangeText('latitude', '');
+    onChangeText('longitude', '');
+    onChangeText('observacoes', '');
+    onChangeText('foto', []);
+    onChangeText('status', '');
+    onChangeText('tipo', '');
+    onChangeText('modelo', '');
 
-  // }, []);
+  }, []);
 
   return (
     <ScrollView>
@@ -70,7 +70,7 @@ export const EquipamentosComponente = ({ onChangeText, form, onPress, onpress2,o
           placeholder="Ex.: 45.22837"
         />
         {/*  */}
-        <Label titulo='Observações' requirido="*" />
+        <Label titulo='Observações' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('observacoes', value);

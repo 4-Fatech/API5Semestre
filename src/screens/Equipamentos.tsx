@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EquipamentosComponente } from "../components/Equipamentos";
+import { CadastrarEquipamento } from "../components/Equipamentos/CadastrarEquipamento";
 import { Text } from 'react-native';
 import { apiurl } from "../Helpers/ApiUrl";
 
@@ -25,7 +25,7 @@ export const Equipamentos = ({ navigation }: any) => {
     };
 
     function validarVazio(serial: string, latitude: string, longitude: string, observacoes: string, tipo: string, modelo: string) {
-        if (!serial || !latitude || !longitude || !observacoes || !tipo || !modelo) {
+        if (!serial || !latitude || !longitude || !tipo || !modelo) {
             setValidaVazio(true)
             return true
         }
@@ -43,23 +43,24 @@ export const Equipamentos = ({ navigation }: any) => {
     }
 
     function validaLatLongSemLetra(latitude: string, longitude: string) {
-        const llRegex = /\d{5,}/g;
+        const llRegex = /^[-+]?\d+(\.\d+)?$/;
         if (!llRegex.test(latitude) || !llRegex.test(longitude)) {
             setValidaLatLong(true);
-            return true
+            return true;
         }
         setValidaLatLong(false);
-        return false
+        return false;
     }
 
+
     function cadastrar() {
-        if (validarVazio(form.serial,form.latitude,form.longitude,form.observacoes,form.tipo,form.modelo)){
-            return 
-        }
-        if (validaTipoSemNmr(form.tipo)){
+        if (validarVazio(form.serial, form.latitude, form.longitude, form.observacoes, form.tipo, form.modelo)) {
             return
         }
-        if(validaLatLongSemLetra(form.latitude,form.longitude)){
+        if (validaTipoSemNmr(form.tipo)) {
+            return
+        }
+        if (validaLatLongSemLetra(form.latitude, form.longitude)) {
             return
         }
 
@@ -95,7 +96,7 @@ export const Equipamentos = ({ navigation }: any) => {
 
     return (
         <>
-         {validaVazio ?
+            {validaVazio ?
                 <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
                 : ""
             }
@@ -107,7 +108,7 @@ export const Equipamentos = ({ navigation }: any) => {
                 <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números e no mínimo cinco números.</Text>
                 : ""
             }
-            <EquipamentosComponente
+            <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
                 onPress={cadastrar}
