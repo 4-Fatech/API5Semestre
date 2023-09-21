@@ -44,8 +44,8 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     }
 
     function validaLatLongSemLetra(latitude: string, longitude: string) {
-        const llRegex = /\d{5,}/g;
-        if (!llRegex.test(latitude) || llRegex.test(longitude)) {
+        const llRegex = /^[-\d.]+$/
+        if (!llRegex.test(latitude) || !llRegex.test(longitude)) {
             setValidaLatLong(true);
             return true
         }
@@ -88,7 +88,6 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
 
     }
     function getEquipamento() {
-
         const url = apiurl + '/equipment/get/' + id;
 
         fetch(url, {
@@ -99,27 +98,16 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
-                console.log(data)
                 if (data !== null) {
                     onChangeForm({
                         ...form,
-                        serial: data.serial || '',
-                        latitude: data.latitude || '',
-                        longitude: data.longitude || '',
-                        observacoes: data.observacoes || '',
-                        foto: data.foto || [],
-                        status: data.status || '',
-                        tipo: data.tipo || "",
-                        modelo: data.modelo || "",
+                        ...data,
                         id: id
                     });
-
                 }
-                console.log(data)
             });
-
-
     }
+
 
 
     useEffect(() => {

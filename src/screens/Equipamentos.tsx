@@ -10,7 +10,7 @@ export const Equipamentos = ({ navigation }: any) => {
         longitude: '',
         observacoes: '',
         foto: [],
-        status: '',
+        status: 1,
         tipo: '',
         modelo: ''
     })
@@ -43,7 +43,7 @@ export const Equipamentos = ({ navigation }: any) => {
     }
 
     function validaLatLongSemLetra(latitude: string, longitude: string) {
-        const llRegex = /^[-+]?\d+(\.\d+)?$/;
+        const llRegex = /^[-\d.]+$/
         if (!llRegex.test(latitude) || !llRegex.test(longitude)) {
             setValidaLatLong(true);
             return true;
@@ -74,16 +74,13 @@ export const Equipamentos = ({ navigation }: any) => {
 
         })
             .then((resposta) => resposta.json())
-            .then((data) => {
+            .then((data:any) => {
                 if (data.error) {
                     console.log("Erro");
 
                 } else {
                     console.log("Equipamento cadastrado");
                     navigation.navigate("Home", { equipCadastrada: true });
-
-                    console.log(data)
-
                 }
             })
 
