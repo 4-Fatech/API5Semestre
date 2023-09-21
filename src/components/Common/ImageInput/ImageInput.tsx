@@ -1,35 +1,34 @@
 import * as React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
-import DemoResponse  from './DemoResponse';
 import DemoButton from './DemoButton';
 import ImgToBase64 from 'react-native-image-base64';
 
 const includeExtra = true;
 
-export default function ImageInput({form, onChange}:any) {
+export default function ImageInput({ form, onChange }: any) {
   const [response, setResponse] = React.useState<any>(null);
 
   const onButtonPress = React.useCallback((type: string, options: ImagePicker.CameraOptions | ImagePicker.ImageLibraryOptions) => {
     if (type === 'capture') {
-      ImagePicker.launchCamera(options, res =>{
+      ImagePicker.launchCamera(options, res => {
         ImgToBase64.getBase64String(res.assets?.[0].uri)
-            .then((base64String: any) => {
-              let pic = 'data:'+res.assets?.[0].type+';base64,'+base64String;
-              onChange("foto",[pic])
-              setResponse(res)
-            })
-            .catch((err:any) => console.log(err));
+          .then((base64String: any) => {
+            let pic = 'data:' + res.assets?.[0].type + ';base64,' + base64String;
+            onChange("foto", [pic])
+            setResponse(res)
+          })
+          .catch((err: any) => console.log(err));
       });
     } else {
-      ImagePicker.launchImageLibrary(options, res =>{
+      ImagePicker.launchImageLibrary(options, res => {
         ImgToBase64.getBase64String(res.assets?.[0].uri)
-            .then((base64String: any) => {
-              let pic = 'data:'+res.assets?.[0].type+';base64,'+base64String;
-              onChange("foto",[pic])
-              setResponse(res)
-            })
-            .catch((err:any) => console.log(err));
+          .then((base64String: any) => {
+            let pic = 'data:' + res.assets?.[0].type + ';base64,' + base64String;
+            onChange("foto", [pic])
+            setResponse(res)
+          })
+          .catch((err: any) => console.log(err));
       });
     }
   }, []);
@@ -49,7 +48,7 @@ export default function ImageInput({form, onChange}:any) {
           })}
         </View>
         {form.foto &&
-          form.foto.map( (uri:string) => 
+          Array.isArray(form.foto) && form.foto.map((uri: string) =>
             <View key={uri} style={styles.imageContainer}>
               <Image
                 resizeMode="cover"
@@ -58,7 +57,8 @@ export default function ImageInput({form, onChange}:any) {
                 source={{ uri: uri }}
               />
             </View>
-          )}
+          )
+        }
       </ScrollView>
     </SafeAreaView>
   );
