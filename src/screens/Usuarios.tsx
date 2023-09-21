@@ -245,8 +245,11 @@ function cancelar(){
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}
-                color={'steelblue'}
-                color2={'steelblue'}
+                corTexto={'black'}
+                color={'#00FF56'}
+                color2={'#5FFD94'}
+                color4={'#E4E3E3'}
+                color3={'#D9D9D9'}
 
             />
         </>
