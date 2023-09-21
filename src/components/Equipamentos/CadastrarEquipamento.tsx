@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
 import { Label } from "../Common/Label/Label";
 import { Input } from "../Common/Input/Input";
 import ImageInput from "../Common/ImageInput/ImageInput";
 import { CustomButton } from "../Common/Button";
+import { SwitchComponent } from "../Common/Switch";
 
-export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2,onPress3, title, title2,title3, color, color2, color3, color4,color5,color6, corTexto }: any) => {
+export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, onPress3, title, title2, title3, color, color2, color3, color4, color5, color6, corTexto }: any) => {
   useEffect(() => {
-
     onChangeText('latitude', '');
     onChangeText('longitude', '');
     onChangeText('observacoes', '');
@@ -79,7 +79,13 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2,onP
           placeholder="Ex.: Equipamento localizado próximo a uma esquina" />
 
         {/*  */}
-        <Label titulo='Imagens do equipamento' requirido="" />
+
+        <View style={styles.switch}>
+          <SwitchComponent ativo={form.status} />
+        </View>
+
+        {/*  */}
+        <Label titulo='Imagens do equipamento' />
         <ImageInput
           form={form}
           onChange={onChangeText}
@@ -93,3 +99,12 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2,onP
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  switch: {
+    flex: 1,
+    alignContent: 'flex-start',
+    alignItems: "flex-start",
+    marginVertical: 15
+  }
+})

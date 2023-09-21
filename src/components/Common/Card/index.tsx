@@ -6,7 +6,7 @@ interface CardProps extends TouchableOpacityProps {
     title: string;
     id: string;
     nserie: string;
-    ativo: string;
+    ativo: number;
     onCardPress: (id: string) => void;
 }
 
@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({ title, style, image, id, onCardPress, nseri
     return (
         <TouchableOpacity
             onPress={() => onCardPress(id)}
-            style={ativo ? [styles.card, style, {opacity: 0.5}] : [styles.card, style]}
+            style={ativo ? [styles.card, style] : [styles.card, style, {opacity: 0.5}]}
         >
             <View>
                 <View style={styles.inner}>

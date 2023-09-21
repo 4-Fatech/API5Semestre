@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
 
 interface SwitchProps {
-    ativo: string;
+    ativo: number;
 }
 
 export const SwitchComponent: React.FC<SwitchProps> = ({ ativo }) => {
-    const initialIsEnabled = ativo === '1' ? true : false;
-    const [isEnabled, setIsEnabled] = useState(initialIsEnabled);
+    const [isEnabled, setIsEnabled] = useState(ativo > 0);
+
+    useEffect(() => {
+        setIsEnabled(ativo > 0);
+    }, [ativo]);
 
     const toggleSwitch = () => {
         setIsEnabled(previousState => !previousState);
@@ -21,7 +24,7 @@ export const SwitchComponent: React.FC<SwitchProps> = ({ ativo }) => {
                 onValueChange={toggleSwitch}
                 value={isEnabled}
             />
-            <Text style={styles.label}>{isEnabled ? 'Ativo' : 'Desativado'}</Text>
+            <Text style={styles.label}>{isEnabled ? 'Ativo' : 'Inativo'}</Text>
         </View>
     );
 }

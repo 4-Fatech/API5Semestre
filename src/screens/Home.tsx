@@ -9,7 +9,7 @@ interface Props {
     longitude: string,
     observacoes: string,
     foto: any,
-    status: string,
+    status: number,
     tipo: string,
     modelo: string,
     id: string
@@ -21,7 +21,6 @@ export const Home = ({ route, navigation }: any) => {
     const { equipAlterada, equipCadastrada } = route.params || {};
 
     function getEquipamentos() {
-
 
         const url = apiurl + "/equipment/list";
         fetch(url, {
