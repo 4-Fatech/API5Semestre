@@ -3,7 +3,7 @@ import { Text, StyleSheet } from "react-native";
 
 interface LabelProps {
     titulo: string;
-    requirido: string;
+    requirido?: string;
 }
 
 export const Label: React.FC<LabelProps> = ({ titulo, requirido }) => {
