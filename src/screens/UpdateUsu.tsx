@@ -178,6 +178,36 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
 
     function updateUsuario() {
+        if (validarVazio(form.nome, form.sobrenome, form.email, form.telefone1, form.matricula, form.cpf, form.senha)) {
+            return
+        }
+        if (validaTextoSemNmr(form.nome, form.sobrenome)) {
+            return
+        }
+        if (validarEmail(form.email)) {
+            return
+        }
+        if (validarTelefone(form.telefone1)) {
+            return
+        }
+        if (validarTelefoneFixo(form.telefone2)) {
+            return
+        }
+        if (validarMatricula(form.matricula)) {
+            return
+        }
+        if (validarMatriculaRegex(form.matricula)) {
+            return
+        }
+        if (validarCpfRegex(form.cpf)) {
+            return
+        }
+        if (validarSenha(form.senha)) {
+            return
+        }
+        if (validarSenhaRegex(form.senha)) {
+            return
+        }
 
         const url = apiurl + "/user/update/" + id;
         fetch(url, {
@@ -226,16 +256,65 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
     return (
         <>
+            {valida ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
+                : ""
+            }
+            {validaSenha ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve ter entre 10 e 20 caracteres.</Text>
+                : ""
+            }
+            {validaSenhaRegex ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra Maiuscula, um caracter especial e numeros entre 0 e 9.</Text>
+                : ""
+            }
+            {validarEmailRegex ?
+                <View>
+                    <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
+                    <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
+                    <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
+                    <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
+                    <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
+                </View>
+                : ""
+            }
+            {validarTexto ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
+                : ""
+            }
+            {validaTelefoneCeleluar ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve ter 11 números.</Text>
+                : ""
+            }
+            {validaTelefoneFixo ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
+                : ""
+            }
+            {validaMatricula ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
+                : ""
+            }
+            {validaMatriculaRegex ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
+                : ""
+            }
+            {validaCpfRegex ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
+                : ""
+            }
+          
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
                 onPress={updateUsuario}
+                onpress2={deletarUsuario}
                 title={'Alterar'}
                 title2={'Deletar'}
-                color2={'red'}
-                onpress2={deletarUsuario}
-                color={'steelblue'}
-
+                corTexto={'black'}
+                color={'#00FF56'}
+                color2={'#5FFD94'}
+                color4={'#FE6565'}
+                color3={'#FF4848'}
 
             />
         </>

@@ -77,7 +77,7 @@ export const Usuarios = ({ navigation }: any) => {
     }
 
     function validarSenha(senha: string) {
-        if (senha.length <= 10 || senha.length >= 20) {
+        if (senha.length < 9 || senha.length >= 20) {
             setValidaSenha(true);
             return true
         }
@@ -227,7 +227,7 @@ function cancelar(){
                 : ""
             }
             {validaMatricula ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 letras.</Text>
+                <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
                 : ""
             }
             {validaMatriculaRegex ?
@@ -245,8 +245,11 @@ function cancelar(){
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}
-                color={'steelblue'}
-                color2={'steelblue'}
+                corTexto={'black'}
+                color={'#00FF56'}
+                color2={'#5FFD94'}
+                color4={'#E4E3E3'}
+                color3={'#D9D9D9'}
 
             />
         </>
