@@ -14,7 +14,7 @@ interface Usuario {
 
 export const ListarUsu = ({ route, navigation }: any) => {
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
-    const [searchText, setSearchText] = useState<string>(''); // Estado para o texto de pesquisa
+    const [searchText, setSearchText] = useState<string>(''); 
 
     const { userAlterado, userDeletado, userCadastrado } = route.params || {};
 
@@ -66,17 +66,21 @@ export const ListarUsu = ({ route, navigation }: any) => {
                 <View style={styles.container}>
                     {filteredUsuarios.map((usuario) => (
                         <CardUsu
-                            key={usuario.id} // Adicione uma chave única para cada item da lista
+                            key={usuario.id} 
                             id={usuario.id}
                             matricula={usuario.matricula}
-                            image={typeof usuario.foto == 'string' ? usuario.foto : usuario.foto[0]}
+                            image={typeof usuario.foto}
                             nome={usuario.nome}
                             onUsuPress={handleCardPress}
                         />
                     ))}
                 </View>
-                <CustomButton title={"Cadastrar"} onPress={() => navigation.navigate("Cadastro de Usuários")} color={"green"} />
-            </ScrollView>
+                <View style={styles.algumacoisa}>
+                    <View style={styles.centeredView}> 
+                       <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Usuários")} color={"#00FF56"} color2={'#5FFD94'} />
+                    </View>
+                </View>            
+                </ScrollView>
         </>
 
     );
@@ -99,4 +103,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
     },
+    algumacoisa: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    centeredView: {
+        width: 500, 
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
 });

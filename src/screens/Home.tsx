@@ -56,13 +56,17 @@ export const Home = ({ route, navigation }: any) => {
                             title={e.tipo}
                             nserie={e.serial}
                             id={e.id}
-                            image={typeof e.foto == 'string' ? e.foto : e.foto[0]}
+                            image={typeof e.foto }
                             ativo={e.status}
                             onCardPress={handleCardPress}>
                         </Card>
                     )}
                 </View>
-                <CustomButton title={"Cadastrar"} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={"green"} />
+                <View style={styles.algumacoisa}>
+                    <View style={styles.centeredView}> 
+                       <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={"#00FF56"} color2={'#5FFD94'} />
+                    </View>
+                </View>
             </ScrollView>
         </>
     );
@@ -74,5 +78,15 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: "flex-start",
         justifyContent: 'center'
-    }
+    },
+    algumacoisa: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    centeredView: {
+        width: 500, 
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
 })
