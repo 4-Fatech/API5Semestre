@@ -8,7 +8,7 @@ import CardUsu from "../components/Common/Card/carUsu";
 interface Usuario {
     nome: string;
     matricula: string;
-    foto: string;
+    foto: [];
     id: string;
 }
 
