@@ -5,9 +5,10 @@ interface InputProps {
     placeholder: string;
     onChangeText: (text: string) => void;
     value: string;
+    password?: boolean
 }
 
-export const Input: React.FC<InputProps> = ({ placeholder, onChangeText, value }) => {
+export const Input: React.FC<InputProps> = ({ placeholder, onChangeText, value, password = false }) => {
     return (
         <TextInput
             style={styles.input}
@@ -15,6 +16,7 @@ export const Input: React.FC<InputProps> = ({ placeholder, onChangeText, value }
             value={value}
             placeholder={placeholder}
             placeholderTextColor='gray'
+            secureTextEntry={password}
         />
     );
 }
