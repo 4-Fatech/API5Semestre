@@ -9,7 +9,7 @@ const includeExtra = true;
 export default function ImageInput({ form, onChange }: any) {
   const [response, setResponse] = React.useState<any>(null);
 
-  const onButtonPress = React.useCallback((type: string, options: ImagePicker.CameraOptions | ImagePicker.ImageLibraryOptions) => {
+  const onButtonPress = ((type: string, options: ImagePicker.CameraOptions | ImagePicker.ImageLibraryOptions) => {
     if (type === 'capture') {
       ImagePicker.launchCamera(options, res => {
         ImgToBase64.getBase64String(res.assets?.[0].uri)
@@ -31,7 +31,7 @@ export default function ImageInput({ form, onChange }: any) {
           .catch((err: any) => console.log(err));
       });
     }
-  }, []);
+  });
 
   return (
     <SafeAreaView style={styles.container}>
