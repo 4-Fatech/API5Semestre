@@ -8,7 +8,7 @@ import CardUsu from "../../components/Common/Card/carUsu";
 interface Usuario {
     nome: string;
     matricula: string;
-    foto: [];
+    foto: string;
     id: string;
 }
 
@@ -39,6 +39,8 @@ export const ListarUsu = ({ route, navigation }: any) => {
                     id: element.id
                 }));
                 setUsuarios(usuariosFormatados);
+                console.log(usuarios);
+                
             });
     }
 
@@ -69,7 +71,7 @@ export const ListarUsu = ({ route, navigation }: any) => {
                             key={usuario.id} 
                             id={usuario.id}
                             matricula={usuario.matricula}
-                            image={typeof usuario.foto}
+                            image={usuario.foto[0]}
                             nome={usuario.nome}
                             onUsuPress={handleCardPress}
                         />
