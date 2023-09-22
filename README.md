@@ -127,3 +127,7 @@ equipamentos cadastrados no banco de dados.
 | Gabriel Coutinho | Desenvolvedor | <a href="https://github.com/Gabriel-Coutinho0" target="_blank">Github</a> | <a href="https://www.linkedin.com/in/gabriel-silva-b778a31aa" target="_blank">Link</a>                         |
 
 </br>
+
+## 🎥 Video Sprint Review 1
+<a href="" target="_blank">Link do vídeo</a>
+</br>
