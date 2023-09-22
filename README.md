@@ -1,6 +1,10 @@
 # API- Projeto Integrador 5º Semestre ADS - Grupo Fatech
 Projeto desenvolvido por alunos do quinto semestre do curso de análise e desenvolvimento de sistemas da Fatec - SJC, durante o segundo semestre do ano de 2023.
 
+## 📂 Repositório do Servidor
+Devido a restrições do React Native, mantivemos o código do servidor em um repositório separado para que não houvessem conflitos.
+- <a href="https://github.com/4-Fatech/API5Semestre-back"> Link do repositório </a>
+
 ## 🎯 Objetivo
 <div style="text-align: justify">
 O objetivo da aplicação móvel é proporcionar uma ferramenta essencial para as áreas de engenharia de empresas de Saneamento, Elétrica, Telecomunicações e outras corporações que realizam obras e manutenção em campo. 
