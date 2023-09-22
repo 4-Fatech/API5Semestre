@@ -4,7 +4,7 @@ import { View, StyleSheet, TouchableOpacity, TouchableOpacityProps, Image, Text 
 interface CardProps extends TouchableOpacityProps {
     matricula: string;
     id: string;
-    image?: string;
+    image?: Array<string>;
     nome: string;
     onUsuPress: (id: string) => void;
 }
@@ -19,7 +19,7 @@ const CardUsu: React.FC<CardProps> = ({ id, style, image, nome, onUsuPress, matr
             <View style={styles.inner}>
                 <Image
                     style={styles.imagem}
-                    source={image === '' ? { uri: image } : { uri: imagem_vazio }}
+                    source={image?.length === 0 ? { uri: imagem_vazio } : { uri: image?.[0] }}
                 />
                 <View style={styles.legenda}>
                     <Text style={styles.title}>{nome}</Text>

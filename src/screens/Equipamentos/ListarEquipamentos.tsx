@@ -65,7 +65,7 @@ export const Home = ({ route, navigation }: any) => {
                             title={e.tipo}
                             nserie={e.serial}
                             id={e.id}
-                            image={typeof e.foto}
+                            image={e.foto}
                             ativo={e.status}
                             onCardPress={handleCardPress}>
                         </Card>

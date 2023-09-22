@@ -69,7 +69,7 @@ export const ListarUsu = ({ route, navigation }: any) => {
                             key={usuario.id} 
                             id={usuario.id}
                             matricula={usuario.matricula}
-                            image={typeof usuario.foto}
+                            image={usuario.foto}
                             nome={usuario.nome}
                             onUsuPress={handleCardPress}
                         />
