@@ -134,10 +134,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
 
     function getUsuario() {
-
         const url = apiurl + '/user/list/' + id;
-        console.log(url)
-
         fetch(url, {
             method: 'GET',
             headers: {
@@ -147,9 +144,6 @@ export const UpdateUsu = ({ route, navigation }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data !== null) {
-                    console.log(data.foto);
-
-                    // Atualize os campos do formulário com os dados obtidos
                     onChangeForm({
                         ...form,
                         nome: data.nome || "",
@@ -164,7 +158,6 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                     });
 
                 }
-                console.log(data)
             });
 
 
