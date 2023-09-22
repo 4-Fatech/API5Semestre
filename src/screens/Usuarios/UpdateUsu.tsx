@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { UsuariosComponente } from "../components/Usuarios";
-import { apiurl } from '../Helpers/ApiUrl';
-import { CustomButton } from '../components/Common/Button';
+import { UsuariosComponente } from "../../components/Usuarios";
+import { apiurl } from '../../Helpers/ApiUrl';
+import { CustomButton } from '../../components/Common/Button';
 import { Text, View } from 'react-native';
 
 

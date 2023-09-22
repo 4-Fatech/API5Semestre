@@ -1,14 +1,14 @@
 import React from "react";
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home } from "../screens/Home";
-import { Equipamentos } from "../screens/Equipamentos";
-import { EditarEquipamentos } from "../screens/EditarEquipamento";
+import { Home } from "../screens/Equipamentos/ListarEquipamentos";
+import { Equipamentos } from "../screens/Equipamentos/Equipamentos";
+import { EditarEquipamentos } from "../screens/Equipamentos/EditarEquipamento";
 export default function StackNavigator  () {
     const Stack = createStackNavigator();
     return (
     <Stack.Navigator >
         <Stack.Screen
-                name="Home"
+                name="Equipamentos"
                 component={Home}
               />
               <Stack.Screen

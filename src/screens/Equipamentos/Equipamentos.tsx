@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { CadastrarEquipamento } from "../components/Equipamentos/CadastrarEquipamento";
+import React, { useState } from "react";
+import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
 import { Text } from 'react-native';
-import { apiurl } from "../Helpers/ApiUrl";
+import { apiurl } from "../../Helpers/ApiUrl";
 
-export const EditarEquipamentos = ({ route, navigation }: any) => {
-    const { id } = route.params
+export const Equipamentos = ({ navigation }: any) => {
     const [form, onChangeForm] = React.useState({
         serial: '',
         latitude: '',
         longitude: '',
         observacoes: '',
         foto: [],
-        status: '',
-        tipo: "",
-        modelo: "",
-        id: ""
+        status: 1,
+        tipo: '',
+        modelo: ''
     })
-    const onChangeText = (name: any, value: any) => {
-        onChangeForm({ ...form, [name]: value });
-
-    };
 
     const [validaVazio, setValidaVazio] = useState(false)
     const [validaTipo, setValidaTipo] = useState(false) //sem nmr
     const [validaLatLong, setValidaLatLong] = useState(false) //sem letra
+
+    const onChangeText = (name: any, value: any) => {
+        onChangeForm({ ...form, [name]: value });
+
+    };
 
     function validarVazio(serial: string, latitude: string, longitude: string, observacoes: string, tipo: string, modelo: string) {
         if (!serial || !latitude || !longitude || !tipo || !modelo) {
@@ -47,14 +46,14 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
         const llRegex = /^[-\d.]+$/
         if (!llRegex.test(latitude) || !llRegex.test(longitude)) {
             setValidaLatLong(true);
-            return true
+            return true;
         }
         setValidaLatLong(false);
-        return false
+        return false;
     }
 
 
-    function update() {
+    function cadastrar() {
         if (validarVazio(form.serial, form.latitude, form.longitude, form.observacoes, form.tipo, form.modelo)) {
             return
         }
@@ -65,9 +64,9 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             return
         }
 
-        const url = apiurl + "/equipment/update";
+        const url = apiurl + "/equipment/create";
         fetch(url, {
-            method: 'PATCH',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             },
@@ -75,46 +74,22 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
 
         })
             .then((resposta) => resposta.json())
-            .then((data) => {
+            .then((data:any) => {
                 if (data.error) {
-                    console.log("Erro", data.error);
+                    console.log("Erro");
 
                 } else {
-                    console.log("Equipamento atualizado");
-                    navigation.navigate("Home", { equipAlterada: true });
-
+                    console.log("Equipamento cadastrado");
+                    navigation.navigate("Equipamentos", { equipCadastrada: true });
                 }
             })
 
     }
-    function getEquipamento() {
-        const url = apiurl + '/equipment/get/' + id;
 
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            }
-        })
-            .then((resposta) => resposta.json())
-            .then((data) => {
-                if (data !== null) {
-                    onChangeForm({
-                        ...form,
-                        ...data,
-                        id: id
-                    });
-                }
-            });
+    function cancelar() {
+        navigation.navigate("Equipamentos");
+
     }
-
-
-
-    useEffect(() => {
-        getEquipamento();
-    }, []);
-
-
 
     return (
         <>
@@ -127,17 +102,22 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                 : ""
             }
             {validaLatLong ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números.</Text>
+                <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números e no mínimo cinco números.</Text>
                 : ""
             }
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress3={update}
-                title3={'Alterar'}
+                onPress={cadastrar}
+                onpress2={cancelar}
+                title2={'Cancelar'}
+                title={'Cadastrar'}
                 corTexto={'black'}
-                color5={'#00FF56'}
-                color6={'#5FFD94'}
+                color={'#00FF56'}
+                color2={'#5FFD94'}
+                color4={'#E4E3E3'}
+                color3={'#D9D9D9'}
+
             />
         </>
     );

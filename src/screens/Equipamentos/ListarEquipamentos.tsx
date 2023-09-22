@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Pressable, ScrollView, StyleSheet, Text, View, TextInput} from "react-native";
-import Card from "../components/Common/Card";
-import { CustomButton } from "../components/Common/Button";
-import { apiurl } from "../Helpers/ApiUrl";
+import { ScrollView, StyleSheet, Text, View, TextInput} from "react-native";
+import Card from "../../components/Common/Card";
+import { CustomButton } from "../../components/Common/Button";
+import { apiurl } from "../../Helpers/ApiUrl";
 interface Props {
     serial: string,
     latitude: string,

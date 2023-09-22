@@ -1,8 +1,8 @@
 import React from "react";
 import { createStackNavigator } from '@react-navigation/stack';
-import { ListarUsu } from "../screens/ListarUsu";
-import { Usuarios } from "../screens/Usuarios";
-import { UpdateUsu } from "../screens/UpdateUsu";
+import { ListarUsu } from "../screens/Usuarios/ListarUsu";
+import { Usuarios } from "../screens/Usuarios/Usuarios";
+import { UpdateUsu } from "../screens/Usuarios/UpdateUsu";
 
 export default function UsuarioStackNavigator  () {
     const Stack = createStackNavigator();

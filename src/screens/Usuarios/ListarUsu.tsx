@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
-import { CustomButton } from "../components/Common/Button";
-import { apiurl } from "../Helpers/ApiUrl";
-import CardUsu from "../components/Common/Card/carUsu";
+import { CustomButton } from "../../components/Common/Button";
+import { apiurl } from "../../Helpers/ApiUrl";
+import CardUsu from "../../components/Common/Card/carUsu";
 
 interface Usuario {
     nome: string;
