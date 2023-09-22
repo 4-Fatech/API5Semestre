@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({ title, style, image, id, onCardPress, nseri
     return (
         <TouchableOpacity
             onPress={() => onCardPress(id)}
-            style={ativo ? [styles.card, style] : [styles.card, style, {opacity: 0.5}]}
+            style={ativo ? [styles.card, style] : [styles.card, style, { opacity: 0.5 }]}
         >
             <View>
                 <View style={styles.inner}>
@@ -23,7 +23,8 @@ const Card: React.FC<CardProps> = ({ title, style, image, id, onCardPress, nseri
                         style={styles.imagem}
                         source={image ? { uri: image } : { uri: imagem_vazio }}
                     />
-                    <View style={styles.legenda}>
+                    <View style={ativo ? styles.legenda :
+                        [styles.legenda, styles.legendaInativo]}>
                         <Text style={styles.title}>{title}</Text>
                         <Text style={styles.subtitle}>N°Serie: {nserie}</Text>
                     </View>
@@ -55,6 +56,12 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
     },
+    legendaInativo: {
+        opacity: 0.5, 
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10, 
+        height: 8
+    }, 
     imagem: {
         borderRadius: 10,
         width: '100%',
