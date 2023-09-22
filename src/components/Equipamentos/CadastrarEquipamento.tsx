@@ -81,7 +81,7 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, on
         {/*  */}
 
         <View style={styles.switch}>
-          <SwitchComponent ativo={form.status} />
+          <SwitchComponent ativo={form.status} onChangeText={(value: any) => { onChangeText('status', value) } }  />
         </View>
 
         {/*  */}

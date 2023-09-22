@@ -3,9 +3,10 @@ import { StyleSheet, Switch, Text, View } from "react-native";
 
 interface SwitchProps {
     ativo: number;
+    onChangeText: (ativo: number) => void;
 }
 
-export const SwitchComponent: React.FC<SwitchProps> = ({ ativo }) => {
+export const SwitchComponent: React.FC<SwitchProps> = ({ ativo, onChangeText }) => {
     const [isEnabled, setIsEnabled] = useState(ativo > 0);
 
     useEffect(() => {
@@ -13,7 +14,9 @@ export const SwitchComponent: React.FC<SwitchProps> = ({ ativo }) => {
     }, [ativo]);
 
     const toggleSwitch = () => {
+        const newAtivo = isEnabled ? 0 : 1;
         setIsEnabled(previousState => !previousState);
+        onChangeText(newAtivo);
     };
 
     return (
