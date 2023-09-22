@@ -8,7 +8,7 @@ import CardUsu from "../../components/Common/Card/carUsu";
 interface Usuario {
     nome: string;
     matricula: string;
-    foto: string;
+    foto: any;
     id: string;
 }
 
@@ -38,9 +38,7 @@ export const ListarUsu = ({ route, navigation }: any) => {
                     foto: element.foto,
                     id: element.id
                 }));
-                setUsuarios(usuariosFormatados);
-                console.log(usuarios);
-                
+                setUsuarios(usuariosFormatados);                
             });
     }
 
