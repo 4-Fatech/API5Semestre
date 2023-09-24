@@ -133,5 +133,5 @@ equipamentos cadastrados no banco de dados.
 </br>
 
 ## 🎥 Video Sprint Review 1
-<a href="" target="_blank">Link do vídeo</a>
+<a href="https://youtu.be/7IwTFC6wEow" target="_blank">Link do vídeo</a>
 </br>
