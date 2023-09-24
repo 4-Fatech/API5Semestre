@@ -89,7 +89,7 @@ equipamentos cadastrados no banco de dados.
     
  ## 📅 Cronograma das Sprints 
 
- - - [X] <a href="">**1° Sprint:**</a> 04/09/2023 a 24/09/2023<br>
+ - - [X] <a href="https://github.com/4-Fatech/API5Semestre/tree/sprint_1">**1° Sprint:**</a> 04/09/2023 a 24/09/2023<br>
  - - [ ] <a href="">**2° Sprint:**</a> 25/09/2023 a 15/10/2023
  - - [ ] <a href="">**3° Sprint:**</a> 16/10/2023 a 05/11/2023
  - - [ ] <a href="">**4°Sprint:**</a> 06/11/2023 a 26/11/2023
@@ -133,5 +133,5 @@ equipamentos cadastrados no banco de dados.
 </br>
 
 ## 🎥 Video Sprint Review 1
-<a href="https://youtu.be/7IwTFC6wEow" target="_blank">Link do vídeo</a>
+- <a href="https://youtu.be/7IwTFC6wEow" target="_blank">Link do vídeo</a>
 </br>
