@@ -42,6 +42,8 @@ export const ListarUsu = ({ route, navigation }: any) => {
             });
     }
 
+    
+
     useEffect(() => {
         getUsuarios();
         if (userAlterado || userDeletado || userCadastrado) {
@@ -50,7 +52,8 @@ export const ListarUsu = ({ route, navigation }: any) => {
     }, [userAlterado, userCadastrado, userDeletado]);
 
     const filteredUsuarios = usuarios.filter((usuario) => {
-        return usuario.nome.toLowerCase().includes(searchText.toLowerCase());
+        // return usuario.nome.toLowerCase().includes(searchText.toLowerCase());
+        return usuario.nome && usuario.nome.toLowerCase().includes(searchText.toLowerCase());
     });
 
     return (

@@ -29,12 +29,28 @@ export const Home = ({ route, navigation }: any) => {
                 'Content-Type': 'application/json;charset=utf-8'
             }
         })
-            .then((resposta) => resposta.json())
-            .then((data) => {
-                setEquipamento(data)
-            });
-    }
 
+    //         .then((resposta) => resposta.json())
+    //         .then((data) => {
+    //             setEquipamento(data)
+    //         });
+    // }
+
+        .then((resposta) => {
+            if (!resposta.ok) {
+                throw new Error('Erro na solicitação à API');
+            }
+            return resposta.json();
+        })
+        .then((data) => {
+            setEquipamento(data)
+        })
+        .catch((error) => {
+            console.error(error);
+
+        });
+    }
+ 
     useEffect(() => {
         getEquipamentos();
         if (equipAlterada || equipCadastrada) {
