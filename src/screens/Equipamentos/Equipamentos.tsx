@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
 import { Text } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
+import Local from '@react-native-community/geolocation'
 
 export const Equipamentos = ({ navigation }: any) => {
     const [form, onChangeForm] = React.useState({
@@ -18,11 +19,42 @@ export const Equipamentos = ({ navigation }: any) => {
     const [validaVazio, setValidaVazio] = useState(false)
     const [validaTipo, setValidaTipo] = useState(false) //sem nmr
     const [validaLatLong, setValidaLatLong] = useState(false) //sem letra
+    const [latitude, setLatitude] = useState('')
+    const [longitude, setLongitude] = useState('')
+
 
     const onChangeText = (name: any, value: any) => {
         onChangeForm({ ...form, [name]: value });
 
     };
+
+    function getLocalizacaoAtual() {
+
+        Local.getCurrentPosition(
+
+            (posicao) => {
+                setLatitude(posicao.coords.latitude.toString())
+                setLongitude(posicao.coords.longitude.toString())
+            },
+            (erro) => {
+                console.log(erro.message);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 2000,
+                maximumAge: 1000
+            }
+
+        )
+        onChangeForm({
+            ...form,
+            latitude: latitude,
+            longitude: longitude
+        });
+        console.log(latitude, longitude);
+
+    }
+
 
     function validarVazio(serial: string, latitude: string, longitude: string, observacoes: string, tipo: string, modelo: string) {
         if (!serial || !latitude || !longitude || !tipo || !modelo) {
@@ -74,7 +106,7 @@ export const Equipamentos = ({ navigation }: any) => {
 
         })
             .then((resposta) => resposta.json())
-            .then((data:any) => {
+            .then((data: any) => {
                 if (data.error) {
                     console.log("Erro");
 
@@ -90,6 +122,15 @@ export const Equipamentos = ({ navigation }: any) => {
         navigation.navigate("Equipamentos");
 
     }
+
+
+
+    useEffect(() => {
+        getLocalizacaoAtual()
+    }, [longitude, latitude])
+
+
+
 
     return (
         <>
