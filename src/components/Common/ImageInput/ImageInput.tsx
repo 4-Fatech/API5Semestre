@@ -15,7 +15,7 @@ export default function ImageInput({ form, onChange }: any) {
         ImgToBase64.getBase64String(res.assets?.[0].uri)
           .then((base64String: any) => {
             let pic = 'data:' + res.assets?.[0].type + ';base64,' + base64String;
-            onChange("foto", [pic])
+            onChange("foto", [...(form.foto || []), pic])
             setResponse(res)
           })
           .catch((err: any) => console.log(err));
@@ -25,7 +25,7 @@ export default function ImageInput({ form, onChange }: any) {
         ImgToBase64.getBase64String(res.assets?.[0].uri)
           .then((base64String: any) => {
             let pic = 'data:' + res.assets?.[0].type + ';base64,' + base64String;
-            onChange("foto", [pic])
+            onChange("foto", [...(form.foto || []), pic])
             setResponse(res)
           })
           .catch((err: any) => console.log(err));
