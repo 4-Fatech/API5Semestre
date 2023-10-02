@@ -21,6 +21,7 @@ export const Equipamentos = ({ navigation }: any) => {
     const [validaLatLong, setValidaLatLong] = useState(false) //sem letra
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
+    const [loading, setLoading] = useState(false)
 
 
     const onChangeText = (name: any, value: any) => {
@@ -97,6 +98,7 @@ export const Equipamentos = ({ navigation }: any) => {
         }
 
         const url = apiurl + "/equipment/create";
+        setLoading(true)
         fetch(url, {
             method: 'POST',
             headers: {
@@ -114,6 +116,9 @@ export const Equipamentos = ({ navigation }: any) => {
                     console.log("Equipamento cadastrado");
                     navigation.navigate("Equipamentos", { equipCadastrada: true });
                 }
+            })
+            .finally(() => {
+                setLoading(false)
             })
 
     }
@@ -149,7 +154,7 @@ export const Equipamentos = ({ navigation }: any) => {
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress={cadastrar}
+                onPress={loading ? null : cadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}

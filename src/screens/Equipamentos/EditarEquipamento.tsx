@@ -24,6 +24,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     const [validaVazio, setValidaVazio] = useState(false)
     const [validaTipo, setValidaTipo] = useState(false) //sem nmr
     const [validaLatLong, setValidaLatLong] = useState(false) //sem letra
+    const [loading, setLoading] = useState(false)
 
     function validarVazio(serial: string, latitude: string, longitude: string, observacoes: string, tipo: string, modelo: string) {
         if (!serial || !latitude || !longitude || !tipo || !modelo) {
@@ -66,6 +67,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
         }
 
         const url = apiurl + "/equipment/update";
+        setLoading(true)
         fetch(url, {
             method: 'PATCH',
             headers: {
@@ -84,6 +86,9 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                     navigation.navigate("Equipamentos", { equipAlterada: true });
 
                 }
+            })
+            .finally(() => {
+                setLoading(false)
             })
 
     }
@@ -133,7 +138,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress3={update}
+                onPress3={loading ? null : update}
                 title3={'Alterar'}
                 corTexto={'black'}
                 color5={'#00FF56'}

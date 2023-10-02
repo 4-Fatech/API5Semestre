@@ -22,6 +22,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         senha: "",
 
     })
+
     const [valida, setValida] = useState(false)
     const [validaSenha, setValidaSenha] = useState(false);
     const [validaSenhaRegex, setValidaSenhaRegex] = useState(false)
@@ -32,6 +33,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     const [validaMatricula, setValidarMatricula] = useState(false)
     const [validaMatriculaRegex, setValidarMatriculaRegex] = useState(false)
     const [validaCpfRegex, setValidarCpfRegex] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     const onChangeText = (name: string, value: string) => {
         onChangeForm({ ...form, [name]: value });
 
@@ -158,7 +161,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                     });
 
                 }
-            });
+            })
+
 
 
     }
@@ -203,6 +207,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         }
 
         const url = apiurl + "/user/update/" + id;
+        setLoading(true)
         fetch(url, {
             method: 'PATCH',
             headers: {
@@ -221,11 +226,14 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                     navigation.navigate("Usuários", { userAlterado: true });
 
                 }
-            })
+            }).finally(() => {
+                setLoading(false)
+            });
     }
 
     function deletarUsuario() {
         let url = apiurl + "/user/delete"
+        setLoading(true)
         fetch(url, {
             method: 'DELETE',
             headers: {
@@ -244,6 +252,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
             }
 
+        }).finally(() => {
+            setLoading(false)
         })
     }
 
@@ -295,12 +305,12 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
                 : ""
             }
-          
+
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
-                onPress={updateUsuario}
-                onpress2={deletarUsuario}
+                onPress={loading ? null : updateUsuario}
+                onpress2={loading ? null : deletarUsuario}
                 title={'Alterar'}
                 title2={'Deletar'}
                 corTexto={'black'}

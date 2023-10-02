@@ -29,6 +29,8 @@ export const Usuarios = ({ navigation }: any) => {
     const [validaMatricula, setValidarMatricula] = useState(false)
     const [validaMatriculaRegex, setValidarMatriculaRegex] = useState(false)
     const [validaCpfRegex, setValidarCpfRegex] = useState(false)
+    const [loading, setLoading] = useState(false);
+
     const onChangeText = (name: string, value: string) => {
         onChangeForm({ ...form, [name]: value });
 
@@ -164,6 +166,7 @@ export const Usuarios = ({ navigation }: any) => {
 
 
         const url = apiurl + "/user/create";
+        setLoading(true)
         fetch(url, {
             method: 'POST',
             headers: {
@@ -183,12 +186,15 @@ export const Usuarios = ({ navigation }: any) => {
 
                 }
             })
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
-function cancelar(){
-    navigation.navigate("Usuários");
+    function cancelar() {
+        navigation.navigate("Usuários");
 
-}
+    }
 
     return (
         <>
@@ -241,7 +247,7 @@ function cancelar(){
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
-                onPress={cadastrarUsuario}
+                onPress={loading ? null : cadastrarUsuario}
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}

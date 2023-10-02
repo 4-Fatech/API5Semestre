@@ -15,6 +15,7 @@ interface Usuario {
 export const ListarUsu = ({ route, navigation }: any) => {
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
     const [searchText, setSearchText] = useState<string>(''); 
+  
 
     const { userAlterado, userDeletado, userCadastrado } = route.params || {};
 
