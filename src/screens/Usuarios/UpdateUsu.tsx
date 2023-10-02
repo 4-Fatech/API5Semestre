@@ -297,6 +297,38 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         })
     }
 
+    const showAlertUpdate = () => {
+        Alert.alert(
+          'Alterar usuário',
+          'Deseja realmente alterar este usuário.',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => console.log('Botão Cancelar Pressionado'),
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => updateUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
+      
+    const showAlertDelete = () => {
+        Alert.alert(
+          'Deletar usuário',
+          'Deseja realmente deletar este usuário.',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => console.log('Botão Cancelar Pressionado'),
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => deletarUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
+
     return (
         <>
             {valida ?
@@ -349,8 +381,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
-                onPress={loading ? null : updateUsuario}
-                onpress2={loading ? null : deletarUsuario}
+                onPress={loading ? null : showAlertUpdate}
+                onpress2={loading ? null : showAlertDelete}
                 title={'Alterar'}
                 title2={'Deletar'}
                 corTexto={'black'}

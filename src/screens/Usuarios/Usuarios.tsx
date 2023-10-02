@@ -216,6 +216,22 @@ export const Usuarios = ({ navigation }: any) => {
 
     }
 
+    const showAlertCadastrar = () => {
+        Alert.alert(
+          'Cadastrar usuário',
+          'Deseja realmente cadastrar este usuário.',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => console.log('Botão Cancelar Pressionado'),
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => cadastrarUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
+
 
     return (
         <>
@@ -268,7 +284,7 @@ export const Usuarios = ({ navigation }: any) => {
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
-                onPress={loading ? null : cadastrarUsuario}
+                onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}

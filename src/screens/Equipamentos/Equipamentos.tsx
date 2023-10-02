@@ -148,6 +148,21 @@ export const Equipamentos = ({ navigation }: any) => {
 
     }
 
+    const showAlertCadastrar = () => {
+        Alert.alert(
+          'Cadastrar equipamento',
+          'Deseja realmente cadastrar este equipamento.',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => console.log('Botão Cancelar Pressionado'),
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => cadastrar() },
+          ],
+          { cancelable: false }
+        );
+      };
 
 
     useEffect(() => {
@@ -174,7 +189,7 @@ export const Equipamentos = ({ navigation }: any) => {
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress={loading ? null : cadastrar}
+                onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}

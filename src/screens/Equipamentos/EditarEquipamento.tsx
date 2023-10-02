@@ -134,7 +134,21 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     }
 
 
-
+    const showAlertEditar = () => {
+        Alert.alert(
+            'Editar equipamento',
+            'Deseja realmente editar este equipamento.',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => console.log('Botão Cancelar Pressionado'),
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => update() },
+            ],
+            { cancelable: false }
+        );
+    };
     useEffect(() => {
         getEquipamento();
     }, []);
@@ -158,7 +172,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress3={loading ? null : update}
+                onPress3={loading ? null : showAlertEditar}
                 title3={'Alterar'}
                 corTexto={'black'}
                 color5={'#00FF56'}
