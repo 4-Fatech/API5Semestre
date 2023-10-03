@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { UsuariosComponente } from "../../components/Usuarios";
 import { apiurl } from '../../Helpers/ApiUrl';
 import { CustomButton } from '../../components/Common/Button';
-import { Text, View } from 'react-native';
+import { Text, View, Alert } from 'react-native';
 
 
 
@@ -219,10 +219,30 @@ export const UpdateUsu = ({ route, navigation }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data.error) {
-                    console.log("Erro");
+                    Alert.alert(
+                        'Alterar usuário',
+                        'Erro ao alterar usuário.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log(data.error)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
 
                 } else {
-                    console.log("Usuário alterado");
+                    Alert.alert(
+                        'Alterar usuário',
+                        'Usuário alterado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log('Usuario alterado')
+                            },
+                        ],
+                        { cancelable: false }
+                    );
                     navigation.navigate("Usuários", { userAlterado: true });
 
                 }
@@ -243,10 +263,30 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         }).then((resp) => resp.json()).then((data) => {
 
             if (data.error) {
-                console.log("Erro");
+                Alert.alert(
+                    'Deletar usuário',
+                    'Erro ao deletar usuário.',
+                    [
+
+                        {
+                            text: 'OK', onPress: () => console.log(data.error)
+                        },
+                    ],
+                    { cancelable: false }
+                );
 
             } else {
-                console.log('Usuário deletado');
+                Alert.alert(
+                    'Deletar usuário',
+                    'Usuário deletado com sucesso.',
+                    [
+
+                        {
+                            text: 'OK', onPress: () => console.log('Usuario deletado')
+                        },
+                    ],
+                    { cancelable: false }
+                );
                 navigation.navigate("Usuários", { userDeletado: true });
 
 
@@ -256,6 +296,38 @@ export const UpdateUsu = ({ route, navigation }: any) => {
             setLoading(false)
         })
     }
+
+    const showAlertUpdate = () => {
+        Alert.alert(
+          'Alterar usuário',
+          'Deseja realmente alterar este usuário.',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => console.log('Botão Cancelar Pressionado'),
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => updateUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
+      
+    const showAlertDelete = () => {
+        Alert.alert(
+          'Deletar usuário',
+          'Deseja realmente deletar este usuário.',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => console.log('Botão Cancelar Pressionado'),
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => deletarUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
 
     return (
         <>
@@ -309,8 +381,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
-                onPress={loading ? null : updateUsuario}
-                onpress2={loading ? null : deletarUsuario}
+                onPress={loading ? null : showAlertUpdate}
+                onpress2={loading ? null : showAlertDelete}
                 title={'Alterar'}
                 title2={'Deletar'}
                 corTexto={'black'}

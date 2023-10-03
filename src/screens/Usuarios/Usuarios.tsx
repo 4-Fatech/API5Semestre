@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { UsuariosComponente } from "../../components/Usuarios";
-import { Text, View } from 'react-native';
+import { Text, View, Alert } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { validador } from "../../utils/validador";
 
@@ -178,10 +178,30 @@ export const Usuarios = ({ navigation }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data.error) {
-                    console.log("Erro");
+                    Alert.alert(
+                        'Cadastrar usuário',
+                        'Erro ao cadastrar usuário.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log(data.error)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
 
                 } else {
-                    console.log("Usuário cadastrado");
+                    Alert.alert(
+                        'Cadastrar usuário',
+                        'Usuário cadastrado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log('Usuario cadastrado')
+                            },
+                        ],
+                        { cancelable: false }
+                    );
                     navigation.navigate("Usuários", { userCadastrado: true });
 
                 }
@@ -195,6 +215,23 @@ export const Usuarios = ({ navigation }: any) => {
         navigation.navigate("Usuários");
 
     }
+
+    const showAlertCadastrar = () => {
+        Alert.alert(
+          'Cadastrar usuário',
+          'Deseja realmente cadastrar este usuário.',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => console.log('Botão Cancelar Pressionado'),
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => cadastrarUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
+
 
     return (
         <>
@@ -247,7 +284,7 @@ export const Usuarios = ({ navigation }: any) => {
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
-                onPress={loading ? null : cadastrarUsuario}
+                onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import Local from '@react-native-community/geolocation'
 
@@ -110,10 +110,30 @@ export const Equipamentos = ({ navigation }: any) => {
             .then((resposta) => resposta.json())
             .then((data: any) => {
                 if (data.error) {
-                    console.log("Erro");
+                    Alert.alert(
+                        'Cadastrar equipamento',
+                        'Erro ao cadastrar equipamento.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log(data.error)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
 
                 } else {
-                    console.log("Equipamento cadastrado");
+                    Alert.alert(
+                        'Cadastrar equipamento',
+                        'Equipamento cadastrado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log('Equipamento cadastrado')
+                            },
+                        ],
+                        { cancelable: false }
+                    );
                     navigation.navigate("Equipamentos", { equipCadastrada: true });
                 }
             })
@@ -128,6 +148,21 @@ export const Equipamentos = ({ navigation }: any) => {
 
     }
 
+    const showAlertCadastrar = () => {
+        Alert.alert(
+          'Cadastrar equipamento',
+          'Deseja realmente cadastrar este equipamento.',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => console.log('Botão Cancelar Pressionado'),
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => cadastrar() },
+          ],
+          { cancelable: false }
+        );
+      };
 
 
     useEffect(() => {
@@ -154,7 +189,7 @@ export const Equipamentos = ({ navigation }: any) => {
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress={loading ? null : cadastrar}
+                onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 
 export const EditarEquipamentos = ({ route, navigation }: any) => {
@@ -79,10 +79,30 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data.error) {
-                    console.log("Erro", data.error);
+                    Alert.alert(
+                        'Alterar equipamento',
+                        'Erro ao alterar equipamento.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log(data.error)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
 
                 } else {
-                    console.log("Equipamento atualizado");
+                    Alert.alert(
+                        'Alterar equipamento',
+                        'Equipamento alterado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log('Equipamento alterado')
+                            },
+                        ],
+                        { cancelable: false }
+                    );
                     navigation.navigate("Equipamentos", { equipAlterada: true });
 
                 }
@@ -114,7 +134,21 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     }
 
 
-
+    const showAlertEditar = () => {
+        Alert.alert(
+            'Editar equipamento',
+            'Deseja realmente editar este equipamento.',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => console.log('Botão Cancelar Pressionado'),
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => update() },
+            ],
+            { cancelable: false }
+        );
+    };
     useEffect(() => {
         getEquipamento();
     }, []);
@@ -138,7 +172,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress3={loading ? null : update}
+                onPress3={loading ? null : showAlertEditar}
                 title3={'Alterar'}
                 corTexto={'black'}
                 color5={'#00FF56'}
