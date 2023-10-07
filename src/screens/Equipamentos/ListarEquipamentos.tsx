@@ -105,7 +105,7 @@ export const Home = ({ route, navigation }: any) => {
                 </View>
                 <View style={styles.algumacoisa}>
                     <View style={styles.centeredView}>
-                        <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={"#00FF56"} color2={'#5FFD94'} />
+                        <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={'#9ACD32'} color2={'#94C021'} />
                     </View>
                 </View>
             </ScrollView>

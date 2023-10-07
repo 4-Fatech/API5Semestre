@@ -386,10 +386,10 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 title={'Alterar'}
                 title2={'Deletar'}
                 corTexto={'black'}
-                color={'#00FF56'}
-                color2={'#5FFD94'}
-                color4={'#FE6565'}
-                color3={'#FF4848'}
+                color={'#9ACD32'}
+                color2={'#94C021'}
+                color4={'#ff2d15'}
+                color3={'#ff4627'}
 
             />
         </>
