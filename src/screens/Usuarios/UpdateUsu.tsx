@@ -300,7 +300,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     const showAlertUpdate = () => {
         Alert.alert(
           'Alterar usuário',
-          'Deseja realmente alterar este usuário.',
+          'Deseja alterar este usuário?',
           [
             {
               text: 'NÃO',
@@ -316,7 +316,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     const showAlertDelete = () => {
         Alert.alert(
           'Deletar usuário',
-          'Deseja realmente deletar este usuário.',
+          'Deseja deletar este usuário?',
           [
             {
               text: 'NÃO',

@@ -151,7 +151,7 @@ export const Equipamentos = ({ navigation }: any) => {
     const showAlertCadastrar = () => {
         Alert.alert(
           'Cadastrar equipamento',
-          'Deseja realmente cadastrar este equipamento.',
+          'Deseja cadastrar este equipamento?',
           [
             {
               text: 'NÃO',

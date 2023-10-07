@@ -219,7 +219,7 @@ export const Usuarios = ({ navigation }: any) => {
     const showAlertCadastrar = () => {
         Alert.alert(
           'Cadastrar usuário',
-          'Deseja realmente cadastrar este usuário.',
+          'Deseja cadastrar este usuário?',
           [
             {
               text: 'NÃO',

@@ -137,7 +137,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     const showAlertEditar = () => {
         Alert.alert(
             'Editar equipamento',
-            'Deseja realmente editar este equipamento.',
+            'Deseja editar este equipamento?',
             [
                 {
                     text: 'NÃO',

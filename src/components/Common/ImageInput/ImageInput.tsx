@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, View, TouchableOpacity, Text, Alert } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import DemoButton from './DemoButton';
 import ImgToBase64 from 'react-native-image-base64';
@@ -64,7 +64,22 @@ export default function ImageInput({ form, onChange }: any) {
               />
 
               <TouchableOpacity
-                onPress={() => handleDeleteImage(form.foto.indexOf(uri))}
+                onPress={() => {
+                  Alert.alert(
+                    'Remover imagem',
+                    'Deseja remover imagem?',
+                    [
+                      {
+                        text: 'NÃO',
+                        onPress: () => null,
+                        style: 'cancel',
+                      },
+                      { text: 'SIM', onPress: () => handleDeleteImage(form.foto.indexOf(uri)) },
+                    ],
+                    { cancelable: false }
+                  );
+                  }
+                } 
                 style={styles.deleteButton}
               >
                 <Text style={styles.deleteButtonText}>Remover</Text>
