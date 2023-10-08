@@ -3,9 +3,11 @@ import { View, StyleSheet, Image, Text } from "react-native";
 import CheckboxComponent from "../../Common/Checkbox";
 import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
+import { apiurl } from "../../../Helpers/ApiUrl";
+import { LogoImagem } from "../../../Assets/image/LogoImagem";
 
 
-export const RecuperarSenha = () => {
+export const RecuperarSenha = ({navigation}:any) => {
     const [isCheckedEmail, setIsCheckedEmail] = useState(false);
     const [isCheckedSenha, setIsCheckedSenha] = useState(false);
     const [email, setEmail] = useState('');
@@ -14,12 +16,33 @@ export const RecuperarSenha = () => {
 
     }
     function enviarCod() {
+        var url = isCheckedEmail?"/notEmail":"/notSms"
+        var value = isCheckedEmail? { email: email }:{telefone1:email}
+        console.log(apiurl+"/user"+url)
+        console.log(value)
+        fetch(apiurl+"/user"+url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(value)
+        })
+            .then((resposta) => resposta.json())
+            .then((data) => {
+                if(data.error){
+                    console.log(data)
+                    
+                }else{
+                    navigation.navigate("Enviar Código",{isEmail:isCheckedEmail, value:email})
+                }
+              
+            })
 
     }
     return (
         <View style={{ backgroundColor: 'white', height: '75%', width: '100%' }}>
             <View style={styles.background} >
-                <Image source={require('../../../assets/image/imagem.png')} />
+                <Image  style={{width:200, height:100}} source={{uri:LogoImagem}} />
             </View>
             <View style={styles.container}>
                 <CheckboxComponent value={isCheckedEmail} setValue={setIsCheckedEmail} label="Email" />

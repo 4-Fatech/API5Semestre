@@ -2,13 +2,38 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
+import { apiurl } from "../../../Helpers/ApiUrl";
 
-export const AtualizarSenha = () => {
+export const AtualizarSenha = ({route,navigation}:any) => {
     const [senha, setSenha] = useState('');
     const [senhaconfirma, setSenhaConfirma] = useState('');
+    const [error, setError] = useState<null|string>(null);
+    const {isEmail, value} = route.params;
 
     function atualizar() {
-        // Your atualizar function code
+        if(senha!= senhaconfirma){
+            setError("As senhas não condizem.")
+            return
+        }
+        var vForm = isEmail?{senha: senha, email: value}:{senha:senha, telefone1: value}
+        fetch(apiurl+"/user/atualizarSenha", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(vForm)
+        })
+            .then((resposta) => resposta.json())
+            .then((data) => {
+                if(data.error){
+                    console.log(data)
+                    
+                }else{
+                    console.log(data)
+                    navigation.navigate("Login")
+                }
+              
+            })
     }
 
     return (
@@ -22,6 +47,11 @@ export const AtualizarSenha = () => {
                     <Text style={styles.label}>Confirme sua senha</Text>
                     <Input onChangeText={setSenhaConfirma} value={senhaconfirma} placeholder="Confirme sua senha" />
                 </View>
+                {error?<View>
+                    <Text>
+                        {error}
+                    </Text>
+                </View>:null}
                 <View style={styles.buttonContainer}>
                     <CustomButton
                         color='#5f781f'
