@@ -72,7 +72,7 @@ export const Home = ({ route, navigation }: any) => {
               onPress: () =>   navigation.navigate("Atualizar Equipamento", { id }),
               style: 'cancel',
             },
-            { text: 'Visualizar', onPress: () => console.log('Ir para tela detalhes') },
+            { text: 'Visualizar', onPress: () => navigation.navigate("Detalhes Equipamento", { id }) },
           ],
           { cancelable: false }
         );
