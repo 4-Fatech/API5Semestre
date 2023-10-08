@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexDirection: 'row',
-
   },
   image: {
     width: 200,
