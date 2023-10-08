@@ -300,7 +300,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     const showAlertUpdate = () => {
         Alert.alert(
           'Alterar usuário',
-          'Deseja realmente alterar este usuário.',
+          'Deseja alterar este usuário?',
           [
             {
               text: 'NÃO',
@@ -316,7 +316,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     const showAlertDelete = () => {
         Alert.alert(
           'Deletar usuário',
-          'Deseja realmente deletar este usuário.',
+          'Deseja deletar este usuário?',
           [
             {
               text: 'NÃO',
@@ -386,10 +386,10 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 title={'Alterar'}
                 title2={'Deletar'}
                 corTexto={'black'}
-                color={'#00FF56'}
-                color2={'#5FFD94'}
-                color4={'#FE6565'}
-                color3={'#FF4848'}
+                color={'#9ACD32'}
+                color2={'#94C021'}
+                color4={'#ff2d15'}
+                color3={'#ff4627'}
 
             />
         </>

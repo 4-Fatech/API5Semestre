@@ -137,7 +137,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     const showAlertEditar = () => {
         Alert.alert(
             'Editar equipamento',
-            'Deseja realmente editar este equipamento.',
+            'Deseja editar este equipamento?',
             [
                 {
                     text: 'NÃO',
@@ -175,8 +175,8 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                 onPress3={loading ? null : showAlertEditar}
                 title3={'Alterar'}
                 corTexto={'black'}
-                color5={'#00FF56'}
-                color6={'#5FFD94'}
+                color5={'#94C021'}
+                color6={'#9ACD32'}
             />
         </>
     );
