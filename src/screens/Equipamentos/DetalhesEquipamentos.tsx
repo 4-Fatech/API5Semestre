@@ -60,51 +60,67 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
     return (
         <>
             <ScrollView>
-                <ScrollView>
-                    <Label titulo='Imagens do equipamento' />
-                    <MostrarImagem
-                        form={form}
-                    />
-                </ScrollView>
-                <View style={styles.container1}>
-                    <View style={styles.campoTipoSerie}>
-                    <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.tipo}</Text>
-                    </View>
-                    <View style={styles.campoTipoSerie}>
-                    <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.modelo}</Text>
+                <View style={styles.alinhamentoCentro}>
+                    <ScrollView style={styles.imagens}>
+                        <Label titulo='Imagens do equipamento' />
+                        <MostrarImagem
+                            form={form}
+                        />
+                    </ScrollView>
+
+                </View>
+                <View style={styles.alinhamentoCentro}>
+                    <View style={styles.container1}>
+                        <View style={styles.campoTipoSerie}>
+                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.tipo}</Text>
+                        </View>
+                        <View style={styles.campoTipoSerie}>
+                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.modelo}</Text>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.container}>
-                    <View>
-                        <Text style={{color:'#000000'}}>Nº de série </Text>
-                    </View>
-                    <View style={styles.campoSerial}>
-                        <Text style={{color:'#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5}}> {form.serial} </Text>
-                    </View>
-                </View>
-                <View style={styles.container1}>
-                    <View style={styles.container2}>
-                        <Text>
-                            <Label titulo="Latitude" />
-                        </Text>
-                        <Text style={styles.latitudeLongitude}> {form.latitude} </Text>
-                    </View>
-                    <View style={styles.container2}>
-                        <Text>
-                            <Label titulo="Longitude" />
-                        </Text>
-                        <Text style={styles.latitudeLongitude}> {form.longitude} </Text>
+                <View style={styles.alinhamentoCentro}>
+                    <View style={styles.container}>
+                        <View>
+                            <Text style={{ color: '#000000', lineHeight: 28, }}>Nº de série </Text>
+                        </View>
+                        <View style={styles.campoSerial}>
+                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {form.serial} </Text>
+                        </View>
                     </View>
                 </View>
-                <View>
+                <View style={styles.alinhamentoCentro}>
+                    <ScrollView
+                        horizontal={true}
+                        contentContainerStyle={styles.scrollViewContent}
+                    >
+                        <View style={styles.containerLatitude}>
+                            <View style={styles.container2}>
+                                <Text>
+                                    <Label titulo="Latitude" />
+                                </Text>
+                                <Text style={styles.latitudeLongitude}> {form.latitude} </Text>
+                            </View>
+                            <View style={styles.container2}>
+                                <Text>
+                                    <Label titulo="Longitude" />
+                                </Text>
+                                <Text style={styles.latitudeLongitude}> {form.longitude} </Text>
+                            </View>
+                        </View>
+                    </ScrollView>
+                </View>
+                <View style={styles.alinhamentoCentro}>
+
                     <View style={styles.container}>
                         <Text>
                             <Label titulo="Observações" />
                         </Text>
                         <View style={styles.campoObservacao}>
-                            <Text>{form.observacoes}</Text>
+                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}>{form.observacoes}</Text>
                         </View>
                     </View>
+
                 </View>
                 <View style={styles.ativarDesativar}>
                     <CustomButton title="Desativar" corTexto="#000000" onPress={desativar} color='#FE2A2A' color2="#D90F0F" />
@@ -117,37 +133,55 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
+    alinhamentoCentro: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    imagens: {
+        width: 250
+    },
     container: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        marginLeft: 10,
-        marginTop: 10
+        marginTop: 10,
+    },
+    scrollViewContent: {
+        flexDirection: 'row',
     },
     container1: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 10,
+        height: 50,
         marginTop: 5
+    },
+    containerLatitude: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        width: 296,
+        height: 50,
+        marginTop: 20,
+        padding: 5
     },
     container2: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: 15
     },
     campoTipoSerie: {
         borderWidth: 1,
         borderRadius: 8,
-        width: 150,
+        width: 140,
         height: 30,
-        alignItems:'center',
+        alignItems: 'center',
         borderColor: 'black',
         marginRight: 10,
     },
     campoSerial: {
         backgroundColor: '#D9D9D9',
-        width: 310,
+        width: 296,
         borderRadius: 8,
         height: 30,
     },
@@ -156,15 +190,16 @@ const styles = StyleSheet.create({
     },
     campoObservacao: {
         borderColor: "#000000",
-        width: 310,
+        width: 296,
         borderWidth: 1,
         borderRadius: 8,
-        padding: 8,
+        padding: 15,
         marginTop: 8,
     },
     ativarDesativar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 16,
+        height: 50,
+        marginTop: 30,
     },
 });
