@@ -32,6 +32,7 @@ export const Login = ({ navigation }: any) => {
                     setError(true)
                 }
                 else {
+                setError(false)
                     setLogIn(true)
                 }
                 console.log(data)

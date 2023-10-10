@@ -11,16 +11,16 @@ export const RecuperarSenha = ({ navigation }: any) => {
     const [isCheckedEmail, setIsCheckedEmail] = useState(false);
     const [isCheckedSenha, setIsCheckedSenha] = useState(false);
     const [email, setEmail] = useState('');
+    const [error, setError] = useState<null|string>(null);
 
     function cancelar() {
 
     }
     function enviarCod() {
-        var url = isCheckedEmail ? "/notEmail" : "/notSms"
-        var value = isCheckedEmail ? { email: email } : { telefone1: email }
-        console.log(apiurl + "/user" + url)
-        console.log(value)
-        fetch(apiurl + "/user" + url, {
+        var url = isCheckedEmail?"/notEmail":"/notSms"
+        var value = isCheckedEmail? { email: email }:{telefone1:email}
+       
+        fetch(apiurl+"/user"+url, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -29,14 +29,16 @@ export const RecuperarSenha = ({ navigation }: any) => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
-                if (data.error) {
+                if(data.error){
+                    setError(data.error)
                     console.log(data)
-
-                } else {
-
-                    navigation.navigate("Enviar Código", { isEmail: isCheckedEmail, value: email })
+                    
+                }else{
+                    setError(null)
+                    navigation.navigate("Enviar Código",{isEmail:isCheckedEmail, value:email})
                 }
-
+                console.log(data)
+              
             })
 
     }
@@ -56,6 +58,11 @@ export const RecuperarSenha = ({ navigation }: any) => {
                         <View style={{ marginTop: -140 }} >
                             <Input onChangeText={setEmail} value={email} placeholder="Insira seu email/telefone" />
                         </View>
+                        {error?
+                            <View style={styles.errorMessageContainer} >
+                                <Text style={styles.errorMessage}>{error}</Text>
+                            </View>:null
+                            }
                         <View style={{ height: 50 }}>
                             <CustomButton color='#5f781f' color2="#94C021" corTexto="white" title="Enviar" onPress={enviarCod} />
                         </View>
@@ -64,6 +71,7 @@ export const RecuperarSenha = ({ navigation }: any) => {
                     <CustomButton color='#5f781f' color2="#94C021" corTexto="white" title="Cancelar" onPress={cancelar} />
                 }
             </View>
+           
         </View>
     );
 };
@@ -86,5 +94,15 @@ const styles = StyleSheet.create({
     botao: {
         height: 50,
         marginTop: -210,
+    },
+    errorMessageContainer: {
+        borderColor:'#94C021',
+        borderStyle:'solid',
+        display:'flex',
+        alignItems:"center",
+        padding:5
+    },
+    errorMessage: {
+      color:"red"
     }
 });
