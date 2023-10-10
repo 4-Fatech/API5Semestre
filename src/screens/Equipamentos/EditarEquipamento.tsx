@@ -141,12 +141,18 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             [
                 {
                     text: 'NÃO',
-                    onPress: () => console.log('Botão Cancelar Pressionado'),
+                    onPress: () => null,
                     style: 'cancel',
                 },
                 { text: 'SIM', onPress: () => update() },
             ],
-            { cancelable: false }
+            {
+                cancelable: false,
+                
+            }
+
+
+
         );
     };
     useEffect(() => {
@@ -175,8 +181,8 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                 onPress3={loading ? null : showAlertEditar}
                 title3={'Alterar'}
                 corTexto={'black'}
-                color5={'#94C021'}
-                color6={'#9ACD32'}
+                color5={'#9ACD32'}
+                color6={'#94C021'}
             />
         </>
     );
