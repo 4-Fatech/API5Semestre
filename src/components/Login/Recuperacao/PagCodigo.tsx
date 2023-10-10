@@ -8,6 +8,7 @@ import { LogoImagem } from "../../../Assets/image/LogoImagem";
 export const PagCodigo = ({route, navigation}:any) => {
     const [codigo, setCodigo] = useState('');
     const {isEmail, value} = route.params;
+    const [error, setError] = useState<null|string>(null);
 
     function enviar() {
         console.log('isEmail', isEmail)
@@ -25,10 +26,10 @@ export const PagCodigo = ({route, navigation}:any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if(data.error){
-                    console.log(data)
+                    setError(data.error)
                     
                 }else{
-                    console.log(data)
+                    setError(null)
                     navigation.navigate("Atualizar Senha",{isEmail:isEmail, value:value})
                 }
               
@@ -44,6 +45,11 @@ export const PagCodigo = ({route, navigation}:any) => {
                 <Text style={styles.text}>Insira o código</Text>
                 <View>
                     <Input onChangeText={setCodigo} value={codigo} placeholder="" />
+                    {error?
+                <View style={styles.errorMessageContainer} >
+                    <Text style={styles.errorMessage}>{error}</Text>
+                </View>:<></>
+                }
                     <View style={{ height: 45 }}>
                         <CustomButton color='#5f781f' color2="#94C021" corTexto="white" title="Confirmar" onPress={enviar} />
                     </View>
@@ -65,5 +71,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginRight: 15,
         marginTop: -160
+    },
+    errorMessageContainer: {
+        borderColor:'#94C021',
+        borderStyle:'solid',
+        display:'flex',
+        alignItems:"center",
+        padding:5
+    },
+    errorMessage: {
+      color:"red"
     }
 });
