@@ -4,7 +4,6 @@ import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
 import { apiurl } from "../../../Helpers/ApiUrl";
 // import { LogoImagem } from "../../../Assets/image/LogoImagem";
-// import { LogoImagem } from "../../../Assets/image/LogoImagem";
 
 export const PagCodigo = ({ route, navigation }: any) => {
     const [codigo, setCodigo] = useState('');
@@ -26,12 +25,6 @@ export const PagCodigo = ({ route, navigation }: any) => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
-                if (data.error) {
-                    console.log(data)
-
-                } else {
-                    console.log(data)
-                    navigation.navigate("Atualizar Senha", { isEmail: isEmail, value: value })
                 if(data.error){
                     setError(data.error)
                     
@@ -49,7 +42,6 @@ export const PagCodigo = ({ route, navigation }: any) => {
     return (
         <View style={styles.container}>
             <View style={{ marginTop: 120 }}>
-                <Image style={{ width: 200, height: 100 }} source={{ uri: LogoImagem }} />
                 <Image style={{ width: 200, height: 100 }} source={{ uri: LogoImagem }} />
             </View>
             <View style={styles.container}>
