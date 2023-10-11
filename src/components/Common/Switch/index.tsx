@@ -22,8 +22,8 @@ export const SwitchComponent: React.FC<SwitchProps> = ({ ativo, onChangeText }) 
     return (
         <View style={styles.container}>
             <Switch
-                trackColor={{ false: '#616161', true: '#81b0ff' }}
-                thumbColor={isEnabled ? '#42A5F5' : '#424242'}
+                trackColor={{ false: '#616161', true: '#9ACD32' }}
+                thumbColor={isEnabled ? '#9ACD32' : '#424242'}
                 onValueChange={toggleSwitch}
                 value={isEnabled}
             />

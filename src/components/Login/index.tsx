@@ -5,7 +5,6 @@ import { Input } from "../Common/Input/Input";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { CustomButton } from "../Common/Button";
 import { apiurl } from "../../Helpers/ApiUrl";
-import { Equipamentos } from "../../screens/Equipamentos/Equipamentos";
 import { GlobalContext } from "../../Context/GlobalProvider";
 
 // import { LogoImagem } from "../../Assets/image/LogoImagem";
@@ -15,6 +14,7 @@ export const Login = ({ navigation }: any) => {
     const [senha, setSenha] = useState('')
     const [error, setError] = useState(false)
     const { isLoggedIn, setLogIn } = useContext(GlobalContext)
+
     function logar() {
         const url = apiurl + "/login/login";
 
@@ -32,6 +32,7 @@ export const Login = ({ navigation }: any) => {
                     setError(true)
                 }
                 else {
+                setError(false)
                     setLogIn(true)
                 }
                 console.log(data)
@@ -63,6 +64,7 @@ export const Login = ({ navigation }: any) => {
                     >
                         <Text style={styles.recuperacao}>Esqueci a senha</Text>
                     </TouchableOpacity>
+
 
                 </View>
                 {error ?

@@ -1,11 +1,8 @@
 import React from 'react';
-import { DrawerItem, createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import StackNavigator from './StackNavigator';
 import UsuarioStackNavigator from './UsuarioStackNavigator';
-import { Login } from '../components/Login';
-import { RecuperarSenha } from '../components/Login/Recuperacao';
-import { PagCodigo } from '../components/Login/Recuperacao/PagCodigo';
-import { AtualizarSenha } from '../components/Login/Recuperacao/AtualizarSenha';
+
 import Logout from '../screens/Logout';
 import { StyleSheet, Text, View } from 'react-native';
 import UsuarioStackNavigatorPerfil from './UsuarioStackNavigatorPerfil';
