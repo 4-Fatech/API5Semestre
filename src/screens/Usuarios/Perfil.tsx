@@ -56,7 +56,7 @@ export const Perfil = () => {
     }
 
     function validarTelefone(telefone: string) {
-        const celularRegex = /^\d{11}$/;
+        const celularRegex = /\+\d{13}/;
         if (!celularRegex.test(telefone)) {
             setValidarTelefoneCelular(true)
             return true
@@ -296,7 +296,7 @@ export const Perfil = () => {
                         : ""
                     }
                     {validaTelefoneCeleluar ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve ter 11 números.</Text>
+                        <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve conter o DDI, DDD e ao menos 9 números.</Text>
                         : ""
                     }
                     {validaTelefoneFixo ?

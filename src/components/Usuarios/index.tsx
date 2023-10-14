@@ -49,7 +49,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
             onChangeText('telefone1', value);
           }}
           value={form.telefone1}
-          placeholder="Ex.: 12999999999"
+          placeholder="Ex.: +551298648785142"
         />
         {/*  */}
         <Label titulo='Telefone de recado' requirido="" />
