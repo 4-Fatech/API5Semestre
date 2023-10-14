@@ -324,6 +324,7 @@ export const Perfil = () => {
                             color4={'#ff524a'}
                             color3={'#ff4627'}
                             corTexto2={'white'}
+                            perfil={1}
                         />
                     </ScrollView>
                 </>

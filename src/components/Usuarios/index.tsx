@@ -5,7 +5,9 @@ import { Input } from "../Common/Input/Input";
 import ImageInput from "../Common/ImageInput/ImageInput";
 import { CustomButton } from "../Common/Button";
 
-export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, title, title2, color, color2, color3, color4, corTexto, corTexto2 = '' }: any) => {
+
+
+export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, title, title2, color, color2, color3, color4, corTexto, corTexto2 = '', perfil = 0 }: any) => {
 
 
   return (
@@ -77,14 +79,16 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
           placeholder="Ex.: xxx.xxx.xxx-xx" />
 
         {/*  */}
-        <Label titulo='Senha' requirido='*' />
-        <Input
-          onChangeText={(value: any) => {
-            onChangeText('senha', value);
-          }}
-          password={true}
-          value={form.senha}
-          placeholder="Ex.: xxxxxxxx" />
+        {perfil !== 0 ? <>
+          <Label titulo='Senha' requirido='*' />
+          <Input
+            onChangeText={(value: any) => {
+              onChangeText('senha', value);
+            }}
+            password={true}
+            value={form.senha}
+            placeholder="Ex.: xxxxxxxx" />
+        </> : <></>}
 
         {/*  */}
         <Label titulo='Foto Usuário' requirido="" />
