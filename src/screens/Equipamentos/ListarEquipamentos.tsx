@@ -30,12 +30,6 @@ export const Home = ({ route, navigation }: any) => {
             }
         })
 
-    //         .then((resposta) => resposta.json())
-    //         .then((data) => {
-    //             setEquipamento(data)
-    //         });
-    // }
-
         .then((resposta) => {
             if (!resposta.ok) {
                 throw new Error('Erro na solicitação à API');
@@ -65,7 +59,7 @@ export const Home = ({ route, navigation }: any) => {
     const showAlert = (id: string) => {
         Alert.alert(
           'Ações',
-          'O que deseja fazer.',
+          'O que deseja fazer?',
           [
             {
               text: 'Editar',

@@ -3,9 +3,8 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { Label } from "../../components/Common/Label/Label";
 import MostrarImagem from "../../components/Common/ImageInput/MostrarImagem";
-import SelectOpcao from "../../components/Common/Select/SelectOpcao";
 import { ScrollView } from "react-native-gesture-handler";
-import { CustomButton } from "../../components/Common/Button";
+import { SwitchComponent } from "../../components/Common/Switch";
 
 export const DetalhesEquipamentos = ({ route, navigation }: any) => {
     const { id } = route.params
@@ -47,15 +46,6 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
     useEffect(() => {
         getEquipamento();
     }, []);
-
-    function desativar() {
-        console.log('desativou viu');
-
-    }
-    function ativar() {
-        console.log('ativou viu');
-
-    }
 
     return (
         <>
@@ -120,13 +110,12 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
                             <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}>{form.observacoes}</Text>
                         </View>
                     </View>
+                    
 
                 </View>
                 <View style={styles.ativarDesativar}>
-                    <CustomButton title="Desativar" corTexto="#000000" onPress={desativar} color='#FE2A2A' color2="#D90F0F" />
-                    <CustomButton title="Ativar" corTexto="#000000" onPress={ativar} color="#43FD82" color2="#2DCD63" />
-                </View>
-
+                            <SwitchComponent ativo={parseInt(form.status)} onChangeText={():any => ''} disable={true} key={form.status} />
+                        </View>
             </ScrollView>
         </>
     );
@@ -195,11 +184,11 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 15,
         marginTop: 8,
+        marginBottom: 15
     },
     ativarDesativar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        height: 50,
-        marginTop: 30,
+        marginTop: 10,
+        marginBottom: 30,
+        marginLeft: 50
     },
 });

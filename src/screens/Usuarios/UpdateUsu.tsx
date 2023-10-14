@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { UsuariosComponente } from "../../components/Usuarios";
 import { apiurl } from '../../Helpers/ApiUrl';
-import { CustomButton } from '../../components/Common/Button';
 import { Text, View, Alert } from 'react-native';
 
 
@@ -386,10 +385,11 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 title={'Alterar'}
                 title2={'Deletar'}
                 corTexto={'black'}
-                color={'#9ACD32'}
-                color2={'#94C021'}
-                color4={'#ff2d15'}
+                color={'#4682B4'}
+                color2={'#87CEFA'}
+                color4={'#ff524a'}
                 color3={'#ff4627'}
+                corTexto2={'white'}
 
             />
         </>

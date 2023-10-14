@@ -15,7 +15,7 @@ export default function DrawerNavigator() {
     <Drawer.Navigator>
       <Drawer.Screen name='Equipamentos ' component={StackNavigator} options={{ headerShown: false }} />
       <Drawer.Screen name='Usuários ' component={UsuarioStackNavigator} options={{ headerShown: false }} />
-      <Drawer.Screen name='Pefil ' component={UsuarioStackNavigatorPerfil} options={{ headerShown: false }} />
+      <Drawer.Screen name='Perfil ' component={UsuarioStackNavigatorPerfil} options={{ headerShown: false }} />
       <Drawer.Screen name='Sair' component={Logout} options={{ headerShown: false }} />
 
 

@@ -181,8 +181,8 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                 onPress3={loading ? null : showAlertEditar}
                 title3={'Alterar'}
                 corTexto={'black'}
-                color5={'#9ACD32'}
-                color6={'#94C021'}
+                color5={'#4682B4'}
+                color6={'#87CEFA'}
             />
         </>
     );
