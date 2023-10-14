@@ -11,8 +11,6 @@ export const PagCodigo = ({ route, navigation }: any) => {
     const [error, setError] = useState<null|string>(null);
 
     function enviar() {
-        console.log('isEmail', isEmail)
-        console.log(value)
         var vForm = isEmail ? { code: codigo, email: value } : { code: codigo, telefone1: value }
         console.log(vForm)
 

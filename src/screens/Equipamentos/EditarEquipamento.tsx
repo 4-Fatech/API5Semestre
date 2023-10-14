@@ -98,7 +98,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                         [
 
                             {
-                                text: 'OK', onPress: () => console.log('Equipamento alterado')
+                                text: 'OK', onPress: () => ''
                             },
                         ],
                         { cancelable: false }

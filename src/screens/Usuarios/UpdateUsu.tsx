@@ -237,7 +237,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                         [
 
                             {
-                                text: 'OK', onPress: () => console.log('Usuario alterado')
+                                text: 'OK', onPress: () => ''
                             },
                         ],
                         { cancelable: false }
@@ -281,7 +281,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                     [
 
                         {
-                            text: 'OK', onPress: () => console.log('Usuario deletado')
+                            text: 'OK', onPress: () => ''
                         },
                     ],
                     { cancelable: false }
@@ -303,7 +303,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
           [
             {
               text: 'NÃO',
-              onPress: () => console.log('Botão Cancelar Pressionado'),
+              onPress: () => '',
               style: 'cancel',
             },
             { text: 'SIM', onPress: () => updateUsuario() },
@@ -319,7 +319,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
           [
             {
               text: 'NÃO',
-              onPress: () => console.log('Botão Cancelar Pressionado'),
+              onPress: () => '',
               style: 'cancel',
             },
             { text: 'SIM', onPress: () => deletarUsuario() },
@@ -339,7 +339,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 : ""
             }
             {validaSenhaRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra Maiuscula, um caracter especial e numeros entre 0 e 9.</Text>
+                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra maiúscula, um caractere especial e números entre 0 e 9.</Text>
                 : ""
             }
             {validarEmailRegex ?

@@ -129,7 +129,7 @@ export const Equipamentos = ({ navigation }: any) => {
                         [
 
                             {
-                                text: 'OK', onPress: () => console.log('Equipamento cadastrado')
+                                text: 'OK', onPress: () => ''
                             },
                         ],
                         { cancelable: false }
@@ -155,7 +155,7 @@ export const Equipamentos = ({ navigation }: any) => {
           [
             {
               text: 'NÃO',
-              onPress: () => console.log('Botão Cancelar Pressionado'),
+              onPress: () => '',
               style: 'cancel',
             },
             { text: 'SIM', onPress: () => cadastrar() },

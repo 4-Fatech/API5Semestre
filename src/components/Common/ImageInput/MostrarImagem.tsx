@@ -15,8 +15,8 @@ export default function ImageInput({ form, onChange }: any) {
         contentContainerStyle={styles.scrollViewContent}
       >
         {form.foto &&
-          Array.isArray(form.foto) && form.foto.map((uri: string) =>
-            <View key={uri} style={[styles.imageContainer, styles.imageMargin]}>
+          Array.isArray(form.foto) && form.foto.map((uri: string, index:number) =>
+            <View key={index} style={[styles.imageContainer, styles.imageMargin]}>
               <Image
                 resizeMode="cover"
                 resizeMethod="scale"

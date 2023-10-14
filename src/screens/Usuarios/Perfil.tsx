@@ -12,7 +12,7 @@ import { apiurl } from "../../Helpers/ApiUrl";
 export const Perfil = () => {
     const [mostrarApenasTexto, setMostrarApenasTexto] = useState(false);
     const [loading, setLoading] = useState(false)
-    const { user} = useContext(GlobalContext)
+    const {user}:any = useContext(GlobalContext)
     const [form, onChangeForm] = React.useState({
         nome: "",
         sobrenome: "",
@@ -135,11 +135,9 @@ export const Perfil = () => {
         onChangeForm({ ...form, [name]: value });
     };
     const editar = () => {
-        console.log('aconteceualgoem');
         setMostrarApenasTexto(true);
     }
     const cancelar = () => {
-        console.log('aconteceualgoem');
         setMostrarApenasTexto(false);
     }
     const editarUsu = () => {
@@ -196,14 +194,14 @@ export const Perfil = () => {
                     var newForm = {
                         nome: data.nome,
                         sobrenome: data.sobrenome,
-                        email: data.email, 
+                        email: data.email,
                         telefone1: data.telefone1,
                         telefone2: data.telefone2,
                         matricula: data.matricula,
                         cpf: data.cpf,
                         foto: data.foto,
                         senha: data.senha,
-            
+
                     }
                     onChangeForm(newForm)
                     Alert.alert(
@@ -217,7 +215,7 @@ export const Perfil = () => {
                         ],
                         { cancelable: false }
                     );
-                    
+
 
                 }
             })
@@ -231,7 +229,7 @@ export const Perfil = () => {
             [
                 {
                     text: 'NÃO',
-                    onPress: () => console.log('Botão Cancelar Pressionado'),
+                    onPress: () => '',
                     style: 'cancel',
                 },
                 { text: 'SIM', onPress: () => editarUsu() },
@@ -241,8 +239,8 @@ export const Perfil = () => {
     };
 
     const showAlertCancelar = () => {
-        cancelar() 
-         
+        cancelar()
+
     };
 
     useEffect(() => {
@@ -260,7 +258,7 @@ export const Perfil = () => {
 
         }
         onChangeForm(newForm)
-       
+
     }, []);
     return (
         <>
@@ -275,7 +273,7 @@ export const Perfil = () => {
                         : ""
                     }
                     {validaSenhaRegex ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra Maiuscula, um caracter especial e numeros entre 0 e 9.</Text>
+                        <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra maiúscula, um caractere especial e números entre 0 e 9.</Text>
                         : ""
                     }
                     {validarEmailRegex ?
@@ -321,11 +319,11 @@ export const Perfil = () => {
                             title={'Alterar'}
                             title2={'Cancelar'}
                             corTexto={'black'}
-                            color={'#9ACD32'}
-                            color2={'#94C021'}
-                            color4={'#D9D9D9'}
-                            color3={'#AAAAAA'}
-
+                            color={'#4682B4'}
+                            color2={'#87CEFA'}
+                            color4={'#ff524a'}
+                            color3={'#ff4627'}
+                            corTexto2={'white'}
                         />
                     </ScrollView>
                 </>
@@ -380,7 +378,7 @@ export const Perfil = () => {
                     <View style={styles.alinhamentoCentro}>
                         <View style={styles.container}>
                             <Text style={{ marginBottom: 10 }}>
-                                <Label titulo="Matricula:" />
+                                <Label titulo="Matrícula:" />
                             </Text>
                             <View style={styles.campoSerial}>
                                 <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {user.matricula} </Text>
