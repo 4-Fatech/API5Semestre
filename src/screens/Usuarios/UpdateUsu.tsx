@@ -18,13 +18,9 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         matricula: "",
         cpf: "",
         foto: [],
-        senha: "",
-
     })
 
     const [valida, setValida] = useState(false)
-    const [validaSenha, setValidaSenha] = useState(false);
-    const [validaSenhaRegex, setValidaSenhaRegex] = useState(false)
     const [validarEmailRegex, setVlidarEmailRegex] = useState(false)
     const [validarTexto, setValidarTexto] = useState(false)
     const [validaTelefoneCeleluar, setValidarTelefoneCelular] = useState(false)
@@ -39,8 +35,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
 
     };
-    function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string, senha: string) {
-        if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf || !senha) {
+    function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string) {
+        if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf ) {
             setValida(true)
             return true
         }
@@ -79,24 +75,6 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         setValidarTelefoneFixo(false)
         return false
 
-    }
-
-    // function validarSenha(senha: string) {
-    //     if (senha.length <= 10 || senha.length >= 20) {
-    //         setValidaSenha(true);
-    //         return true
-    //     }
-    //     setValidaSenha(false)
-    //     return false
-    // }
-    function validarSenhaRegex(senha: string) {
-        const senhaRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/;
-        if (!senhaRegex.test(senha)) {
-            setValidaSenhaRegex(true);
-            return true
-        }
-        setValidaSenhaRegex(false)
-        return false
     }
     function validarEmail(email: string) {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -156,7 +134,6 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                         matricula: data.matricula || "",
                         cpf: data.cpf || "",
                         foto: data.foto || [],
-                        senha: data.senha || ""
                     });
 
                 }
@@ -174,7 +151,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
 
     function updateUsuario() {
-        if (validarVazio(form.nome, form.sobrenome, form.email, form.telefone1, form.matricula, form.cpf, form.senha)) {
+        if (validarVazio(form.nome, form.sobrenome, form.email, form.telefone1, form.matricula, form.cpf)) {
             return
         }
         if (validaTextoSemNmr(form.nome, form.sobrenome)) {
@@ -198,12 +175,6 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         if (validarCpfRegex(form.cpf)) {
             return
         }
-        // if (validarSenha(form.senha)) {
-        //     return
-        // }
-        // if (validarSenhaRegex(form.senha)) {
-        //     return
-        // }
 
         const url = apiurl + "/user/update/" + id;
         setLoading(true)
@@ -334,14 +305,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
                 : ""
             }
-            {validaSenha ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve ter entre 10 e 20 caracteres.</Text>
-                : ""
-            }
-            {validaSenhaRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra maiúscula, um caractere especial e números entre 0 e 9.</Text>
-                : ""
-            }
+            
             {validarEmailRegex ?
                 <View>
                     <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>

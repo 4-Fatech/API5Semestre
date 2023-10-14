@@ -78,15 +78,14 @@ export const Perfil = () => {
         return false
 
     }
-
-    // function validarSenha(senha: string) {
-    //     if (senha.length <= 10 || senha.length >= 20) {
-    //         setValidaSenha(true);
-    //         return true
-    //     }
-    //     setValidaSenha(false)
-    //     return false
-    // }
+    function validarSenha(senha: string) {
+        if (senha.length <= 10 || senha.length >= 20) {
+            setValidaSenha(true);
+            return true
+        }
+        setValidaSenha(false)
+        return false
+    }
     function validarSenhaRegex(senha: string) {
         const senhaRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/;
         if (!senhaRegex.test(senha)) {
@@ -163,6 +162,12 @@ export const Perfil = () => {
             return
         }
         if (validarCpfRegex(form.cpf)) {
+            return
+        }
+        if (validarSenha(form.senha)) {
+            return
+        }
+        if (validarSenhaRegex(form.senha)) {
             return
         }
         const url = apiurl + "/user/updatePerfil/" + user.id;
