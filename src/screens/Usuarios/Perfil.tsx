@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import MostrarImagem from "../../components/Common/ImageInput/MostrarImagem";
 import { Label } from "../../components/Common/Label/Label";
 import { ScrollView } from "react-native-gesture-handler";
 import { CustomButton } from "../../components/Common/Button";
 import { UsuariosComponente } from "../../components/Usuarios";
+import { GlobalContext } from "../../Context/GlobalProvider";
+import { apiurl } from "../../Helpers/ApiUrl";
 
 
 export const Perfil = () => {
     const [mostrarApenasTexto, setMostrarApenasTexto] = useState(false);
     const [loading, setLoading] = useState(false)
+    const { user} = useContext(GlobalContext)
     const [form, onChangeForm] = React.useState({
         nome: "",
         sobrenome: "",
@@ -22,6 +25,7 @@ export const Perfil = () => {
         senha: "",
 
     })
+
 
     const [valida, setValida] = useState(false)
     const [validaSenha, setValidaSenha] = useState(false);
@@ -163,7 +167,60 @@ export const Perfil = () => {
         if (validarCpfRegex(form.cpf)) {
             return
         }
-        console.log('editou em');
+        const url = apiurl + "/user/updatePerfil/" + user.id;
+        setLoading(true)
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify(form)
+
+        })
+            .then((resposta) => resposta.json())
+            .then((data) => {
+                if (data.error) {
+                    Alert.alert(
+                        'Alterar usuário',
+                        'Erro ao alterar usuário.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => setMostrarApenasTexto(false)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
+
+                } else {
+                    var newForm = {
+                        nome: data.nome,
+                        sobrenome: data.sobrenome,
+                        email: data.email, 
+                        telefone1: data.telefone1,
+                        telefone2: data.telefone2,
+                        matricula: data.matricula,
+                        cpf: data.cpf,
+                        foto: data.foto,
+                        senha: data.senha,
+            
+                    }
+                    onChangeForm(newForm)
+                    Alert.alert(
+                        'Alterar usuário',
+                        'Usuário alterado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => setMostrarApenasTexto(false)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
+                    
+
+                }
+            })
 
     }
 
@@ -184,20 +241,27 @@ export const Perfil = () => {
     };
 
     const showAlertCancelar = () => {
-        Alert.alert(
-            'Volter para a tela de perfil.',
-            'Deseja cancelar a alteração?',
-            [
-                {
-                    text: 'NÃO',
-                    onPress: () => console.log('Botão Cancelar Pressionado'),
-                    style: 'cancel',
-                },
-                { text: 'SIM', onPress: () => cancelar() },
-            ],
-            { cancelable: false }
-        );
+        cancelar() 
+         
     };
+
+    useEffect(() => {
+
+        var newForm = {
+            nome: user.nome,
+            sobrenome: user.sobrenome,
+            email: user.email,
+            telefone1: user.telefone1,
+            telefone2: user.telefone2,
+            matricula: user.matricula,
+            cpf: user.cpf,
+            foto: user.foto,
+            senha: user.senha,
+
+        }
+        onChangeForm(newForm)
+       
+    }, []);
     return (
         <>
             {mostrarApenasTexto ? (
@@ -278,7 +342,7 @@ export const Perfil = () => {
                     <View style={styles.alinhamentoCentro}>
                         <View style={styles.container1}>
                             <View style={styles.campoNomeSobrenome}>
-                                <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>Nome Sobrenome</Text>
+                                <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{user.nome + " " + user.sobrenome}</Text>
                             </View>
                         </View>
                     </View>
@@ -288,7 +352,7 @@ export const Perfil = () => {
                                 <Label titulo="E-mail:" />
                             </Text>
                             <View style={styles.campoSerial}>
-                                <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> email@email.com </Text>
+                                <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {user.email} </Text>
                             </View>
                         </View>
                     </View>
@@ -302,13 +366,13 @@ export const Perfil = () => {
                                     <Text>
                                         <Label titulo="Telefone Celular:" />
                                     </Text>
-                                    <Text style={styles.latitudeLongitude}> 12991999999 </Text>
+                                    <Text style={styles.latitudeLongitude}> {user.telefone1} </Text>
                                 </View>
                                 <View style={styles.container2}>
                                     <Text>
                                         <Label titulo="Telefone Fixo/recado:" />
                                     </Text>
-                                    <Text style={styles.latitudeLongitude}> 1266666666 </Text>
+                                    <Text style={styles.latitudeLongitude}> {user.telefone2} </Text>
                                 </View>
                             </View>
                         </ScrollView>
@@ -319,7 +383,7 @@ export const Perfil = () => {
                                 <Label titulo="Matricula:" />
                             </Text>
                             <View style={styles.campoSerial}>
-                                <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> 12341234 </Text>
+                                <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {user.matricula} </Text>
                             </View>
                         </View>
                     </View>
@@ -329,7 +393,7 @@ export const Perfil = () => {
                                 <Label titulo="Cpf:" />
                             </Text>
                             <View style={styles.campoSerial}>
-                                <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> 44444444444 </Text>
+                                <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {user.cpf} </Text>
                             </View>
                         </View>
                     </View>
