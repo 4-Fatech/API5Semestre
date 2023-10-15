@@ -26,8 +26,8 @@ Esta ferramenta desempenha um papel fundamental em processos de manutenção, no
 
 > Requisitos Funcionais
 
-- [ ] A solução só deve liberar o acesso ao restante do sistema após o usuário ser autenticado.
-- [ ] O processo de recuperação de senha deve exigir a confirmação de um código de seis 
+- [X] A solução só deve liberar o acesso ao restante do sistema após o usuário ser autenticado.
+- [X] O processo de recuperação de senha deve exigir a confirmação de um código de seis 
 dígitos que será enviado por SMS ou e-mail para que o usuário informe antes de modificar 
 a senha.
 - [X] Os dados de cadastro do usuário devem ser: NOME (texto, 50), SOBRENOME (texto, 50), 
@@ -36,7 +36,7 @@ EMAIL (texto, 120), TELEFONE (2longo, 15), MATRICULA (texto, 10), CPF (longo, 12
 - [X] A senha deve conter caracteres alfanuméricos sendo ao menos um deles maiúsculo, e um 
 minúsculo [A..Z – a..z], e deve conter números [0..9] e símbolos [ !@#$_ ].
 - [X] A senha deve ter comprimento mínimo de 10 caracteres e máximo de 20 caracteres.
-- [ ] A senha deve ser armazenada no banco de dados de forma criptografada, para evitar que 
+- [X] A senha deve ser armazenada no banco de dados de forma criptografada, para evitar que 
 em caso de vazamento de dados, o sistema não tenha o acesso comprometido.
 - [X] Os dados de um equipamento devem ser: TIPO (inteiro, 5, domínio: tipo equipamento), ID 
 (texto, 10), SERIAL (texto, 30), LATITUDE (duplo), LONGITUDE (duplo), OBSERVACOES 
@@ -72,15 +72,15 @@ pouca luminosidade (abrigados da luz solar, chuvoso ou em ambiente noturno).
 - [X] A aplicação móvel deve realizar a sincronia de dados, quando estiver online, em até 30 
 segundos, para garantir que as informações de cadastro representem os dados mais reais 
 possíveis da situação que ocorre em campo.
-- [ ] Os dados armazenados no dispositivo móvel devem ser protegidos de forma que caso o 
+- [X] Os dados armazenados no dispositivo móvel devem ser protegidos de forma que caso o 
 dispositivo seja perdido ou furtado, não seja possível acessar as informações sigilosas da 
 empresa (como por exemplo o cadastro de equipamentos).
-- [ ] Deve existir um controle de autenticação nas aplicações para que não sejam realizados 
+- [X] Deve existir um controle de autenticação nas aplicações para que não sejam realizados 
 acessos não autorizados.
-- [ ] As informações de usuários, clientes e dados de equipamentos devem ser anonimizadas e 
+- [X] As informações de usuários, clientes e dados de equipamentos devem ser anonimizadas e 
 só exibidas após usuário da aplicação estar autenticado.
 - [X] Todos os atributos cadastrais da aplicação devem passar por validação de dados.
-- [ ] Deve ser realizada uma sincronia com o banco de dados corporativo através de uma API 
+- [X] Deve ser realizada uma sincronia com o banco de dados corporativo através de uma API 
 que receberá os dados e o armazenará no banco de dados.
 - [ ] Quando os dados forem sincronizados, o banco de dados mobile deve ser limpo para que 
 sejam realizadas novas atividades de inspeção e cadastramento em campo.
@@ -90,7 +90,7 @@ equipamentos cadastrados no banco de dados.
  ## 📅 Cronograma das Sprints 
 
  - - [X] <a href="https://github.com/4-Fatech/API5Semestre/tree/sprint_1">**1° Sprint:**</a> 04/09/2023 a 24/09/2023<br>
- - - [ ] <a href="">**2° Sprint:**</a> 25/09/2023 a 15/10/2023
+ - - [X] <a href="https://github.com/4-Fatech/API5Semestre/tree/sprint_2">**2° Sprint:**</a> 25/09/2023 a 15/10/2023
  - - [ ] <a href="">**3° Sprint:**</a> 16/10/2023 a 05/11/2023
  - - [ ] <a href="">**4°Sprint:**</a> 06/11/2023 a 26/11/2023
  - - [ ] **Feira de Soluções:** 12/12/2023

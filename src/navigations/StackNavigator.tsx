@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from "../screens/Equipamentos/ListarEquipamentos";
 import { Equipamentos } from "../screens/Equipamentos/Equipamentos";
 import { EditarEquipamentos } from "../screens/Equipamentos/EditarEquipamento";
+import {DetalhesEquipamentos} from "../screens/Equipamentos/DetalhesEquipamentos";
 export default function StackNavigator  () {
     const Stack = createStackNavigator();
     return (
@@ -18,6 +19,10 @@ export default function StackNavigator  () {
               <Stack.Screen
                 name="Cadastro de Equipamento"
                 component={Equipamentos}
+              />
+              <Stack.Screen 
+              name="Detalhes Equipamento"
+              component={DetalhesEquipamentos}
               />
 
     </Stack.Navigator>

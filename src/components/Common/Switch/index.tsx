@@ -4,9 +4,10 @@ import { StyleSheet, Switch, Text, View } from "react-native";
 interface SwitchProps {
     ativo: number;
     onChangeText: (ativo: number) => void;
+    disable?:boolean
 }
 
-export const SwitchComponent: React.FC<SwitchProps> = ({ ativo, onChangeText }) => {
+export const SwitchComponent: React.FC<SwitchProps> = ({ ativo, onChangeText, disable = false }) => {
     const [isEnabled, setIsEnabled] = useState(ativo > 0);
 
     useEffect(() => {
@@ -22,10 +23,11 @@ export const SwitchComponent: React.FC<SwitchProps> = ({ ativo, onChangeText }) 
     return (
         <View style={styles.container}>
             <Switch
-                trackColor={{ false: '#616161', true: '#81b0ff' }}
-                thumbColor={isEnabled ? '#42A5F5' : '#424242'}
+                trackColor={{ false: '#616161', true: '#3c9bff' }}
+                thumbColor={isEnabled ? '#53a5ff' : '#424242'}
                 onValueChange={toggleSwitch}
                 value={isEnabled}
+                disabled={disable}
             />
             <Text style={styles.label}>{isEnabled ? 'Ativo' : 'Inativo'}</Text>
         </View>

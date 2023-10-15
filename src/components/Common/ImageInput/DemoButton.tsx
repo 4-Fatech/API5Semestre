@@ -14,7 +14,7 @@ export default function DemoButton({
       onPress={onPress}
       style={({pressed}) => [
         {
-          backgroundColor: pressed ? 'skyblue' : 'steelblue',
+          backgroundColor: pressed ? '#9ACD32' : '#94C021',
         },
         styles.container,
       ]}>
@@ -42,6 +42,6 @@ const styles = StyleSheet.create<Styles>({
   },
   text: {
     textAlign: 'center',
-    color: 'white',
+    color: 'black',
   },
 });

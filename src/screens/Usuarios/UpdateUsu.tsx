@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { UsuariosComponente } from "../../components/Usuarios";
 import { apiurl } from '../../Helpers/ApiUrl';
-import { CustomButton } from '../../components/Common/Button';
-import { Text, View } from 'react-native';
+import { Text, View, Alert } from 'react-native';
 
 
 
@@ -19,12 +18,9 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         matricula: "",
         cpf: "",
         foto: [],
-        senha: "",
-
     })
+
     const [valida, setValida] = useState(false)
-    const [validaSenha, setValidaSenha] = useState(false);
-    const [validaSenhaRegex, setValidaSenhaRegex] = useState(false)
     const [validarEmailRegex, setVlidarEmailRegex] = useState(false)
     const [validarTexto, setValidarTexto] = useState(false)
     const [validaTelefoneCeleluar, setValidarTelefoneCelular] = useState(false)
@@ -32,13 +28,15 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     const [validaMatricula, setValidarMatricula] = useState(false)
     const [validaMatriculaRegex, setValidarMatriculaRegex] = useState(false)
     const [validaCpfRegex, setValidarCpfRegex] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     const onChangeText = (name: string, value: string) => {
         onChangeForm({ ...form, [name]: value });
 
 
     };
-    function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string, senha: string) {
-        if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf || !senha) {
+    function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string) {
+        if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf ) {
             setValida(true)
             return true
         }
@@ -56,7 +54,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     }
 
     function validarTelefone(telefone: string) {
-        const celularRegex = /^\d{11}$/;
+        const celularRegex = /\+\d{13}/;
         if (!celularRegex.test(telefone)) {
             setValidarTelefoneCelular(true)
             return true
@@ -77,24 +75,6 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         setValidarTelefoneFixo(false)
         return false
 
-    }
-
-    function validarSenha(senha: string) {
-        if (senha.length <= 10 || senha.length >= 20) {
-            setValidaSenha(true);
-            return true
-        }
-        setValidaSenha(false)
-        return false
-    }
-    function validarSenhaRegex(senha: string) {
-        const senhaRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/;
-        if (!senhaRegex.test(senha)) {
-            setValidaSenhaRegex(true);
-            return true
-        }
-        setValidaSenhaRegex(false)
-        return false
     }
     function validarEmail(email: string) {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -154,11 +134,11 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                         matricula: data.matricula || "",
                         cpf: data.cpf || "",
                         foto: data.foto || [],
-                        senha: data.senha || ""
                     });
 
                 }
-            });
+            })
+
 
 
     }
@@ -171,7 +151,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
 
     function updateUsuario() {
-        if (validarVazio(form.nome, form.sobrenome, form.email, form.telefone1, form.matricula, form.cpf, form.senha)) {
+        if (validarVazio(form.nome, form.sobrenome, form.email, form.telefone1, form.matricula, form.cpf)) {
             return
         }
         if (validaTextoSemNmr(form.nome, form.sobrenome)) {
@@ -195,14 +175,9 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         if (validarCpfRegex(form.cpf)) {
             return
         }
-        if (validarSenha(form.senha)) {
-            return
-        }
-        if (validarSenhaRegex(form.senha)) {
-            return
-        }
 
         const url = apiurl + "/user/update/" + id;
+        setLoading(true)
         fetch(url, {
             method: 'PATCH',
             headers: {
@@ -214,18 +189,41 @@ export const UpdateUsu = ({ route, navigation }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data.error) {
-                    console.log("Erro");
+                    Alert.alert(
+                        'Alterar usuário',
+                        'Erro ao alterar usuário.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log(data.error)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
 
                 } else {
-                    console.log("Usuário alterado");
+                    Alert.alert(
+                        'Alterar usuário',
+                        'Usuário alterado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => ''
+                            },
+                        ],
+                        { cancelable: false }
+                    );
                     navigation.navigate("Usuários", { userAlterado: true });
 
                 }
-            })
+            }).finally(() => {
+                setLoading(false)
+            });
     }
 
     function deletarUsuario() {
         let url = apiurl + "/user/delete"
+        setLoading(true)
         fetch(url, {
             method: 'DELETE',
             headers: {
@@ -235,17 +233,71 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         }).then((resp) => resp.json()).then((data) => {
 
             if (data.error) {
-                console.log("Erro");
+                Alert.alert(
+                    'Deletar usuário',
+                    'Erro ao deletar usuário.',
+                    [
+
+                        {
+                            text: 'OK', onPress: () => console.log(data.error)
+                        },
+                    ],
+                    { cancelable: false }
+                );
 
             } else {
-                console.log('Usuário deletado');
+                Alert.alert(
+                    'Deletar usuário',
+                    'Usuário deletado com sucesso.',
+                    [
+
+                        {
+                            text: 'OK', onPress: () => ''
+                        },
+                    ],
+                    { cancelable: false }
+                );
                 navigation.navigate("Usuários", { userDeletado: true });
 
 
             }
 
+        }).finally(() => {
+            setLoading(false)
         })
     }
+
+    const showAlertUpdate = () => {
+        Alert.alert(
+          'Alterar usuário',
+          'Deseja alterar este usuário?',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => '',
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => updateUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
+      
+    const showAlertDelete = () => {
+        Alert.alert(
+          'Deletar usuário',
+          'Deseja deletar este usuário?',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => '',
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => deletarUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
 
     return (
         <>
@@ -253,14 +305,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
                 : ""
             }
-            {validaSenha ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve ter entre 10 e 20 caracteres.</Text>
-                : ""
-            }
-            {validaSenhaRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra Maiuscula, um caracter especial e numeros entre 0 e 9.</Text>
-                : ""
-            }
+            
             {validarEmailRegex ?
                 <View>
                     <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
@@ -276,7 +321,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 : ""
             }
             {validaTelefoneCeleluar ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve ter 11 números.</Text>
+                <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve conter o DDI, DDD e ao menos 9 números.</Text>
                 : ""
             }
             {validaTelefoneFixo ?
@@ -295,19 +340,20 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
                 : ""
             }
-          
+
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
-                onPress={updateUsuario}
-                onpress2={deletarUsuario}
+                onPress={loading ? null : showAlertUpdate}
+                onpress2={loading ? null : showAlertDelete}
                 title={'Alterar'}
                 title2={'Deletar'}
                 corTexto={'black'}
-                color={'#00FF56'}
-                color2={'#5FFD94'}
-                color4={'#FE6565'}
-                color3={'#FF4848'}
+                color={'#4682B4'}
+                color2={'#87CEFA'}
+                color4={'#ff524a'}
+                color3={'#ff4627'}
+                corTexto2={'white'}
 
             />
         </>

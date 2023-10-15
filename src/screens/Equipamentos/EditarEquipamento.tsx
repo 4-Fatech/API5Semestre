@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 
 export const EditarEquipamentos = ({ route, navigation }: any) => {
@@ -24,6 +24,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     const [validaVazio, setValidaVazio] = useState(false)
     const [validaTipo, setValidaTipo] = useState(false) //sem nmr
     const [validaLatLong, setValidaLatLong] = useState(false) //sem letra
+    const [loading, setLoading] = useState(false)
 
     function validarVazio(serial: string, latitude: string, longitude: string, observacoes: string, tipo: string, modelo: string) {
         if (!serial || !latitude || !longitude || !tipo || !modelo) {
@@ -66,6 +67,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
         }
 
         const url = apiurl + "/equipment/update";
+        setLoading(true)
         fetch(url, {
             method: 'PATCH',
             headers: {
@@ -77,13 +79,36 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data.error) {
-                    console.log("Erro", data.error);
+                    Alert.alert(
+                        'Alterar equipamento',
+                        'Erro ao alterar equipamento.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log(data.error)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
 
                 } else {
-                    console.log("Equipamento atualizado");
+                    Alert.alert(
+                        'Alterar equipamento',
+                        'Equipamento alterado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => ''
+                            },
+                        ],
+                        { cancelable: false }
+                    );
                     navigation.navigate("Equipamentos", { equipAlterada: true });
 
                 }
+            })
+            .finally(() => {
+                setLoading(false)
             })
 
     }
@@ -109,7 +134,27 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     }
 
 
+    const showAlertEditar = () => {
+        Alert.alert(
+            'Editar equipamento',
+            'Deseja editar este equipamento?',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => update() },
+            ],
+            {
+                cancelable: false,
+                
+            }
 
+
+
+        );
+    };
     useEffect(() => {
         getEquipamento();
     }, []);
@@ -133,11 +178,11 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress3={update}
+                onPress3={loading ? null : showAlertEditar}
                 title3={'Alterar'}
                 corTexto={'black'}
-                color5={'#00FF56'}
-                color6={'#5FFD94'}
+                color5={'#4682B4'}
+                color6={'#87CEFA'}
             />
         </>
     );

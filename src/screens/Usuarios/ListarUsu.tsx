@@ -15,6 +15,7 @@ interface Usuario {
 export const ListarUsu = ({ route, navigation }: any) => {
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
     const [searchText, setSearchText] = useState<string>(''); 
+  
 
     const { userAlterado, userDeletado, userCadastrado } = route.params || {};
 
@@ -42,6 +43,8 @@ export const ListarUsu = ({ route, navigation }: any) => {
             });
     }
 
+    
+
     useEffect(() => {
         getUsuarios();
         if (userAlterado || userDeletado || userCadastrado) {
@@ -50,7 +53,8 @@ export const ListarUsu = ({ route, navigation }: any) => {
     }, [userAlterado, userCadastrado, userDeletado]);
 
     const filteredUsuarios = usuarios.filter((usuario) => {
-        return usuario.nome.toLowerCase().includes(searchText.toLowerCase());
+        // return usuario.nome.toLowerCase().includes(searchText.toLowerCase());
+        return usuario.nome && usuario.nome.toLowerCase().includes(searchText.toLowerCase());
     });
 
     return (
@@ -77,7 +81,7 @@ export const ListarUsu = ({ route, navigation }: any) => {
                 </View>
                 <View style={styles.algumacoisa}>
                     <View style={styles.centeredView}> 
-                       <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Usuários")} color={"#00FF56"} color2={'#5FFD94'} />
+                       <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Usuários")} color={'#9ACD32'} color2={'#94C021'} />
                     </View>
                 </View>            
                 </ScrollView>

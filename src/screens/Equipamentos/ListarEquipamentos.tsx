@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View, TextInput} from "react-native";
+import { ScrollView, StyleSheet, Text, View, TextInput, Alert} from "react-native";
 import Card from "../../components/Common/Card";
 import { CustomButton } from "../../components/Common/Button";
 import { apiurl } from "../../Helpers/ApiUrl";
@@ -29,12 +29,22 @@ export const Home = ({ route, navigation }: any) => {
                 'Content-Type': 'application/json;charset=utf-8'
             }
         })
-            .then((resposta) => resposta.json())
-            .then((data) => {
-                setEquipamento(data)
-            });
-    }
 
+        .then((resposta) => {
+            if (!resposta.ok) {
+                throw new Error('Erro na solicitação à API');
+            }
+            return resposta.json();
+        })
+        .then((data) => {
+            setEquipamento(data)
+        })
+        .catch((error) => {
+            console.error(error);
+
+        });
+    }
+ 
     useEffect(() => {
         getEquipamentos();
         if (equipAlterada || equipCadastrada) {
@@ -42,9 +52,25 @@ export const Home = ({ route, navigation }: any) => {
         }
     }, [equipAlterada, equipCadastrada]);
 
-    const handleCardPress = (id: string) => {
-        navigation.navigate("Atualizar Equipamento", { id });
-    };
+    // const handleCardPress = (id: string) => {
+    //     navigation.navigate("Atualizar Equipamento", { id });
+    // };
+
+    const showAlert = (id: string) => {
+        Alert.alert(
+          'Ações',
+          'O que deseja fazer?',
+          [
+            {
+              text: 'Editar',
+              onPress: () =>   navigation.navigate("Atualizar Equipamento", { id }),
+              style: 'cancel',
+            },
+            { text: 'Visualizar', onPress: () => navigation.navigate("Detalhes Equipamento", { id }) },
+          ],
+          { cancelable: false }
+        );
+      };
     const filteredEquipamento = equipamento.filter((equipamento) => {
         return equipamento.tipo.toLowerCase().includes(searchText.toLowerCase());
     });
@@ -67,13 +93,13 @@ export const Home = ({ route, navigation }: any) => {
                             id={e.id}
                             image={e.foto}
                             ativo={e.status}
-                            onCardPress={handleCardPress}>
+                            onCardPress={showAlert}>
                         </Card>
                     )}
                 </View>
                 <View style={styles.algumacoisa}>
                     <View style={styles.centeredView}>
-                        <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={"#00FF56"} color2={'#5FFD94'} />
+                        <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={'#9ACD32'} color2={'#94C021'} />
                     </View>
                 </View>
             </ScrollView>

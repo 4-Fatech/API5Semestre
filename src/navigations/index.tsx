@@ -1,7 +1,17 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import DrawerNavigation from './DrawerNavigator';
+import LoginStackNavigator from './LoginStackNavigator';
+import { GlobalContext } from '../Context/GlobalProvider';
 export default function AppNavConatiner(){
-
-    return (<DrawerNavigation />)
+const {isLoggedIn} = useContext(GlobalContext)
+    return (
+        <>
+     
+    {isLoggedIn?<DrawerNavigation />: <LoginStackNavigator/>
+    }
+       </>
+    
+    
+    )
 }

@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { UsuariosComponente } from "../../components/Usuarios";
-import { Text, View } from 'react-native';
+import { Text, View, Alert } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { validador } from "../../utils/validador";
 
@@ -29,6 +29,8 @@ export const Usuarios = ({ navigation }: any) => {
     const [validaMatricula, setValidarMatricula] = useState(false)
     const [validaMatriculaRegex, setValidarMatriculaRegex] = useState(false)
     const [validaCpfRegex, setValidarCpfRegex] = useState(false)
+    const [loading, setLoading] = useState(false);
+
     const onChangeText = (name: string, value: string) => {
         onChangeForm({ ...form, [name]: value });
 
@@ -164,6 +166,7 @@ export const Usuarios = ({ navigation }: any) => {
 
 
         const url = apiurl + "/user/create";
+        setLoading(true)
         fetch(url, {
             method: 'POST',
             headers: {
@@ -175,20 +178,60 @@ export const Usuarios = ({ navigation }: any) => {
             .then((resposta) => resposta.json())
             .then((data) => {
                 if (data.error) {
-                    console.log("Erro");
+                    Alert.alert(
+                        'Cadastrar usuário',
+                        'Erro ao cadastrar usuário.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log(data.error)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
 
                 } else {
-                    console.log("Usuário cadastrado");
+                    Alert.alert(
+                        'Cadastrar usuário',
+                        'Usuário cadastrado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => ''
+                            },
+                        ],
+                        { cancelable: false }
+                    );
                     navigation.navigate("Usuários", { userCadastrado: true });
 
                 }
             })
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
-function cancelar(){
-    navigation.navigate("Usuários");
+    function cancelar() {
+        navigation.navigate("Usuários");
 
-}
+    }
+
+    const showAlertCadastrar = () => {
+        Alert.alert(
+          'Cadastrar usuário',
+          'Deseja cadastrar este usuário?',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => '',
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => cadastrarUsuario() },
+          ],
+          { cancelable: false }
+        );
+      };
+
 
     return (
         <>
@@ -201,7 +244,7 @@ function cancelar(){
                 : ""
             }
             {validaSenhaRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra Maiuscula, um caracter especial e numeros entre 0 e 9.</Text>
+                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra maiúscula, um caractere especial e números entre 0 e 9.</Text>
                 : ""
             }
             {validarEmailRegex ?
@@ -241,16 +284,15 @@ function cancelar(){
             <UsuariosComponente
                 form={form}
                 onChangeText={onChangeText}
-                onPress={cadastrarUsuario}
+                onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}
                 corTexto={'black'}
-                color={'#00FF56'}
-                color2={'#5FFD94'}
-                color4={'#E4E3E3'}
-                color3={'#D9D9D9'}
-
+                color={'#9ACD32'}
+                color2={'#94C021'}
+                color4={'#ff2d15'}
+                color3={'#ff4627'}
             />
         </>
 

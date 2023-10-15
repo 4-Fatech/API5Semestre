@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
+import Local from '@react-native-community/geolocation'
 
 export const Equipamentos = ({ navigation }: any) => {
     const [form, onChangeForm] = React.useState({
@@ -18,11 +19,43 @@ export const Equipamentos = ({ navigation }: any) => {
     const [validaVazio, setValidaVazio] = useState(false)
     const [validaTipo, setValidaTipo] = useState(false) //sem nmr
     const [validaLatLong, setValidaLatLong] = useState(false) //sem letra
+    const [latitude, setLatitude] = useState('')
+    const [longitude, setLongitude] = useState('')
+    const [loading, setLoading] = useState(false)
+
 
     const onChangeText = (name: any, value: any) => {
         onChangeForm({ ...form, [name]: value });
 
     };
+
+    function getLocalizacaoAtual() {
+
+        Local.getCurrentPosition(
+
+            (posicao) => {
+                setLatitude(posicao.coords.latitude.toString())
+                setLongitude(posicao.coords.longitude.toString())
+            },
+            (erro) => {
+                console.log(erro.message);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 2000,
+                maximumAge: 1000
+            }
+
+        )
+        onChangeForm({
+            ...form,
+            latitude: latitude,
+            longitude: longitude
+        });
+        console.log(latitude, longitude);
+
+    }
+
 
     function validarVazio(serial: string, latitude: string, longitude: string, observacoes: string, tipo: string, modelo: string) {
         if (!serial || !latitude || !longitude || !tipo || !modelo) {
@@ -65,6 +98,7 @@ export const Equipamentos = ({ navigation }: any) => {
         }
 
         const url = apiurl + "/equipment/create";
+        setLoading(true)
         fetch(url, {
             method: 'POST',
             headers: {
@@ -74,14 +108,37 @@ export const Equipamentos = ({ navigation }: any) => {
 
         })
             .then((resposta) => resposta.json())
-            .then((data:any) => {
+            .then((data: any) => {
                 if (data.error) {
-                    console.log("Erro");
+                    Alert.alert(
+                        'Cadastrar equipamento',
+                        'Erro ao cadastrar equipamento.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => console.log(data.error)
+                            },
+                        ],
+                        { cancelable: false }
+                    );
 
                 } else {
-                    console.log("Equipamento cadastrado");
+                    Alert.alert(
+                        'Cadastrar equipamento',
+                        'Equipamento cadastrado com sucesso.',
+                        [
+
+                            {
+                                text: 'OK', onPress: () => ''
+                            },
+                        ],
+                        { cancelable: false }
+                    );
                     navigation.navigate("Equipamentos", { equipCadastrada: true });
                 }
+            })
+            .finally(() => {
+                setLoading(false)
             })
 
     }
@@ -90,6 +147,30 @@ export const Equipamentos = ({ navigation }: any) => {
         navigation.navigate("Equipamentos");
 
     }
+
+    const showAlertCadastrar = () => {
+        Alert.alert(
+          'Cadastrar equipamento',
+          'Deseja cadastrar este equipamento?',
+          [
+            {
+              text: 'NÃO',
+              onPress: () => '',
+              style: 'cancel',
+            },
+            { text: 'SIM', onPress: () => cadastrar() },
+          ],
+          { cancelable: false }
+        );
+      };
+
+
+    useEffect(() => {
+        getLocalizacaoAtual()
+    }, [longitude, latitude])
+
+
+
 
     return (
         <>
@@ -108,15 +189,15 @@ export const Equipamentos = ({ navigation }: any) => {
             <CadastrarEquipamento
                 form={form}
                 onChangeText={onChangeText}
-                onPress={cadastrar}
+                onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
                 title={'Cadastrar'}
                 corTexto={'black'}
-                color={'#00FF56'}
-                color2={'#5FFD94'}
-                color4={'#E4E3E3'}
-                color3={'#D9D9D9'}
+                color={'#9ACD32'}
+                color2={'#94C021'}
+                color4={'#ff2d15'}
+                color3={'#ff4627'}
 
             />
         </>
