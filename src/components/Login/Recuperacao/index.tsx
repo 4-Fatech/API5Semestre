@@ -25,7 +25,7 @@ export const RecuperarSenha = ({ navigation }: any) => {
     function enviarCod() {
         var url = isCheckedEmail ? "/notEmail" : "/notSms"
         var value = isCheckedEmail ? { email: email } : { telefone1: email }
-
+console.log(1)
         fetch(apiurl + "/user" + url, {
             method: 'PUT',
             headers: {
@@ -35,9 +35,14 @@ export const RecuperarSenha = ({ navigation }: any) => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
+                
                 if (data.error) {
+                    if(typeof data.error == "object"){
+                        setError("Error ao enviar código.")
+                    }else{
                     setError(data.error)
-                    console.log(data)
+                    }
+                   
 
                 } else {
                     setError(null)
