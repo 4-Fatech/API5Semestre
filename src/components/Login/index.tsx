@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, ActivityIndicator } from "react-native";
 import { Label } from "../Common/Label/Label";
 import { Input } from "../Common/Input/Input";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -13,11 +13,12 @@ export const Login = ({ navigation }: any) => {
     const [senha, setSenha] = useState('')
     const [error, setError] = useState(false)
     const { isLoggedIn, setLogIn, setUser }: any = useContext(GlobalContext)
+    const [loading, setLoading] = useState(false)
 
     function logar() {
         const url = apiurl + "/login/login";
 
-
+        setLoading(true)
         fetch(url, {
             method: 'POST',
             headers: {
@@ -37,6 +38,7 @@ export const Login = ({ navigation }: any) => {
                 }
                 console.log(data)
             })
+            .finally(() => setLoading(false))
 
     }
     return (
@@ -73,7 +75,12 @@ export const Login = ({ navigation }: any) => {
                     </View> : <></>
                 }
                 <View style={styles.button}>
-                    <CustomButton color='#5f781f' color2="#94C021" corTexto="white" title="Entrar" onPress={logar} />
+                    <CustomButton
+                        color='#5f781f'
+                        color2="#94C021"
+                        corTexto="white"
+                        title={loading ? <ActivityIndicator color={'white'} /> : "Entrar"}
+                        onPress={loading ? null : logar} />
                 </View>
             </View>
         </ScrollView >

@@ -5,6 +5,7 @@ import { Label } from "../../components/Common/Label/Label";
 import MostrarImagem from "../../components/Common/ImageInput/MostrarImagem";
 import { ScrollView } from "react-native-gesture-handler";
 import { SwitchComponent } from "../../components/Common/Switch";
+import LoadingComponent from "../../components/Common/Loading/Loading";
 
 export const DetalhesEquipamentos = ({ route, navigation }: any) => {
     const { id } = route.params
@@ -19,10 +20,13 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
         modelo: "",
         id: ""
     })
+    const [loading, setLoading] = useState(false)
 
     function getEquipamento() {
         const url = apiurl + '/equipment/get/' + id;
 
+
+        setLoading(true)
         fetch(url, {
             method: 'GET',
             headers: {
@@ -38,7 +42,8 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
                         id: id
                     });
                 }
-            });
+            })
+            .finally(() => setLoading(false))
     }
 
 
@@ -49,74 +54,80 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
 
     return (
         <>
-            <ScrollView>
-                <View style={styles.alinhamentoCentro}>
-                    <ScrollView style={styles.imagens}>
-                        <Label titulo='Imagens do equipamento' />
-                        <MostrarImagem
-                            form={form}
-                        />
-                    </ScrollView>
+            {loading ?
+                <LoadingComponent />
+                :
+                <>
+                    <ScrollView>
+                        <View style={styles.alinhamentoCentro}>
+                            <ScrollView style={styles.imagens}>
+                                <Label titulo='Imagens do equipamento' />
+                                <MostrarImagem
+                                    form={form}
+                                />
+                            </ScrollView>
 
-                </View>
-                <View style={styles.alinhamentoCentro}>
-                    <View style={styles.container1}>
-                        <View style={styles.campoTipoSerie}>
-                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.tipo}</Text>
                         </View>
-                        <View style={styles.campoTipoSerie}>
-                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.modelo}</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.alinhamentoCentro}>
-                    <View style={styles.container}>
-                        <View>
-                            <Text style={{ color: '#000000', lineHeight: 28, }}>Nº de série </Text>
-                        </View>
-                        <View style={styles.campoSerial}>
-                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {form.serial} </Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.alinhamentoCentro}>
-                    <ScrollView
-                        horizontal={true}
-                        contentContainerStyle={styles.scrollViewContent}
-                    >
-                        <View style={styles.containerLatitude}>
-                            <View style={styles.container2}>
-                                <Text>
-                                    <Label titulo="Latitude" />
-                                </Text>
-                                <Text style={styles.latitudeLongitude}> {form.latitude} </Text>
-                            </View>
-                            <View style={styles.container2}>
-                                <Text>
-                                    <Label titulo="Longitude" />
-                                </Text>
-                                <Text style={styles.latitudeLongitude}> {form.longitude} </Text>
+                        <View style={styles.alinhamentoCentro}>
+                            <View style={styles.container1}>
+                                <View style={styles.campoTipoSerie}>
+                                    <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.tipo}</Text>
+                                </View>
+                                <View style={styles.campoTipoSerie}>
+                                    <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.modelo}</Text>
+                                </View>
                             </View>
                         </View>
+                        <View style={styles.alinhamentoCentro}>
+                            <View style={styles.container}>
+                                <View>
+                                    <Text style={{ color: '#000000', lineHeight: 28, }}>Nº de série </Text>
+                                </View>
+                                <View style={styles.campoSerial}>
+                                    <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {form.serial} </Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.alinhamentoCentro}>
+                            <ScrollView
+                                horizontal={true}
+                                contentContainerStyle={styles.scrollViewContent}
+                            >
+                                <View style={styles.containerLatitude}>
+                                    <View style={styles.container2}>
+                                        <Text>
+                                            <Label titulo="Latitude" />
+                                        </Text>
+                                        <Text style={styles.latitudeLongitude}> {form.latitude} </Text>
+                                    </View>
+                                    <View style={styles.container2}>
+                                        <Text>
+                                            <Label titulo="Longitude" />
+                                        </Text>
+                                        <Text style={styles.latitudeLongitude}> {form.longitude} </Text>
+                                    </View>
+                                </View>
+                            </ScrollView>
+                        </View>
+                        <View style={styles.alinhamentoCentro}>
+
+                            <View style={styles.container}>
+                                <Text>
+                                    <Label titulo="Observações" />
+                                </Text>
+                                <View style={styles.campoObservacao}>
+                                    <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}>{form.observacoes}</Text>
+                                </View>
+                            </View>
+
+
+                        </View>
+                        <View style={styles.ativarDesativar}>
+                            <SwitchComponent ativo={parseInt(form.status)} onChangeText={(): any => ''} disable={true} key={form.status} />
+                        </View>
                     </ScrollView>
-                </View>
-                <View style={styles.alinhamentoCentro}>
-
-                    <View style={styles.container}>
-                        <Text>
-                            <Label titulo="Observações" />
-                        </Text>
-                        <View style={styles.campoObservacao}>
-                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}>{form.observacoes}</Text>
-                        </View>
-                    </View>
-                    
-
-                </View>
-                <View style={styles.ativarDesativar}>
-                            <SwitchComponent ativo={parseInt(form.status)} onChangeText={():any => ''} disable={true} key={form.status} />
-                        </View>
-            </ScrollView>
+                </>
+            }
         </>
     );
 };

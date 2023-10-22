@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { UsuariosComponente } from "../../components/Usuarios";
 import { apiurl } from '../../Helpers/ApiUrl';
-import { Text, View, Alert } from 'react-native';
+import { Text, View, Alert, ActivityIndicator } from 'react-native';
+import LoadingComponent from '../../components/Common/Loading/Loading';
 
 
 
@@ -29,6 +30,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     const [validaMatriculaRegex, setValidarMatriculaRegex] = useState(false)
     const [validaCpfRegex, setValidarCpfRegex] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loadingButton, setLoadingButton] = useState(false)
+    const [loadingButtonDelete, setLoadingButtonDelete] = useState(false)
 
     const onChangeText = (name: string, value: string) => {
         onChangeForm({ ...form, [name]: value });
@@ -36,7 +39,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
     };
     function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string) {
-        if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf ) {
+        if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf) {
             setValida(true)
             return true
         }
@@ -115,6 +118,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
     function getUsuario() {
         const url = apiurl + '/user/list/' + id;
+
+        setLoading(true)
         fetch(url, {
             method: 'GET',
             headers: {
@@ -138,6 +143,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
                 }
             })
+            .finally(() => setLoading(false))
 
 
 
@@ -177,7 +183,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         }
 
         const url = apiurl + "/user/update/" + id;
-        setLoading(true)
+        setLoadingButton(true)
         fetch(url, {
             method: 'PATCH',
             headers: {
@@ -217,13 +223,13 @@ export const UpdateUsu = ({ route, navigation }: any) => {
 
                 }
             }).finally(() => {
-                setLoading(false)
+                setLoadingButton(false)
             });
     }
 
     function deletarUsuario() {
         let url = apiurl + "/user/delete"
-        setLoading(true)
+        setLoadingButtonDelete(true)
         fetch(url, {
             method: 'DELETE',
             headers: {
@@ -263,99 +269,106 @@ export const UpdateUsu = ({ route, navigation }: any) => {
             }
 
         }).finally(() => {
-            setLoading(false)
+            setLoadingButtonDelete(false)
         })
     }
 
     const showAlertUpdate = () => {
         Alert.alert(
-          'Alterar usuário',
-          'Deseja alterar este usuário?',
-          [
-            {
-              text: 'NÃO',
-              onPress: () => '',
-              style: 'cancel',
-            },
-            { text: 'SIM', onPress: () => updateUsuario() },
-          ],
-          { cancelable: false }
+            'Alterar usuário',
+            'Deseja alterar este usuário?',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => '',
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => updateUsuario() },
+            ],
+            { cancelable: false }
         );
-      };
-      
+    };
+
     const showAlertDelete = () => {
         Alert.alert(
-          'Deletar usuário',
-          'Deseja deletar este usuário?',
-          [
-            {
-              text: 'NÃO',
-              onPress: () => '',
-              style: 'cancel',
-            },
-            { text: 'SIM', onPress: () => deletarUsuario() },
-          ],
-          { cancelable: false }
+            'Deletar usuário',
+            'Deseja deletar este usuário?',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => '',
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => deletarUsuario() },
+            ],
+            { cancelable: false }
         );
-      };
+    };
 
     return (
         <>
-            {valida ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
-                : ""
-            }
-            
-            {validarEmailRegex ?
-                <View>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
-                </View>
-                : ""
-            }
-            {validarTexto ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
-                : ""
-            }
-            {validaTelefoneCeleluar ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve conter o DDI, DDD e ao menos 9 números.</Text>
-                : ""
-            }
-            {validaTelefoneFixo ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
-                : ""
-            }
-            {validaMatricula ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
-                : ""
-            }
-            {validaMatriculaRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
-                : ""
-            }
-            {validaCpfRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
-                : ""
-            }
+            {loading
+                ?
+                <LoadingComponent />
+                :
+                <>
+                    {valida ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
+                        : ""
+                    }
 
-            <UsuariosComponente
-                form={form}
-                onChangeText={onChangeText}
-                onPress={loading ? null : showAlertUpdate}
-                onpress2={loading ? null : showAlertDelete}
-                title={'Alterar'}
-                title2={'Deletar'}
-                corTexto={'black'}
-                color={'#4682B4'}
-                color2={'#87CEFA'}
-                color4={'#ff524a'}
-                color3={'#ff4627'}
-                corTexto2={'white'}
+                    {validarEmailRegex ?
+                        <View>
+                            <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
+                            <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
+                            <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
+                            <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
+                            <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
+                        </View>
+                        : ""
+                    }
+                    {validarTexto ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
+                        : ""
+                    }
+                    {validaTelefoneCeleluar ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve conter o DDI, DDD e ao menos 9 números.</Text>
+                        : ""
+                    }
+                    {validaTelefoneFixo ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
+                        : ""
+                    }
+                    {validaMatricula ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
+                        : ""
+                    }
+                    {validaMatriculaRegex ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
+                        : ""
+                    }
+                    {validaCpfRegex ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
+                        : ""
+                    }
 
-            />
+                    <UsuariosComponente
+                        form={form}
+                        onChangeText={onChangeText}
+                        onPress={loadingButton ? null : showAlertUpdate}
+                        onpress2={loadingButton ? null : showAlertDelete}
+                        title={loadingButton ? <ActivityIndicator color={'white'} /> : 'Alterar'}
+                        title2={loadingButtonDelete ? <ActivityIndicator color={'white'} /> : 'Deletar'}
+                        corTexto={'black'}
+                        color={'#4682B4'}
+                        color2={'#87CEFA'}
+                        color4={'#ff524a'}
+                        color3={'#ff4627'}
+                        corTexto2={'white'}
+
+                    />
+                </>
+            }
         </>
 
     );

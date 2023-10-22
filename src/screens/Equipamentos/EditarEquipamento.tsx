@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text, Alert } from 'react-native';
+import { Text, Alert, ActivityIndicator } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
+import LoadingComponent from "../../components/Common/Loading/Loading";
 
 export const EditarEquipamentos = ({ route, navigation }: any) => {
     const { id } = route.params
@@ -25,6 +26,8 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
     const [validaTipo, setValidaTipo] = useState(false) //sem nmr
     const [validaLatLong, setValidaLatLong] = useState(false) //sem letra
     const [loading, setLoading] = useState(false)
+    const [loadingButton, setLoadingButton] = useState(false)
+
 
     function validarVazio(serial: string, latitude: string, longitude: string, observacoes: string, tipo: string, modelo: string) {
         if (!serial || !latitude || !longitude || !tipo || !modelo) {
@@ -67,7 +70,10 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
         }
 
         const url = apiurl + "/equipment/update";
-        setLoading(true)
+
+
+        setLoadingButton(true)
+
         fetch(url, {
             method: 'PATCH',
             headers: {
@@ -108,13 +114,15 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                 }
             })
             .finally(() => {
-                setLoading(false)
+                setLoadingButton(false)
             })
 
     }
     function getEquipamento() {
         const url = apiurl + '/equipment/get/' + id;
 
+
+        setLoading(true)
         fetch(url, {
             method: 'GET',
             headers: {
@@ -123,14 +131,26 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
+                console.log(data);
                 if (data !== null) {
                     onChangeForm({
                         ...form,
-                        ...data,
+                        serial: data.serial || '',
+                        latitude: data.latitude || '',
+                        longitude: data.longitude || '',
+                        observacoes: data.observacoes || '',
+                        status: data.status || '',
+                        tipo: data.tipo || "",
+                        modelo: data.modelo || "",
+                        foto: data.foto || [],
                         id: id
-                    });
+                    })
                 }
-            });
+            })
+            .finally(() => {
+                setLoading(false)
+                setLoadingButton(false)
+            })
     }
 
 
@@ -148,7 +168,7 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
             ],
             {
                 cancelable: false,
-                
+
             }
 
 
@@ -163,27 +183,33 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
 
     return (
         <>
-            {validaVazio ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
-                : ""
+            {loading ?
+                <LoadingComponent />
+                :
+                <>
+                    {validaVazio ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
+                        : ""
+                    }
+                    {validaTipo ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>O tipo de equipamento deve conter apenas letras.</Text>
+                        : ""
+                    }
+                    {validaLatLong ?
+                        <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números.</Text>
+                        : ""
+                    }
+                    <CadastrarEquipamento
+                        form={form}
+                        onChangeText={onChangeText}
+                        onPress3={loading ? null : showAlertEditar}
+                        title3={loadingButton ? <ActivityIndicator color={'white'} /> : 'Alterar'}
+                        corTexto={'black'}
+                        color5={'#4682B4'}
+                        color6={'#87CEFA'}
+                    />
+                </>
             }
-            {validaTipo ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O tipo de equipamento deve conter apenas letras.</Text>
-                : ""
-            }
-            {validaLatLong ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números.</Text>
-                : ""
-            }
-            <CadastrarEquipamento
-                form={form}
-                onChangeText={onChangeText}
-                onPress3={loading ? null : showAlertEditar}
-                title3={'Alterar'}
-                corTexto={'black'}
-                color5={'#4682B4'}
-                color6={'#87CEFA'}
-            />
         </>
     );
 };

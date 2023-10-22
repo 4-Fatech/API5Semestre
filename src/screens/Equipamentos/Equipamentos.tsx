@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text, Alert } from 'react-native';
+import { Text, Alert, ActivityIndicator } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import Local from '@react-native-community/geolocation'
+
 
 export const Equipamentos = ({ navigation }: any) => {
     const [form, onChangeForm] = React.useState({
@@ -52,7 +53,7 @@ export const Equipamentos = ({ navigation }: any) => {
             latitude: latitude,
             longitude: longitude
         });
-        console.log(latitude, longitude);
+
 
     }
 
@@ -136,33 +137,33 @@ export const Equipamentos = ({ navigation }: any) => {
                     );
                     navigation.navigate("Equipamentos", { equipCadastrada: true });
                 }
+                
             })
             .finally(() => {
-                setLoading(false)
+                setLoading(true)
             })
 
     }
 
     function cancelar() {
         navigation.navigate("Equipamentos");
-
     }
 
     const showAlertCadastrar = () => {
         Alert.alert(
-          'Cadastrar equipamento',
-          'Deseja cadastrar este equipamento?',
-          [
-            {
-              text: 'NÃO',
-              onPress: () => '',
-              style: 'cancel',
-            },
-            { text: 'SIM', onPress: () => cadastrar() },
-          ],
-          { cancelable: false }
+            'Cadastrar equipamento',
+            'Deseja cadastrar este equipamento?',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => '',
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => cadastrar() },
+            ],
+            { cancelable: false }
         );
-      };
+    };
 
 
     useEffect(() => {
@@ -192,7 +193,7 @@ export const Equipamentos = ({ navigation }: any) => {
                 onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
-                title={'Cadastrar'}
+                title={loading ? <ActivityIndicator color={'white'} /> : 'Cadastrar'}
                 corTexto={'black'}
                 color={'#9ACD32'}
                 color2={'#94C021'}
