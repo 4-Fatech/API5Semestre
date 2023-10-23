@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, ActivityIndicator } from "react-native";
 import CheckboxComponent from "../../Common/Checkbox";
 import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
@@ -11,6 +11,7 @@ export const RecuperarSenha = ({ navigation }: any) => {
     const [isCheckedSenha, setIsCheckedSenha] = useState(false);
     const [email, setEmail] = useState('');
     const [error, setError] = useState<null | string>(null);
+    const [loading, setLoading] = useState(false)
 
     function handleCheckboxChange(checkboxName: string) {
         if (checkboxName === "Email") {
@@ -25,7 +26,9 @@ export const RecuperarSenha = ({ navigation }: any) => {
     function enviarCod() {
         var url = isCheckedEmail ? "/notEmail" : "/notSms"
         var value = isCheckedEmail ? { email: email } : { telefone1: email }
-console.log(1)
+        console.log(1)
+
+        setLoading(true)
         fetch(apiurl + "/user" + url, {
             method: 'PUT',
             headers: {
@@ -35,14 +38,14 @@ console.log(1)
         })
             .then((resposta) => resposta.json())
             .then((data) => {
-                
+
                 if (data.error) {
-                    if(typeof data.error == "object"){
+                    if (typeof data.error == "object") {
                         setError("Error ao enviar código.")
-                    }else{
-                    setError(data.error)
+                    } else {
+                        setError(data.error)
                     }
-                   
+
 
                 } else {
                     setError(null)
@@ -51,6 +54,7 @@ console.log(1)
                 console.log(data)
 
             })
+            .finally(() => setLoading(false))
 
     }
     return (
@@ -74,11 +78,16 @@ console.log(1)
                             </View> : null
                         }
                         <View style={{ height: 50 }}>
-                            <CustomButton color='#5f781f' color2="#94C021" corTexto="white" title="Enviar" onPress={enviarCod} />
+                            <CustomButton
+                                color='#5f781f'
+                                color2="#94C021"
+                                corTexto="white"
+                                title={loading ? <ActivityIndicator color={'white'} /> : "Enviar"}
+                                onPress={loading ? null : enviarCod} />
                         </View>
                     </>
                     :
-                    ''
+                    <></>
                 }
             </View>
 

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, Pressable, ViewStyle, TextStyle } from 'react-native';
 
 interface ButtonProps {
-    title: string,
+    title: any,
     onPress: any,
     color: string,
     color2: string,

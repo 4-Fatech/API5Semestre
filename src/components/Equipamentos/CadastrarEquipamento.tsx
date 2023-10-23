@@ -7,16 +7,7 @@ import { CustomButton } from "../Common/Button";
 import { SwitchComponent } from "../Common/Switch";
 
 export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, onPress3, title, title2, title3, color, color2, color3, color4, color5, color6, corTexto }: any) => {
-  useEffect(() => {
-    onChangeText('latitude', '');
-    onChangeText('longitude', '');
-    onChangeText('observacoes', '');
-    onChangeText('foto', []);
-    onChangeText('status', '');
-    onChangeText('tipo', '');
-    onChangeText('modelo', '');
 
-  }, []);
 
   return (
     <ScrollView>

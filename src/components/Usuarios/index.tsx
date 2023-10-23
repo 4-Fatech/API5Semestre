@@ -58,7 +58,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
             onChangeText('telefone2', value);
           }}
           value={form.telefone2}
-          placeholder="Ex.: 1299999999" />
+          placeholder="Ex.: 1287654321" />
 
         {/*  */}
         <Label titulo='Matrícula' requirido='*' />

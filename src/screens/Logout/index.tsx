@@ -1,27 +1,27 @@
-import React, {useContext, useEffect} from 'react';
-import {ActivityIndicator} from 'react-native';
-import {GlobalContext} from '../../Context/GlobalProvider';
+import React, { useContext, useEffect } from 'react';
+import { GlobalContext } from '../../Context/GlobalProvider';
 import { apiurl } from '../../Helpers/ApiUrl';
+import LoadingComponent from '../../components/Common/Loading/Loading';
 
 const Logout = () => {
-  const {setLogIn} = useContext(GlobalContext)
-  function Logout(){
-    fetch(apiurl+"/login/logout", {
+  const { setLogIn } = useContext(GlobalContext)
+  function Logout() {
+    fetch(apiurl + "/login/logout", {
       method: 'GET',
       headers: {
-          'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8'
       },
-     
-  })
+
+    })
       .then((resposta) => resposta.json())
       .then((data) => {
-          if(data.error){
-              console.log(data)
-              
-          }else{
-              setLogIn(false)
-          }
-        
+        if (data.error) {
+          console.log(data)
+
+        } else {
+          setLogIn(false)
+        }
+
       })
 
   }
@@ -30,7 +30,7 @@ const Logout = () => {
     Logout()
   }, []);
 
-  return <ActivityIndicator />;
+  return <LoadingComponent />;
 };
 
 export default Logout;

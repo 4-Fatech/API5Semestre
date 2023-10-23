@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
 import { apiurl } from "../../../Helpers/ApiUrl";
@@ -9,6 +9,7 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
     const [senhaconfirma, setSenhaConfirma] = useState('');
     const [error, setError] = useState<null | string>(null);
     const { isEmail, value } = route.params;
+    const [loading, setLoading] = useState(false)
 
     function atualizar() {
         if (senha != senhaconfirma) {
@@ -16,6 +17,8 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
             return
         }
         var vForm = isEmail ? { senha: senha, email: value } : { senha: senha, telefone1: value }
+
+        setLoading(true)
         fetch(apiurl + "/user/atualizarSenha", {
             method: 'PUT',
             headers: {
@@ -25,15 +28,16 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
         })
             .then((resposta) => resposta.json())
             .then((data) => {
-                if(data.error){
+                if (data.error) {
                     setError(data.error)
-                    
-                }else{
+
+                } else {
                     setError(null)
                     navigation.navigate("Login")
                 }
 
             })
+            .finally(() => setLoading(false))
     }
 
     return (
@@ -41,28 +45,28 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
             <View style={styles.content}>
                 <Text style={styles.text}>Atualize sua senha</Text>
                 <View style={styles.inputContainer}>
-                    <Input onChangeText={setSenha} value={senha} placeholder="Insira sua senha"  password={true} />
+                    <Input onChangeText={setSenha} value={senha} placeholder="Insira sua senha" password={true} />
                 </View>
                 <View style={styles.inputContainer}>
                     <Text style={styles.label}>Confirme sua senha</Text>
-                    <Input onChangeText={setSenhaConfirma} value={senhaconfirma} placeholder="Confirme sua senha"  password={true} />
+                    <Input onChangeText={setSenhaConfirma} value={senhaconfirma} placeholder="Confirme sua senha" password={true} />
                 </View>
-                {error?
+                {error ?
                     <View style={styles.errorMessageContainer} >
                         <Text style={styles.errorMessage}>{error}</Text>
-                    </View>:null
-                    }
+                    </View> : null
+                }
                 <View style={styles.buttonContainer}>
                     <CustomButton
                         color='#5f781f'
                         color2="#94C021"
                         corTexto="white"
-                        title="Atualizar"
-                        onPress={atualizar}
+                        title={loading ? <ActivityIndicator color={'white'} /> : "Atualizar"}
+                        onPress={loading ? null : atualizar}
                     />
                 </View>
             </View>
-           
+
         </View>
     );
 };
@@ -98,13 +102,13 @@ const styles = StyleSheet.create({
         height: 50
     },
     errorMessageContainer: {
-        borderColor:'#94C021',
-        borderStyle:'solid',
-        display:'flex',
-        alignItems:"center",
-        padding:5
+        borderColor: '#94C021',
+        borderStyle: 'solid',
+        display: 'flex',
+        alignItems: "center",
+        padding: 5
     },
     errorMessage: {
-      color:"red"
+        color: "red"
     }
 });

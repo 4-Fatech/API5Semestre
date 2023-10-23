@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { UsuariosComponente } from "../../components/Usuarios";
-import { Text, View, Alert } from 'react-native';
+import { Text, View, Alert, ActivityIndicator } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { validador } from "../../utils/validador";
 
@@ -32,10 +32,10 @@ export const Usuarios = ({ navigation }: any) => {
     const [loading, setLoading] = useState(false);
 
     const onChangeText = (name: string, value: string) => {
-        onChangeForm({ ...form, [name]: value });
-
+        onChangeForm({ ...form, [name]: value });              
 
     };
+    
     function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string, senha: string) {
         if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf || !senha) {
             setValida(true)
@@ -55,7 +55,7 @@ export const Usuarios = ({ navigation }: any) => {
     }
 
     function validarTelefone(telefone: string) {
-        const celularRegex = /^\d{11}$/;
+        const celularRegex = /^\d{13}$/;
         if (!celularRegex.test(telefone)) {
             setValidarTelefoneCelular(true)
             return true
@@ -218,19 +218,19 @@ export const Usuarios = ({ navigation }: any) => {
 
     const showAlertCadastrar = () => {
         Alert.alert(
-          'Cadastrar usuário',
-          'Deseja cadastrar este usuário?',
-          [
-            {
-              text: 'NÃO',
-              onPress: () => '',
-              style: 'cancel',
-            },
-            { text: 'SIM', onPress: () => cadastrarUsuario() },
-          ],
-          { cancelable: false }
+            'Cadastrar usuário',
+            'Deseja cadastrar este usuário?',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => '',
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => cadastrarUsuario() },
+            ],
+            { cancelable: false }
         );
-      };
+    };
 
 
     return (
@@ -287,12 +287,13 @@ export const Usuarios = ({ navigation }: any) => {
                 onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
-                title={'Cadastrar'}
+                title={loading ? <ActivityIndicator color={'white'} /> : 'Cadastrar'}
                 corTexto={'black'}
                 color={'#9ACD32'}
                 color2={'#94C021'}
                 color4={'#ff2d15'}
                 color3={'#ff4627'}
+                perfil={1}
             />
         </>
 
