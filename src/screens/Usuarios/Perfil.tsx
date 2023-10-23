@@ -259,7 +259,7 @@ export const Perfil = () => {
             matricula: user.matricula,
             cpf: user.cpf,
             foto: user.foto,
-            senha: user.senha,
+            senha: ''
 
         }
         onChangeForm(newForm)

@@ -39,8 +39,8 @@ export const PagCodigo = ({ route, navigation }: any) => {
 
     return (
         <View style={styles.container}>
-            <View style={{ marginTop: 120 }}>
-                <Image style={{ width: 200, height: 100 }} source={{ uri: LogoImagem }} />
+            <View style={{ marginTop: 50 }}>
+                <Image style={{ width: 200, height: 75 }} source={{ uri: LogoImagem }} />
             </View>
             <View style={styles.container}>
                 <Text style={styles.text}>Insira o código</Text>
