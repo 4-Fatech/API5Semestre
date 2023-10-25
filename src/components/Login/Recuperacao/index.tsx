@@ -42,11 +42,10 @@ export const RecuperarSenha = ({ navigation }: any) => {
                 if (data.error) {
                     if (typeof data.error == "object") {
                         setError("Error ao enviar código.")
+                        return 0
                     } else {
                         setError(data.error)
                     }
-
-
                 } else {
                     setError(null)
                     navigation.navigate("Enviar Código", { isEmail: isCheckedEmail, value: email })
