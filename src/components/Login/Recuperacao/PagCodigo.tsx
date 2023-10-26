@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet, Image, Text, ActivityIndicator } from "react-native";
 import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
 import { apiurl } from "../../../Helpers/ApiUrl";
+import { GlobalContext } from "../../../Context/GlobalProvider";
 // import { LogoImagem } from "../../../Assets/image/LogoImagem";
 
 export const PagCodigo = ({ route, navigation }: any) => {
@@ -10,7 +11,9 @@ export const PagCodigo = ({ route, navigation }: any) => {
     const { isEmail, value } = route.params;
     const [error, setError] = useState<null | string>(null);
     const [loading, setLoading] = useState(false)
-
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
+    
     function enviar() {
         var vForm = isEmail ? { code: codigo, email: value } : { code: codigo, telefone1: value }
         console.log(vForm)
@@ -19,7 +22,8 @@ export const PagCodigo = ({ route, navigation }: any) => {
         fetch(apiurl + "/user/valNot", {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(vForm)
         })

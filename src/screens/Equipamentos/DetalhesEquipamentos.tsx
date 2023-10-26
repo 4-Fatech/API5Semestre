@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { Label } from "../../components/Common/Label/Label";
@@ -6,8 +6,11 @@ import MostrarImagem from "../../components/Common/ImageInput/MostrarImagem";
 import { ScrollView } from "react-native-gesture-handler";
 import { SwitchComponent } from "../../components/Common/Switch";
 import LoadingComponent from "../../components/Common/Loading/Loading";
+import { GlobalContext } from "../../Context/GlobalProvider";
 
 export const DetalhesEquipamentos = ({ route, navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const { id } = route.params
     const [form, onChangeForm] = React.useState({
         serial: '',
@@ -30,7 +33,8 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
         fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             }
         })
             .then((resposta) => resposta.json())

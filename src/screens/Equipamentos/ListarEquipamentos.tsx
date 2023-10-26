@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, TextInput, Alert } from "react-native";
 import Card from "../../components/Common/Card";
 import { CustomButton } from "../../components/Common/Button";
 import { apiurl } from "../../Helpers/ApiUrl";
 import LoadingComponent from "../../components/Common/Loading/Loading";
+import { GlobalContext } from "../../Context/GlobalProvider";
 
 
 interface Props {
@@ -19,6 +20,8 @@ interface Props {
 }
 
 export const Home = ({ route, navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const [equipamento, setEquipamento] = React.useState<Props[]>([]);
     const [searchText, setSearchText] = useState<string>('');
     const { equipAlterada, equipCadastrada } = route.params || {};
@@ -31,7 +34,8 @@ export const Home = ({ route, navigation }: any) => {
         fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             }
         })
 

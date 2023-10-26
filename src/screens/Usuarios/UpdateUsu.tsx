@@ -1,14 +1,16 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { UsuariosComponente } from "../../components/Usuarios";
 import { apiurl } from '../../Helpers/ApiUrl';
 import { Text, View, Alert, ActivityIndicator } from 'react-native';
 import LoadingComponent from '../../components/Common/Loading/Loading';
+import { GlobalContext } from '../../Context/GlobalProvider';
 
 
 
 export const UpdateUsu = ({ route, navigation }: any) => {
-
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const { id } = route.params
     const [form, onChangeForm] = useState({
         nome: "",
@@ -123,7 +125,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             }
         })
             .then((resposta) => resposta.json())
@@ -187,7 +190,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         fetch(url, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(form)
 
@@ -233,7 +237,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         fetch(url, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ id: id })
         }).then((resp) => resp.json()).then((data) => {

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
 import { Text, Alert, ActivityIndicator } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import LoadingComponent from "../../components/Common/Loading/Loading";
+import { GlobalContext } from "../../Context/GlobalProvider";
 
 export const EditarEquipamentos = ({ route, navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const { id } = route.params
     const [form, onChangeForm] = React.useState({
         serial: '',
@@ -77,7 +80,8 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
         fetch(url, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(form)
 
@@ -126,7 +130,8 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
         fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             }
         })
             .then((resposta) => resposta.json())
