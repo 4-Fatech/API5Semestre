@@ -78,7 +78,7 @@ export const Home = ({ route, navigation }: any) => {
                 },
                 { text: 'Visualizar', onPress: () => navigation.navigate("Detalhes Equipamento", { id }) },
             ],
-            { cancelable: false }
+            { cancelable: true } 
         );
     };
     const filteredEquipamento = equipamento.filter((equipamento) => {
