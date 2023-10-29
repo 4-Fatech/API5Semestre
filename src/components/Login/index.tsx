@@ -14,6 +14,31 @@ export const Login = ({ navigation }: any) => {
     const [error, setError] = useState(false)
     const { isLoggedIn, setLogIn, setUser,  setToken }: any = useContext(GlobalContext)
     const [loading, setLoading] = useState(false)
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
+
+    const keepUserLoggedIn = async () => {
+        const keepLoggedInUrl = apiurl + "/login/keepUserLoggedIn";
+        try {
+          const response = await fetch(keepLoggedInUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              Authorization: `Bearer ${token}`
+            }
+          });
+    
+          const data = await response.json();
+    
+          if (!data.error) {
+            // Atualize o token e outras informações do usuário, se necessário
+            setToken(data.token);
+            setUser(data.user);
+          }
+        } catch (error) {
+          console.error('Erro ao manter o usuário logado:', error);
+        }
+      };
 
     function logar() {
         const url = apiurl + "/login/login";
@@ -36,6 +61,7 @@ export const Login = ({ navigation }: any) => {
                     setToken(data.token)
                     setUser(data.user)
                     setLogIn(true)
+                    keepUserLoggedIn();
                 }
                 console.log(data)
             })
