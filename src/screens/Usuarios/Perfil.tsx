@@ -8,6 +8,9 @@ import { UsuariosComponente } from "../../components/Usuarios";
 import { GlobalContext } from "../../Context/GlobalProvider";
 import { apiurl } from "../../Helpers/ApiUrl";
 import LoadingComponent from "../../components/Common/Loading/Loading";
+import { TextComponent } from "../../components/Common/Texto/TextComponent";
+import { TextocTiutloComponent } from "../../components/Common/Texto/TextocTituloComponent";
+import { TextTelefone } from "../../components/Common/Texto/TextTelefone";
 
 
 export const Perfil = () => {
@@ -360,61 +363,29 @@ export const Perfil = () => {
                                 </View>
                                 <View style={styles.alinhamentoCentro}>
                                     <View style={styles.container1}>
-                                        <View style={styles.campoNomeSobrenome}>
-                                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{user.nome + " " + user.sobrenome}</Text>
-                                        </View>
+                                        <TextComponent styleTexto={{ color: '#000000', textAlign: 'center', lineHeight: 28 }} nome={user.nome + " " + user.sobrenome} styleDiv={styles.campoNomeSobrenome} />
                                     </View>
                                 </View>
                                 <View style={styles.alinhamentoCentro}>
-                                    <View style={styles.container}>
-                                        <Text style={{ marginBottom: 10 }}>
-                                            <Label titulo="E-mail:" />
-                                        </Text>
-                                        <View style={styles.campoSerial}>
-                                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {user.email} </Text>
-                                        </View>
-                                    </View>
+                                    <TextocTiutloComponent nome={user.email} styleDiv={styles.campoSerial} estiloTexto={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="E-mail:" />
                                 </View>
                                 <View style={styles.alinhamentoCentro}>
                                     <ScrollView
                                         horizontal={true}
                                         contentContainerStyle={styles.scrollViewContent}
                                     >
-                                        <View style={styles.containerLatitude}>
-                                            <View style={styles.container2}>
-                                                <Text>
-                                                    <Label titulo="Telefone Celular:" />
-                                                </Text>
-                                                <Text style={styles.latitudeLongitude}> {user.telefone1} </Text>
-                                            </View>
-                                            <View style={styles.container2}>
-                                                <Text>
-                                                    <Label titulo="Telefone Fixo/recado:" />
-                                                </Text>
-                                                <Text style={styles.latitudeLongitude}> {user.telefone2} </Text>
-                                            </View>
+                                        <View style={styles.containerTelefones}>
+                                            <TextTelefone nome={user.telefone1} estiloTexto={styles.telefones} styleDiv2={styles.container2} titulo="Telefone Celular:" />
+                                            <TextTelefone nome={user.telefone2} estiloTexto={styles.telefones} titulo="Telefone Fixo/recado:" styleDiv2={styles.container2} />
+                                        
                                         </View>
                                     </ScrollView>
                                 </View>
                                 <View style={styles.alinhamentoCentro}>
-                                    <View style={styles.container}>
-                                        <Text style={{ marginBottom: 10 }}>
-                                            <Label titulo="Matrícula:" />
-                                        </Text>
-                                        <View style={styles.campoSerial}>
-                                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {user.matricula} </Text>
-                                        </View>
-                                    </View>
+                                    <TextocTiutloComponent nome={user.matricula} styleDiv={styles.campoSerial} estiloTexto={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="Matrícula:" />
                                 </View>
                                 <View style={styles.alinhamentoCentro}>
-                                    <View style={styles.container}>
-                                        <Text style={{ marginBottom: 10 }}>
-                                            <Label titulo="Cpf:" />
-                                        </Text>
-                                        <View style={styles.campoSerial}>
-                                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {user.cpf} </Text>
-                                        </View>
-                                    </View>
+                                    <TextocTiutloComponent nome={user.cpf} styleDiv={styles.campoSerial} estiloTexto={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="CPF:" />
                                 </View>
                                 <View style={styles.alinhamentoCentro}>
                                     <View style={styles.ativarDesativar}>
@@ -458,7 +429,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: 5
     },
-    containerLatitude: {
+    containerTelefones: {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -478,12 +449,13 @@ const styles = StyleSheet.create({
         borderColor: 'black',
     },
     campoSerial: {
-        backgroundColor: '#D9D9D9',
+        borderColor: 'black',
+        borderWidth: 1 ,
         width: 296,
         borderRadius: 8,
         height: 30,
     },
-    latitudeLongitude: {
+    telefones: {
         color: '#5A6BFF',
     },
     campoObservacao: {
@@ -504,5 +476,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         height: 50,
         marginTop: 30,
+    },
+    divTexto: {
+        textAlign: 'left'
     }
 });
