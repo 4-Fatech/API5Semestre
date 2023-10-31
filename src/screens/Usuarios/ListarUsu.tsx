@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
 import { CustomButton } from "../../components/Common/Button";
 import { apiurl } from "../../Helpers/ApiUrl";
 import CardUsu from "../../components/Common/Card/carUsu";
 import LoadingComponent from '../../components/Common/Loading/Loading';
+import { GlobalContext } from '../../Context/GlobalProvider';
 
 interface Usuario {
     nome: string;
@@ -14,6 +15,8 @@ interface Usuario {
 }
 
 export const ListarUsu = ({ route, navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
     const [searchText, setSearchText] = useState<string>('');
     const [isLoading, setLoading] = useState(false)
@@ -32,7 +35,8 @@ export const ListarUsu = ({ route, navigation }: any) => {
         fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             }
         })
             .then((resposta) => resposta.json())

@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
 import { Text, Alert, ActivityIndicator } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import Local from '@react-native-community/geolocation'
+import { GlobalContext } from "../../Context/GlobalProvider";
 
 
 export const Equipamentos = ({ navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
+    
     const [form, onChangeForm] = React.useState({
         serial: '',
         latitude: '',
@@ -103,7 +107,8 @@ export const Equipamentos = ({ navigation }: any) => {
         fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(form)
 

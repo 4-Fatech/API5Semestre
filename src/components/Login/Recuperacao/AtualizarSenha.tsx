@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
 import { apiurl } from "../../../Helpers/ApiUrl";
+import { GlobalContext } from "../../../Context/GlobalProvider";
 
 export const AtualizarSenha = ({ route, navigation }: any) => {
     const [senha, setSenha] = useState('');
@@ -10,7 +11,9 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
     const [error, setError] = useState<null | string>(null);
     const { isEmail, value } = route.params;
     const [loading, setLoading] = useState(false)
-
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
+    
     function atualizar() {
         if (senha != senhaconfirma) {
             setError("As senhas não condizem.")
@@ -22,7 +25,8 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
         fetch(apiurl + "/user/atualizarSenha", {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(vForm)
         })

@@ -14,10 +14,11 @@ import { TextTelefone } from "../../components/Common/Texto/TextTelefone";
 
 
 export const Perfil = () => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const [mostrarApenasTexto, setMostrarApenasTexto] = useState(false);
     const [loading, setLoading] = useState(false)
     const [loadingButton, setLoadingButton] = useState(false)
-
     const { user }: any = useContext(GlobalContext)
 
 
@@ -186,7 +187,8 @@ export const Perfil = () => {
         fetch(url, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(form)
 

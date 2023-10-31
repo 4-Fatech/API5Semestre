@@ -1,11 +1,14 @@
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { UsuariosComponente } from "../../components/Usuarios";
 import { Text, View, Alert, ActivityIndicator } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { validador } from "../../utils/validador";
+import { GlobalContext } from "../../Context/GlobalProvider";
 
 export const Usuarios = ({ navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const [form, onChangeForm] = React.useState({
         nome: "",
         sobrenome: "",
@@ -170,7 +173,8 @@ export const Usuarios = ({ navigation }: any) => {
         fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(form)
 
