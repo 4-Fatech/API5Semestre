@@ -13,8 +13,31 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
     const [loading, setLoading] = useState(false)
     const context = useContext(GlobalContext);
     const token = context?.token || "";
-    
+
+    const [validarSenha, setValidarSenha] = useState(false)
+    const [campoVazio, setCampoVazio] = useState(false)
+
+    const validarSenhaIgual = (senhaNova: string, confirmarSenha: string) => {
+        if (senhaNova !== confirmarSenha) {
+            setValidarSenha(true)
+            return true;
+        }
+        return false;
+    }
+    const validaCamposVazios = (senhaNova: string, confirmarSenha: string) => {
+        if (!senhaNova || !confirmarSenha){
+            setCampoVazio(true)
+            return true
+        }
+        return false
+    }
     function atualizar() {
+        // if (validarSenhaIgual(senha, senhaconfirma)){
+        //     return
+        // }
+        // if (validaCamposVazios(senha,senhaconfirma)){
+        //     return
+        // }
         if (senha != senhaconfirma) {
             setError("As senhas não condizem.")
             return
@@ -45,33 +68,43 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                <Text style={styles.text}>Atualize sua senha</Text>
-                <View style={styles.inputContainer}>
-                    <Input onChangeText={setSenha} value={senha} placeholder="Insira sua senha" password={true} />
+        <>
+        {validarSenha ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>As senhas são diferentes.</Text>
+                : ""
+            }
+        {campoVazio ?
+                <Text style={{ color: "red", paddingLeft: 12 }}>Os campos com * não podem estar vazios.</Text>
+                : ""
+            }
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <Text style={styles.text}>Atualize sua senha <Text style={{color:'red'}}>*</Text></Text>
+                    <View style={styles.inputContainer}>
+                        <Input onChangeText={setSenha} value={senha} placeholder="Insira sua senha" password={true} />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.label}>Confirme sua senha <Text style={{color:'red'}}>*</Text></Text>
+                        <Input onChangeText={setSenhaConfirma} value={senhaconfirma} placeholder="Confirme sua senha" password={true} />
+                    </View>
+                    {error ?
+                        <View style={styles.errorMessageContainer} >
+                            <Text style={styles.errorMessage}>{error}</Text>
+                        </View> : null
+                    }
+                    <View style={styles.buttonContainer}>
+                        <CustomButton
+                            color='#5f781f'
+                            color2="#94C021"
+                            corTexto="white"
+                            title={loading ? <ActivityIndicator color={'white'} /> : "Atualizar"}
+                            onPress={loading ? null : atualizar}
+                        />
+                    </View>
                 </View>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Confirme sua senha</Text>
-                    <Input onChangeText={setSenhaConfirma} value={senhaconfirma} placeholder="Confirme sua senha" password={true} />
-                </View>
-                {error ?
-                    <View style={styles.errorMessageContainer} >
-                        <Text style={styles.errorMessage}>{error}</Text>
-                    </View> : null
-                }
-                <View style={styles.buttonContainer}>
-                    <CustomButton
-                        color='#5f781f'
-                        color2="#94C021"
-                        corTexto="white"
-                        title={loading ? <ActivityIndicator color={'white'} /> : "Atualizar"}
-                        onPress={loading ? null : atualizar}
-                    />
-                </View>
-            </View>
 
-        </View>
+            </View>
+        </>
     );
 };
 
