@@ -1,98 +1,82 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { Dimensions, View, Text, StyleSheet } from 'react-native';
+import ModalSelector from 'react-native-modal-selector';
 
-export default function SelectOpcao() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('');
 
-  const options = ['Opção 1', 'Opção 2', 'Opção 3'];
+const { width, height } = Dimensions.get("window");
 
-  const handleOptionPress = (option: string) => {
-    setSelectedValue(option);
-    setModalVisible(false);
+interface InputProps {
+  placeholder: string;
+  onChangeText: (text: string) => void;
+
+}
+const Select = ({ onTipoChange, selectedTipo }: any) => {
+  const data = [
+    { key: 'admin', label: 'Administrador' },
+    { key: 'user', label: 'Usuário' },
+  ];
+
+  const selectedItem = data.find((item) => item.key === selectedTipo) || data[0];
+
+  const handleTipoChange = (tipo: string) => {
+    onTipoChange(tipo);
   };
-
+  
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => setModalVisible(true)}
-        style={styles.selectButton}
-      >
-        <Text style={styles.textoSelect}>{selectedValue || 'Selecione uma opção'}</Text>
-      </TouchableOpacity>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          {options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => handleOptionPress(option)}
-              style={styles.option}
-            >
-              <Text style={styles.textoSelect} >{option}</Text>
-            </TouchableOpacity>
-          ))}
-          <TouchableOpacity
-            onPress={() => setModalVisible(false)}
-            style={styles.cancelButton}
-          >
-            <Text style={styles.textoSelect}>Cancelar</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+      <ModalSelector
+        data={data}
+        initValue={selectedItem.label}
+        onChange={(option) => {
+          handleTipoChange(option.key); // Chame a função de atualização do tipo
+        }}
+
+        initValueTextStyle={styles.modalSelector}
+        selectStyle={styles.selectStyle}
+        selectTextStyle={styles.selectTextStyle}
+        optionTextStyle={styles.optionTextStyle}
+      />
+
     </View>
+
+
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textoSelect: {
-    color: 'black',
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  selectButton: {
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 4,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     padding: 10,
+    marginTop: 10
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  option: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
+
+  modalSelector: {
+    // Estilo do componente ModalSelector
     color: 'black',
-    width: '100%',
-    alignItems: 'center',
   },
-  cancelButton: {
-    backgroundColor: 'white',
-    borderBottomColor: 'black',
-    padding: 20,
-    marginTop: 10,
-    width: '100%',
-    alignItems: 'center',
+  selectStyle: {
+    // Estilo do botão seletor
+    borderColor: '#A9A9A9',
+    width: width - 20,
+
   },
-  selectedValue: {
-    fontSize: 18,
-    marginTop: 20,
+  selectTextStyle: {
+    // Estilo do texto do botão seletor
+    color: 'black'
+  },
+  optionTextStyle: {
+    // Estilo do texto dos itens na lista suspensa
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 20
   },
 });
+
+export default Select;
+
+
+
+

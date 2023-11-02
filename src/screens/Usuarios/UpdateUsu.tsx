@@ -21,6 +21,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
         matricula: "",
         cpf: "",
         foto: [],
+        profile: ''
     })
 
     const [valida, setValida] = useState(false)
@@ -142,6 +143,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                         matricula: data.matricula || "",
                         cpf: data.cpf || "",
                         foto: data.foto || [],
+                        profile: data.profile || ""
                     });
 
                 }
@@ -370,6 +372,7 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                         color4={'#ff524a'}
                         color3={'#ff4627'}
                         corTexto2={'white'}
+                        perfil={2}
 
                     />
                 </>

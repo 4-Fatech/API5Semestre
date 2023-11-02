@@ -19,6 +19,7 @@ export const Usuarios = ({ navigation }: any) => {
         cpf: "",
         foto: [],
         senha: "",
+        profile: ""
 
     })
 
@@ -34,11 +35,13 @@ export const Usuarios = ({ navigation }: any) => {
     const [validaCpfRegex, setValidarCpfRegex] = useState(false)
     const [loading, setLoading] = useState(false);
 
-    const onChangeText = (name: string, value: string) => {
-        onChangeForm({ ...form, [name]: value });              
+    const onChangeText = (name: any, value: any) => {
+        onChangeForm({ ...form, [name]: value });
+        console.log('PÁGINA', form.profile);
 
     };
-    
+
+
     function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string, senha: string) {
         if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf || !senha) {
             setValida(true)
@@ -220,6 +223,7 @@ export const Usuarios = ({ navigation }: any) => {
 
     }
 
+
     const showAlertCadastrar = () => {
         Alert.alert(
             'Cadastrar usuário',
@@ -297,7 +301,7 @@ export const Usuarios = ({ navigation }: any) => {
                 color2={'#94C021'}
                 color4={'#ff2d15'}
                 color3={'#ff4627'}
-                perfil={1}
+                perfil={0}
             />
         </>
 
