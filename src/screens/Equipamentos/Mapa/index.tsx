@@ -16,15 +16,20 @@ interface MarkerData {
   pinColor: string;
 }
 
-export const MapaComponente = () => {
+export const MapaComponente = ({ route, navigation }: any) => {
   const context = useContext(GlobalContext);
   const token = context?.token || "";
   const [markers, setMarkers] = useState<MarkerData[]>([]);
   const [region, setRegion] = useState<Region | undefined>(undefined);
 
+
+  const { id, equipUnico } = route.params || {};
+
+
+
   const newMarker = (e: any) => {
     const newMarkerData: MarkerData = {
-      key: String(markers.length+1),
+      key: String(markers.length + 1),
       coords: {
         latitude: e.nativeEvent.coordinate.latitude,
         longitude: e.nativeEvent.coordinate.longitude,
@@ -41,75 +46,124 @@ export const MapaComponente = () => {
 
     setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
   };
- 
-  
+
+  // Função que pega a localização vinda da listagem de equipamentos 
+  function getEquipamento() {
+    const url = apiurl + '/equipment/get/' + id;
+
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+      .then((resposta) => {
+        if (!resposta.ok) {
+          throw new Error('Erro na solicitação à API');
+        }
+        return resposta.json();
+      })
+      .then((data) => {
+
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAABBBB', data.longitude, data.latitude);
+
+        if (data.latitude && data.longitude) {
+          const newMarkerData: MarkerData = {
+            key: (1).toString(),
+            coords: {
+              latitude: Number.parseFloat(data.latitude),
+              longitude: Number.parseFloat(data.longitude)
+            },
+            pinColor: "blue",
+          };
+
+          setRegion({
+            latitude: Number.parseFloat(data.latitude),
+            longitude: Number.parseFloat(data.longitude),
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          });
+
+          setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
+
+        }
+
+
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+
+
+  }
 
   function getEquipamentos() {
 
-      const url = apiurl + "/equipment/list";
-    
-      fetch(url, {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-              'Authorization': `Bearer ${token}`
+    const url = apiurl + "/equipment/list";
+
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+      .then((resposta) => {
+        if (!resposta.ok) {
+          throw new Error('Erro na solicitação à API');
+        }
+        return resposta.json();
+      })
+      .then((data) => {
+        var n = markers.length
+        console.log(n)
+
+        data.map((element: any) => {
+
+          if (element.latitude && element.longitude) {
+            const newMarkerData: MarkerData = {
+              key: (n + 1).toString(),
+              coords: {
+                latitude: Number.parseFloat(element.latitude),
+                longitude: Number.parseFloat(element.longitude)
+              },
+              pinColor: "#FF0000",
+            };
+            console.log(newMarkerData, n++)
+            setRegion({
+              latitude: Number.parseFloat(element.latitude),
+              longitude: Number.parseFloat(element.longitude),
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            });
+            setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
+
           }
+
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+
       })
 
-          .then((resposta) => {
-              if (!resposta.ok) {
-                  throw new Error('Erro na solicitação à API');
-              }
-              return resposta.json();
-          })
-          .then((data) => {
-            var n = markers.length
-            console.log(n)
-           
-             data.map((element:any)=> {
-              
-              if(element.latitude && element.longitude){
-                const newMarkerData: MarkerData = {
-                  key: (n+1).toString(),
-                  coords: {
-                    latitude: Number.parseFloat(element.latitude),
-                    longitude: Number.parseFloat(element.longitude)
-                  },
-                  pinColor: "#FF0000",
-                };
-                console.log(newMarkerData, n++)
-                setRegion({
-                  latitude: Number.parseFloat(element.latitude),
-                    longitude: Number.parseFloat(element.longitude),
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                });
-                
-            
-                setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
-                
-              }
-              
-             });
-          })
-          .catch((error) => {
-              console.error(error);
 
-          })
-          
   }
 
   function getMyLocation() {
     Geolocation.getCurrentPosition(
       (info) => {
         const userRegion: Region = {
-            latitude: info.coords.latitude,
-            longitude: info.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          };
+          latitude: info.coords.latitude,
+          longitude: info.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        };
 
-          
+
 
       },
       (error) => {
@@ -124,13 +178,32 @@ export const MapaComponente = () => {
 
   useEffect(() => {
     getMyLocation();
-    
-  },[region]) ;
-  useEffect(()=>{
 
-    getEquipamentos();
+  }, [region]);
 
-  },[])
+
+  // useEffect(() => {
+
+  //   if (equipUnico) {
+  //     getEquipamento();
+  //     setMarkers([]);
+  //   } else {
+  //     getEquipamentos();
+
+  //   }
+  // }, [equipUnico]);
+
+
+ 
+    useEffect(() => {
+      getEquipamentos()
+    }, [])
+  
+
+  console.log('AAAAAAAAAAAA',equipUnico);
+  
+
+
 
   return (
     <View style={{ flex: 1, marginLeft: 25, width: "100%", height: height }}>
@@ -146,6 +219,7 @@ export const MapaComponente = () => {
         region={region}
         initialRegion={region}
       >
+
         {markers.map((marker) => (
           <Marker
             key={marker.key}
@@ -153,6 +227,8 @@ export const MapaComponente = () => {
             pinColor={marker.pinColor}
           />
         ))}
+
+
       </MapView>
     </View>
   );

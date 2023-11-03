@@ -25,7 +25,8 @@ export const Home = ({ route, navigation }: any) => {
     const [equipamento, setEquipamento] = React.useState<Props[]>([]);
     const [searchText, setSearchText] = useState<string>('');
     const { equipAlterada, equipCadastrada } = route.params || {};
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState(false) 
+
 
     function getEquipamentos() {
 
@@ -57,14 +58,11 @@ export const Home = ({ route, navigation }: any) => {
 
     useEffect(() => {
         getEquipamentos();
-        if (equipAlterada || equipCadastrada) {
+        if (equipAlterada || equipCadastrada ) {
             getEquipamentos();
         }
     }, [equipAlterada, equipCadastrada]);
 
-    // const handleCardPress = (id: string) => {
-    //     navigation.navigate("Atualizar Equipamento", { id });
-    // };
 
     const showAlert = (id: string) => {
         Alert.alert(
@@ -77,10 +75,18 @@ export const Home = ({ route, navigation }: any) => {
                     style: 'cancel',
                 },
                 { text: 'Visualizar', onPress: () => navigation.navigate("Detalhes Equipamento", { id }) },
+                {
+                    text: 'Ver no mapa',
+                    //Passo o id e a variavel como true para a tela mapa
+                    onPress: () => navigation.navigate("Mapa", { id, equipUnico: true })
+                        
+                    
+                }
             ],
-            { cancelable: true } 
+            { cancelable: true }
         );
     };
+
     const filteredEquipamento = equipamento.filter((equipamento) => {
         return equipamento.tipo.toLowerCase().includes(searchText.toLowerCase());
     });
