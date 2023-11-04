@@ -17,7 +17,7 @@ export default function DrawerNavigator() {
   const profile = user.profile;
 
   return (
-    <Drawer.Navigator  >
+    <Drawer.Navigator initialRouteName='Equipamentos ' >
       <Drawer.Screen
         name='Perfil '
         component={UsuarioStackNavigatorPerfil}
