@@ -42,14 +42,13 @@ em caso de vazamento de dados, o sistema não tenha o acesso comprometido.
 (texto, 10), SERIAL (texto, 30), LATITUDE (duplo), LONGITUDE (duplo), OBSERVACOES 
 (texto, 200).
 - [X] Cada equipamento da base de dados pode ter 0 ou mais fotos associadas ao cadastro.
-- [ ] O usuário deve ser capaz de pesquisar a lista de equipamentos disponíveis em um raio de 
+- [X] O usuário deve ser capaz de pesquisar a lista de equipamentos disponíveis em um raio de 
 até 10km de sua localização atual, comparando com os dados de coordenadas 
 armazenados em banco.
-- [ ] O usuário pode escolher visualizar os equipamentos de forma pontual em um mapa, 
+- [X] O usuário pode escolher visualizar os equipamentos de forma pontual em um mapa, 
 através da visualização de pontos na localização de cada equipamento.
-- [ ] Na visualização de mapas, é também exibida uma listagem dos equipamentos 
-apresentados, e quando um item da lista é clicado, o ponto é destacado no mapa.
-- [ ] Na visualização de mapas, o usuário pode pesquisar qual tipo de equipamento deseja 
+- [X] Na visualização de mapas, é também exibida uma listagem dos equipamentos apresentados, e quando um item da lista é clicado, o ponto é destacado no mapa.
+- [X] Na visualização de mapas, o usuário pode pesquisar qual tipo de equipamento deseja 
 visualizar.
 - [X] O usuário pode ainda visualizar os detalhes de cada equipamento, selecionando as ações 
 de DESATIVAR, quando o equipamento se mantém no cadastro, mas desativado e não 
@@ -91,7 +90,7 @@ equipamentos cadastrados no banco de dados.
 
  - - [X] <a href="https://github.com/4-Fatech/API5Semestre/tree/sprint_1">**1° Sprint:**</a> 04/09/2023 a 24/09/2023<br>
  - - [X] <a href="https://github.com/4-Fatech/API5Semestre/tree/sprint_2">**2° Sprint:**</a> 25/09/2023 a 15/10/2023
- - - [ ] <a href="">**3° Sprint:**</a> 16/10/2023 a 05/11/2023
+ - - [X] <a href="">**3° Sprint:**</a> 16/10/2023 a 05/11/2023
  - - [ ] <a href="">**4°Sprint:**</a> 06/11/2023 a 26/11/2023
  - - [ ] **Feira de Soluções:** 12/12/2023
  
@@ -132,6 +131,8 @@ equipamentos cadastrados no banco de dados.
 
 </br>
 
-## 🎥 Video Sprint Review 1
-- <a href="https://youtu.be/7IwTFC6wEow" target="_blank">Link do vídeo</a>
+## 🎥 Videos das Sprints Review
+- <a href="https://youtu.be/7IwTFC6wEow" target="_blank">Sprint 1</a>
+- <a href="" target="_blank">Sprint 2</a>
+- <a href="" target="_blank">Sprint 3</a>
 </br>
