@@ -22,11 +22,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
   const [markers, setMarkers] = useState<MarkerData[]>([]);
   const [region, setRegion] = useState<Region | undefined>(undefined);
   const [filterText, setFilterText] = useState("");
-
-
   const { id, equipUnico } = route.params || {};
-
-
 
   const newMarker = (e: any) => {
     const newMarkerData: MarkerData = {
@@ -44,7 +40,6 @@ export const MapaComponente = ({ route, navigation }: any) => {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     });
-
     setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
   };
 
@@ -84,12 +79,8 @@ export const MapaComponente = ({ route, navigation }: any) => {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           });
-
           setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
-
         }
-
-
       })
       .catch((error) => {
         console.error(error);
@@ -142,9 +133,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
             });
 
             setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
-            uniqueKey++;
-            console.log(uniqueKey);
-            
+            uniqueKey++;            
           }
         });
       })
@@ -164,9 +153,6 @@ export const MapaComponente = ({ route, navigation }: any) => {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         };
-
-
-
       },
       (error) => {
         console.log("Erro ao obter a localização:", error);
@@ -183,23 +169,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
   }, [region]);
 
 
-
-
-  // useEffect(() => {
-
-  //   if (equipUnico) {
-  //     getEquipamento();
-  //     setMarkers([]);
-  //   } else {
-  //     getEquipamentos();
-
-  //   }
-  // }, [equipUnico]);
-
-
-
   useEffect(() => {
-    // Limpe os marcadores existentes
     setMarkers([]);
     getEquipamentos();
   }, [filterText]);
@@ -220,7 +190,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
           showsUserLocation={true}
           showsMyLocationButton={true}
           zoomEnabled={true}
-          minZoomLevel={17}
+          // minZoomLevel={17}
           loadingEnabled={true}
           onPress={(e) => newMarker(e)}
           region={region}
