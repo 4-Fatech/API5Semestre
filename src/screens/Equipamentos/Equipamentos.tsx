@@ -58,7 +58,6 @@ export const Equipamentos = ({ navigation }: any) => {
             longitude: longitude
         });
 
-
     }
 
 
@@ -146,6 +145,9 @@ export const Equipamentos = ({ navigation }: any) => {
             })
             .finally(() => {
                 setLoading(true)
+            })
+            .finally(() => {
+                setLoading(false)
             })
 
     }

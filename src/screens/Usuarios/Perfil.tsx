@@ -46,7 +46,6 @@ export const Perfil = () => {
     const [validaMatricula, setValidarMatricula] = useState(false)
     const [validaMatriculaRegex, setValidarMatriculaRegex] = useState(false)
     const [validaCpfRegex, setValidarCpfRegex] = useState(false)
-
     function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string, senha: string) {
         if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf || !senha) {
             setValida(true)
@@ -149,7 +148,6 @@ export const Perfil = () => {
     const cancelar = () => {
         setMostrarApenasTexto(false);
     }
-
     const editarUsu = () => {
         if (validarVazio(form.nome, form.sobrenome, form.email, form.telefone1, form.matricula, form.cpf, form.senha)) {
             return

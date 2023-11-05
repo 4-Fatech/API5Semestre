@@ -53,7 +53,6 @@ export const ListarUsu = ({ route, navigation }: any) => {
     }
 
 
-
     useEffect(() => {
         getUsuarios();
         if (userAlterado || userDeletado || userCadastrado) {
