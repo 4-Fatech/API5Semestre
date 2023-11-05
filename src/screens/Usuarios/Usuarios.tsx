@@ -1,11 +1,14 @@
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { UsuariosComponente } from "../../components/Usuarios";
-import { Text, View, Alert } from 'react-native';
+import { Text, View, Alert, ActivityIndicator } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { validador } from "../../utils/validador";
+import { GlobalContext } from "../../Context/GlobalProvider";
 
 export const Usuarios = ({ navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const [form, onChangeForm] = React.useState({
         nome: "",
         sobrenome: "",
@@ -16,6 +19,7 @@ export const Usuarios = ({ navigation }: any) => {
         cpf: "",
         foto: [],
         senha: "",
+        profile: ""
 
     })
 
@@ -31,11 +35,11 @@ export const Usuarios = ({ navigation }: any) => {
     const [validaCpfRegex, setValidarCpfRegex] = useState(false)
     const [loading, setLoading] = useState(false);
 
-    const onChangeText = (name: string, value: string) => {
+    const onChangeText = (name: any, value: any) => {
         onChangeForm({ ...form, [name]: value });
-
-
     };
+
+
     function validarVazio(nome: string, sobrenome: string, email: string, telefone1: string, matricula: string, cpf: string, senha: string) {
         if (!nome || !sobrenome || !email || !telefone1 || !matricula || !cpf || !senha) {
             setValida(true)
@@ -55,7 +59,7 @@ export const Usuarios = ({ navigation }: any) => {
     }
 
     function validarTelefone(telefone: string) {
-        const celularRegex = /^\d{11}$/;
+        const celularRegex = /^\d{13}$/;
         if (!celularRegex.test(telefone)) {
             setValidarTelefoneCelular(true)
             return true
@@ -170,7 +174,8 @@ export const Usuarios = ({ navigation }: any) => {
         fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(form)
 
@@ -216,21 +221,22 @@ export const Usuarios = ({ navigation }: any) => {
 
     }
 
+
     const showAlertCadastrar = () => {
         Alert.alert(
-          'Cadastrar usuário',
-          'Deseja cadastrar este usuário?',
-          [
-            {
-              text: 'NÃO',
-              onPress: () => '',
-              style: 'cancel',
-            },
-            { text: 'SIM', onPress: () => cadastrarUsuario() },
-          ],
-          { cancelable: false }
+            'Cadastrar usuário',
+            'Deseja cadastrar este usuário?',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => '',
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => cadastrarUsuario() },
+            ],
+            { cancelable: false }
         );
-      };
+    };
 
 
     return (
@@ -287,12 +293,13 @@ export const Usuarios = ({ navigation }: any) => {
                 onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
-                title={'Cadastrar'}
+                title={loading ? <ActivityIndicator color={'white'} /> : 'Cadastrar'}
                 corTexto={'black'}
                 color={'#9ACD32'}
                 color2={'#94C021'}
                 color4={'#ff2d15'}
                 color3={'#ff4627'}
+                perfil={0}
             />
         </>
 

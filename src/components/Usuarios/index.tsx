@@ -4,12 +4,18 @@ import { Label } from "../Common/Label/Label";
 import { Input } from "../Common/Input/Input";
 import ImageInput from "../Common/ImageInput/ImageInput";
 import { CustomButton } from "../Common/Button";
+import Select from "../Common/Select/SelectOpcao";
+
 
 
 
 export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, title, title2, color, color2, color3, color4, corTexto, corTexto2 = '', perfil = 0 }: any) => {
 
 
+  const verifiraPrfil = () => {
+    if(perfil === 1 ) return true
+    if(perfil === 2 || perfil === 3) return true
+  }
   return (
     <ScrollView>
       <View >
@@ -58,7 +64,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
             onChangeText('telefone2', value);
           }}
           value={form.telefone2}
-          placeholder="Ex.: 1299999999" />
+          placeholder="Ex.: 1287654321" />
 
         {/*  */}
         <Label titulo='Matrícula' requirido='*' />
@@ -79,7 +85,25 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
           placeholder="Ex.: xxx.xxx.xxx-xx" />
 
         {/*  */}
-        {perfil !== 0 ? <>
+        {perfil === 2 || perfil === 0 ?
+          <>
+            <Label titulo="Tipo do usuário" requirido="*" />
+
+            <Select
+              selectedTipo={form.profile}
+              onTipoChange={(value: any) => {
+                onChangeText('profile', value)
+              }}
+
+            />
+          </>  : null
+      }
+
+
+
+        {/*  */}
+        {
+        perfil === 1 || perfil === 0 ? <>
           <Label titulo='Senha' requirido='*' />
           <Input
             onChangeText={(value: any) => {

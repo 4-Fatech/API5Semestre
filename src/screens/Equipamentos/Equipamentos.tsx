@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text, Alert } from 'react-native';
+import { Text, Alert, ActivityIndicator } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import Local from '@react-native-community/geolocation'
+import { GlobalContext } from "../../Context/GlobalProvider";
+
 
 export const Equipamentos = ({ navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
+    
     const [form, onChangeForm] = React.useState({
         serial: '',
         latitude: '',
@@ -52,7 +57,6 @@ export const Equipamentos = ({ navigation }: any) => {
             latitude: latitude,
             longitude: longitude
         });
-        console.log(latitude, longitude);
 
     }
 
@@ -102,7 +106,8 @@ export const Equipamentos = ({ navigation }: any) => {
         fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(form)
 
@@ -136,6 +141,10 @@ export const Equipamentos = ({ navigation }: any) => {
                     );
                     navigation.navigate("Equipamentos", { equipCadastrada: true });
                 }
+                
+            })
+            .finally(() => {
+                setLoading(true)
             })
             .finally(() => {
                 setLoading(false)
@@ -145,24 +154,23 @@ export const Equipamentos = ({ navigation }: any) => {
 
     function cancelar() {
         navigation.navigate("Equipamentos");
-
     }
 
     const showAlertCadastrar = () => {
         Alert.alert(
-          'Cadastrar equipamento',
-          'Deseja cadastrar este equipamento?',
-          [
-            {
-              text: 'NÃO',
-              onPress: () => '',
-              style: 'cancel',
-            },
-            { text: 'SIM', onPress: () => cadastrar() },
-          ],
-          { cancelable: false }
+            'Cadastrar equipamento',
+            'Deseja cadastrar este equipamento?',
+            [
+                {
+                    text: 'NÃO',
+                    onPress: () => '',
+                    style: 'cancel',
+                },
+                { text: 'SIM', onPress: () => cadastrar() },
+            ],
+            { cancelable: false }
         );
-      };
+    };
 
 
     useEffect(() => {
@@ -192,7 +200,7 @@ export const Equipamentos = ({ navigation }: any) => {
                 onPress={loading ? null : showAlertCadastrar}
                 onpress2={cancelar}
                 title2={'Cancelar'}
-                title={'Cadastrar'}
+                title={loading ? <ActivityIndicator color={'white'} /> : 'Cadastrar'}
                 corTexto={'black'}
                 color={'#9ACD32'}
                 color2={'#94C021'}

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
 import { CustomButton } from "../../components/Common/Button";
 import { apiurl } from "../../Helpers/ApiUrl";
 import CardUsu from "../../components/Common/Card/carUsu";
+import LoadingComponent from '../../components/Common/Loading/Loading';
+import { GlobalContext } from '../../Context/GlobalProvider';
 
 interface Usuario {
     nome: string;
@@ -13,9 +15,11 @@ interface Usuario {
 }
 
 export const ListarUsu = ({ route, navigation }: any) => {
+    const context = useContext(GlobalContext);
+    const token = context?.token || "";
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
-    const [searchText, setSearchText] = useState<string>(''); 
-  
+    const [searchText, setSearchText] = useState<string>('');
+    const [isLoading, setLoading] = useState(false)
 
     const { userAlterado, userDeletado, userCadastrado } = route.params || {};
 
@@ -24,11 +28,15 @@ export const ListarUsu = ({ route, navigation }: any) => {
     };
 
     function getUsuarios() {
+
         const url = apiurl + "/user/list";
+
+        setLoading(true)
         fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
             }
         })
             .then((resposta) => resposta.json())
@@ -39,11 +47,11 @@ export const ListarUsu = ({ route, navigation }: any) => {
                     foto: element.foto,
                     id: element.id
                 }));
-                setUsuarios(usuariosFormatados);                
-            });
+                setUsuarios(usuariosFormatados);
+            })
+            .finally(() => setLoading(false))
     }
 
-    
 
     useEffect(() => {
         getUsuarios();
@@ -59,32 +67,38 @@ export const ListarUsu = ({ route, navigation }: any) => {
 
     return (
         <>
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Pesquisar usuários"
-                placeholderTextColor="black"
-                value={searchText}
-                onChangeText={(text) => setSearchText(text)}
-            />
-            <ScrollView>
-                <View style={styles.container}>
-                    {filteredUsuarios.map((usuario) => (
-                        <CardUsu
-                            key={usuario.id} 
-                            id={usuario.id}
-                            matricula={usuario.matricula}
-                            image={usuario.foto}
-                            nome={usuario.nome}
-                            onUsuPress={handleCardPress}
-                        />
-                    ))}
-                </View>
-                <View style={styles.algumacoisa}>
-                    <View style={styles.centeredView}> 
-                       <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Usuários")} color={'#9ACD32'} color2={'#94C021'} />
-                    </View>
-                </View>            
-                </ScrollView>
+            {isLoading ? <LoadingComponent />
+                :
+                <>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder="Pesquisar usuários"
+                        placeholderTextColor="black"
+                        value={searchText}
+                        onChangeText={(text) => setSearchText(text)}
+                    />
+                    <ScrollView>
+                        <View style={styles.container}>
+                            {filteredUsuarios.map((usuario) => (
+                                <CardUsu
+                                    key={usuario.id}
+                                    id={usuario.id}
+                                    matricula={usuario.matricula}
+                                    image={usuario.foto}
+                                    nome={usuario.nome}
+                                    onUsuPress={handleCardPress}
+                                />
+                            ))}
+                        </View>
+                        <View style={styles.algumacoisa}>
+                            <View style={styles.centeredView}>
+                                <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Usuários")} color={'#9ACD32'} color2={'#94C021'} />
+                            </View>
+                        </View>
+                    </ScrollView>
+                </>
+            }
+
         </>
 
     );
@@ -102,7 +116,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         margin: 10,
-        color:'black',
+        color: 'black',
         borderColor: 'gray',
         borderWidth: 1,
         borderRadius: 5,
@@ -113,8 +127,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     centeredView: {
-        width: 500, 
+        width: 500,
         justifyContent: 'center',
         alignItems: 'center',
-      },
+    },
 });
