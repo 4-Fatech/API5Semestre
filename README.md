@@ -134,5 +134,5 @@ equipamentos cadastrados no banco de dados.
 ## 🎥 Videos das Sprints Review
 - <a href="https://youtu.be/7IwTFC6wEow" target="_blank">Sprint 1</a>
 - <a href="https://drive.google.com/drive/folders/11m6BLnfmjWWsncNbc60ojM_Wov3OA-3b" target="_blank">Sprint 2</a>
-- <a href="" target="_blank">Sprint 3</a>
+- <a href="https://drive.google.com/drive/folders/1Og0b9FWHXi99MZtWmJ52ujNFEWB1odoa" target="_blank">Sprint 3</a>
 </br>
