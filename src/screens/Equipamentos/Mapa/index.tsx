@@ -88,7 +88,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
 
 
   }
-  
+
   function getEquipamentos() {
 
     const url = apiurl + "/equipment/list";
@@ -108,11 +108,14 @@ export const MapaComponente = ({ route, navigation }: any) => {
         return resposta.json();
       })
       .then((data) => {
-        
+
         let uniqueKey = markers.length;
         const filteredEquipment = data.filter((element: any) => {
+          const tipoFiltrado = element.tipo.toLowerCase();
+          const serialFiltrado = element.serial;
+          const modeloFiltrado = element.modelo.toLowerCase();
 
-          return element.tipo.toLowerCase().includes(filterText.toLowerCase());
+          return tipoFiltrado.includes(filterText.toLowerCase()) || serialFiltrado.includes(filterText.toLowerCase()) || modeloFiltrado.includes(filterText.toLowerCase());
         });
 
         filteredEquipment.forEach((element: any) => {
@@ -133,7 +136,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
             });
 
             setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
-            uniqueKey++;            
+            uniqueKey++;
           }
         });
       })

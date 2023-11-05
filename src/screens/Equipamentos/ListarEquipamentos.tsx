@@ -87,8 +87,12 @@ export const Home = ({ route, navigation }: any) => {
         );
     };
 
-    const filteredEquipamento = equipamento.filter((equipamento) => {
-        return equipamento.tipo.toLowerCase().includes(searchText.toLowerCase());
+    const filteredEquipamento = equipamento.filter((equip) => {
+        const tipoFiltrado = equip.tipo.toLowerCase();
+        const serialFiltrado = equip.serial;
+        const modeloFiltrado = equip.modelo.toLowerCase();
+    
+        return tipoFiltrado.includes(searchText.toLowerCase()) || serialFiltrado.includes(searchText.toLowerCase()) || modeloFiltrado.includes(searchText.toLowerCase());
     });
     return (
         <>
