@@ -37,8 +37,6 @@ export const Usuarios = ({ navigation }: any) => {
 
     const onChangeText = (name: any, value: any) => {
         onChangeForm({ ...form, [name]: value });
-        console.log('PÁGINA', form.profile);
-
     };
 
 

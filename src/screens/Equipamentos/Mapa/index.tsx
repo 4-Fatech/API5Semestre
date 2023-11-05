@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, Region } from "react-native-maps";
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, Text, View, TextInput, StyleSheet } from "react-native";
 import Geolocation from "@react-native-community/geolocation";
 import { apiurl } from "../../../Helpers/ApiUrl";
 import { GlobalContext } from "../../../Context/GlobalProvider";
@@ -21,6 +21,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
   const token = context?.token || "";
   const [markers, setMarkers] = useState<MarkerData[]>([]);
   const [region, setRegion] = useState<Region | undefined>(undefined);
+  const [filterText, setFilterText] = useState("");
 
 
   const { id, equipUnico } = route.params || {};
@@ -67,8 +68,6 @@ export const MapaComponente = ({ route, navigation }: any) => {
       })
       .then((data) => {
 
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAABBBB', data.longitude, data.latitude);
-
         if (data.latitude && data.longitude) {
           const newMarkerData: MarkerData = {
             key: (1).toString(),
@@ -98,7 +97,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
 
 
   }
-
+  
   function getEquipamentos() {
 
     const url = apiurl + "/equipment/list";
@@ -118,37 +117,40 @@ export const MapaComponente = ({ route, navigation }: any) => {
         return resposta.json();
       })
       .then((data) => {
-        var n = markers.length
-        console.log(n)
+        
+        let uniqueKey = markers.length;
+        const filteredEquipment = data.filter((element: any) => {
 
-        data.map((element: any) => {
+          return element.tipo.toLowerCase().includes(filterText.toLowerCase());
+        });
 
+        filteredEquipment.forEach((element: any) => {
           if (element.latitude && element.longitude) {
             const newMarkerData: MarkerData = {
-              key: (n + 1).toString(),
+              key: uniqueKey.toString(),
               coords: {
                 latitude: Number.parseFloat(element.latitude),
                 longitude: Number.parseFloat(element.longitude)
               },
               pinColor: "#FF0000",
             };
-            console.log(newMarkerData, n++)
             setRegion({
               latitude: Number.parseFloat(element.latitude),
               longitude: Number.parseFloat(element.longitude),
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             });
+
             setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
-
+            uniqueKey++;
+            console.log(uniqueKey);
+            
           }
-
         });
       })
       .catch((error) => {
         console.error(error);
-
-      })
+      });
 
 
   }
@@ -178,8 +180,9 @@ export const MapaComponente = ({ route, navigation }: any) => {
 
   useEffect(() => {
     getMyLocation();
-
   }, [region]);
+
+
 
 
   // useEffect(() => {
@@ -194,42 +197,61 @@ export const MapaComponente = ({ route, navigation }: any) => {
   // }, [equipUnico]);
 
 
- 
-    useEffect(() => {
-      getEquipamentos()
-    }, [])
-  
 
-  console.log('AAAAAAAAAAAA',equipUnico);
-  
-
-
+  useEffect(() => {
+    // Limpe os marcadores existentes
+    setMarkers([]);
+    getEquipamentos();
+  }, [filterText]);
 
   return (
-    <View style={{ flex: 1, marginLeft: 25, width: "100%", height: height }}>
-      <MapView
-        style={{ flex: 1 }}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation={true}
-        showsMyLocationButton={true}
-        zoomEnabled={true}
-        minZoomLevel={17}
-        loadingEnabled={true}
-        onPress={(e) => newMarker(e)}
-        region={region}
-        initialRegion={region}
-      >
+    <>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Pesquisar equipamentos"
+        placeholderTextColor="black"
+        value={filterText}
+        onChangeText={(text) => setFilterText(text)}
+      />
+      <View style={{ flex: 1, marginLeft: 25, width: "100%", height: height }}>
+        <MapView
+          style={{ flex: 1 }}
+          provider={PROVIDER_GOOGLE}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
+          zoomEnabled={true}
+          minZoomLevel={17}
+          loadingEnabled={true}
+          onPress={(e) => newMarker(e)}
+          region={region}
+          initialRegion={region}
+        >
 
-        {markers.map((marker) => (
-          <Marker
-            key={marker.key}
-            coordinate={marker.coords}
-            pinColor={marker.pinColor}
-          />
-        ))}
+          {markers.map((marker) => (
+            <Marker
+              key={marker.key}
+              coordinate={marker.coords}
+              pinColor={marker.pinColor}
+            />
+          ))}
 
 
-      </MapView>
-    </View>
+        </MapView>
+      </View>
+    </>
+
   );
 };
+
+
+const styles = StyleSheet.create({
+  searchInput: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    margin: 10,
+    color: 'black',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+  }
+});
