@@ -29,8 +29,6 @@ export const RecuperarSenha = ({ navigation }: any) => {
     function enviarCod() {
         var url = isCheckedEmail ? "/notEmail" : "/notSms"
         var value = isCheckedEmail ? { email: email } : { telefone1: email }
-        console.log(1)
-
         setLoading(true)
         fetch(apiurl + "/user" + url, {
             method: 'PUT',
@@ -54,8 +52,6 @@ export const RecuperarSenha = ({ navigation }: any) => {
                     setError(null)
                     navigation.navigate("Enviar Código", { isEmail: isCheckedEmail, value: email })
                 }
-                console.log(data)
-
             })
             .finally(() => setLoading(false))
 

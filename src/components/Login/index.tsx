@@ -63,7 +63,6 @@ export const Login = ({ navigation }: any) => {
                     setLogIn(true)
                     keepUserLoggedIn();
                 }
-                console.log(data)
             })
             .finally(() => setLoading(false))
 

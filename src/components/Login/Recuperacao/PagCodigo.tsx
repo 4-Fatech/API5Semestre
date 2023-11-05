@@ -16,7 +16,6 @@ export const PagCodigo = ({ route, navigation }: any) => {
     
     function enviar() {
         var vForm = isEmail ? { code: codigo, email: value } : { code: codigo, telefone1: value }
-        console.log(vForm)
 
         setLoading(true)
         fetch(apiurl + "/user/valNot", {
