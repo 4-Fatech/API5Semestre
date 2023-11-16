@@ -19,7 +19,7 @@ export const Usuarios = ({ navigation }: any) => {
         cpf: "",
         foto: [],
         senha: "",
-        profile: ""
+        profile: "admin"
 
     })
 
