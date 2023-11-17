@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text, Alert, ActivityIndicator } from 'react-native';
+import { Text, Alert, ActivityIndicator, StyleSheet, View, ScrollView } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import Local from '@react-native-community/geolocation'
 import { GlobalContext } from "../../Context/GlobalProvider";
@@ -9,7 +9,7 @@ import { GlobalContext } from "../../Context/GlobalProvider";
 export const Equipamentos = ({ navigation }: any) => {
     const context = useContext(GlobalContext);
     const token = context?.token || "";
-    
+
     const [form, onChangeForm] = React.useState({
         serial: '',
         latitude: '',
@@ -141,7 +141,7 @@ export const Equipamentos = ({ navigation }: any) => {
                     );
                     navigation.navigate("Equipamentos", { equipCadastrada: true });
                 }
-                
+
             })
             .finally(() => {
                 setLoading(true)
@@ -182,32 +182,40 @@ export const Equipamentos = ({ navigation }: any) => {
 
     return (
         <>
-            {validaVazio ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
-                : ""
-            }
-            {validaTipo ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O tipo de equipamento deve conter apenas letras.</Text>
-                : ""
-            }
-            {validaLatLong ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números e no mínimo cinco números.</Text>
-                : ""
-            }
-            <CadastrarEquipamento
-                form={form}
-                onChangeText={onChangeText}
-                onPress={loading ? null : showAlertCadastrar}
-                onpress2={cancelar}
-                title2={'Cancelar'}
-                title={loading ? <ActivityIndicator color={'white'} /> : 'Cadastrar'}
-                corTexto={'black'}
-                color={'#9ACD32'}
-                color2={'#94C021'}
-                color4={'#ff2d15'}
-                color3={'#ff4627'}
+            <ScrollView style={styles.bg}>
 
-            />
+                {validaVazio ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
+                    : ""
+                }
+                {validaTipo ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>O tipo de equipamento deve conter apenas letras.</Text>
+                    : ""
+                }
+                {validaLatLong ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números e no mínimo cinco números.</Text>
+                    : ""
+                }
+                <CadastrarEquipamento
+                    form={form}
+                    onChangeText={onChangeText}
+                    onPress={loading ? null : showAlertCadastrar}
+                    onpress2={cancelar}
+                    title2={'Cancelar'}
+                    title={loading ? <ActivityIndicator color={'white'} /> : 'Cadastrar'}
+                    corTexto={'#2D2D2D'}
+                    color={'#94C021'}
+                    color2={'#C0F458'}
+                    color4={'#CCCCCC'}
+                    color3={'#AAAAAA'}
+
+                />
+            </ScrollView>
         </>
     );
 };
+const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    }
+})

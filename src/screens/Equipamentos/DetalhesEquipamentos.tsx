@@ -98,112 +98,118 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
         }
 
         return (
-            <View style={styles.historyItem}>
-                <View style={[styles.line, { backgroundColor: borderColor }]} />
-                <View style={[styles.circle, { backgroundColor: circleColor }]} />
-                <View style={[styles.detailsContainer, { borderColor }]}>
-                    <Text style={{ fontSize: 21, fontWeight: 'bold', textTransform: 'uppercase', color: '#696969' }}> {item.action} - {formattedDate}</Text>
+            <ScrollView style={styles.bg}>
+                <View style={styles.historyItem}>
+                    <View style={[styles.line, { backgroundColor: borderColor }]} />
+                    <View style={[styles.circle, { backgroundColor: circleColor }]} />
+                    <View style={[styles.detailsContainer, { borderColor }]}>
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', textTransform: 'uppercase', color: 'white' }}> {item.action} - {formattedDate}</Text>
 
-                    <Text style={{ marginLeft: 5, fontSize: 16 }}>
-                        Usuário:{' '}
-                        <Text style={{ color: '#4F4F4F', textDecorationLine: 'underline' }}>{item.userEmail}</Text>
-                    </Text>
-                    {item.details ? (
-                        <View>
-                            <Text style={{ marginLeft: 5, fontSize: 16 }}>Detalhes:</Text>
-                            {item.details.map((detail: any, index: any) => (
-                                <Text style={{ marginLeft: 5, fontSize: 16 }} key={index}>- {detail}</Text>
-                            ))}
-                        </View>
-                    ) : (
-                        <Text style={{ marginLeft: 5, fontSize: 16 }}>Detalhes: Sem informações disponíveis</Text>
-                    )}
+                        <Text style={{ marginLeft: 5, fontSize: 16 }}>
+                            Usuário:{' '}
+                            <Text style={{ color: '#94C021', textDecorationLine: 'underline' }}>{item.userEmail}</Text>
+                        </Text>
+                        {item.details ? (
+                            <View>
+                                <Text style={{ marginLeft: 5, fontSize: 16 }}>Detalhes:</Text>
+                                {item.details.map((detail: any, index: any) => (
+                                    <Text style={{ marginLeft: 5, fontSize: 16 }} key={index}>- {detail}</Text>
+                                ))}
+                            </View>
+                        ) : (
+                            <Text style={{ marginLeft: 5, fontSize: 16 }}>Detalhes: Sem informações disponíveis</Text>
+                        )}
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 
     const HistoryScreen = () => {
         return (
-            <View style={styles.hist}>
-                <FlatList
-                    data={logs}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <HistoryItem item={item} />}
-                />
-            </View>
+            <ScrollView style={styles.bg}>
+                <View style={styles.hist}>
+                    <FlatList
+                        data={logs}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => <HistoryItem item={item} />}
+                    />
+                </View>
+            </ScrollView>
         );
     };
 
     const Detalhes = () => (
         <>
-            <ScrollView>
-                <View style={styles.alinhamentoCentro}>
-                    <ScrollView style={styles.imagens}>
-                        <Label titulo='Imagens do equipamento' />
-                        <MostrarImagem
-                            form={form}
-                        />
-                    </ScrollView>
+            <ScrollView style={styles.bg}>
+                <ScrollView>
+                    <View style={styles.alinhamentoCentro}>
+                        <Label cor="white" titulo='Imagens do equipamento' />
+                        <ScrollView style={styles.imagens}>
+                            <MostrarImagem
+                                form={form}
+                            />
+                        </ScrollView>
 
-                </View>
-                <View style={styles.alinhamentoCentro}>
-                    <View style={styles.container1}>
-                        <View style={styles.campoTipoSerie}>
-                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.tipo}</Text>
-                        </View>
-                        <View style={styles.campoTipoSerie}>
-                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.modelo}</Text>
-                        </View>
                     </View>
-                </View>
-                <View style={styles.alinhamentoCentro}>
-                    <View style={styles.container}>
-                        <View>
-                            <Text style={{ color: '#000000', lineHeight: 28, }}>Nº de série </Text>
-                        </View>
-                        <View style={styles.campoSerial}>
-                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {form.serial} </Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.alinhamentoCentro}>
-                    <ScrollView
-                        horizontal={true}
-                        contentContainerStyle={styles.scrollViewContent}
-                    >
-                        <View style={styles.containerLatitude}>
-                            <View style={styles.container2}>
-                                <Text>
-                                    <Label titulo="Latitude" />
-                                </Text>
-                                <Text style={styles.latitudeLongitude}> {form.latitude} </Text>
+                    <View style={styles.alinhamentoCentro}>
+                        <View style={styles.container1}>
+                            <View style={styles.campoTipoSerie}>
+                                <Text style={{ color: 'white', textAlign: 'center', lineHeight: 28 }}>{form.tipo}</Text>
                             </View>
-                            <View style={styles.container2}>
-                                <Text>
-                                    <Label titulo="Longitude" />
-                                </Text>
-                                <Text style={styles.latitudeLongitude}> {form.longitude} </Text>
+                            <View style={styles.campoTipoSerie}>
+                                <Text style={{ color: 'white', textAlign: 'center', lineHeight: 28 }}>{form.modelo}</Text>
                             </View>
                         </View>
-                    </ScrollView>
-                </View>
-                <View style={styles.alinhamentoCentro}>
-
-                    <View style={styles.container}>
-                        <Text>
-                            <Label titulo="Observações" />
-                        </Text>
-                        <View style={styles.campoObservacao}>
-                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}>{form.observacoes}</Text>
+                    </View>
+                    <View style={styles.alinhamentoCentro}>
+                        <View style={styles.container}>
+                            <View>
+                                <Text style={{ color: 'white', lineHeight: 28, }}>Nº de série </Text>
+                            </View>
+                            <View style={styles.campoSerial}>
+                                <Text style={{ color: 'white', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {form.serial} </Text>
+                            </View>
                         </View>
                     </View>
+                    <View style={styles.alinhamentoCentro}>
+                        <ScrollView
+                            horizontal={true}
+                            contentContainerStyle={styles.scrollViewContent}
+                        >
+                            <View style={styles.containerLatitude}>
+                                <View style={styles.container2}>
+                                    <Text>
+                                        <Label cor="white" titulo="Latitude" />
+                                    </Text>
+                                    <Text style={styles.latitudeLongitude}> {form.latitude} </Text>
+                                </View>
+                                <View style={styles.container2}>
+                                    <Text>
+                                        <Label cor="white" titulo="Longitude" />
+                                    </Text>
+                                    <Text style={styles.latitudeLongitude}> {form.longitude} </Text>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </View>
+                    <View style={styles.alinhamentoCentro}>
+
+                        <View style={styles.container}>
+                            <Text>
+                                <Label cor="white" titulo="Observações" />
+                            </Text>
+                            <View style={styles.campoObservacao}>
+                                <Text style={{ color: 'white', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}>{form.observacoes}</Text>
+                            </View>
+                        </View>
 
 
-                </View>
-                <View style={styles.ativarDesativar}>
-                    <SwitchComponent ativo={parseInt(form.status)} onChangeText={(): any => ''} disable={true} key={form.status} />
-                </View>
+                    </View>
+                    <View style={styles.ativarDesativar}>
+                        <SwitchComponent ativo={parseInt(form.status)} onChangeText={(): any => ''} disable={true} key={form.status} />
+                    </View>
+                </ScrollView>
             </ScrollView>
         </>
     );
@@ -230,7 +236,7 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
                         <TabBar
                             {...props}
                             indicatorStyle={{ backgroundColor: '#FFFFFF' }}
-                            style={{ backgroundColor: '#333333' }}
+                            style={{ backgroundColor: '#333333' }} //alterar aqui o fundo
                             labelStyle={{ fontSize: 16, fontWeight: 'bold', color: '#FFFFFF' }}
                         />
                     )}
@@ -241,6 +247,9 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    },
     alinhamentoCentro: {
         flex: 1,
         justifyContent: 'center',
@@ -284,20 +293,21 @@ const styles = StyleSheet.create({
         width: 140,
         height: 30,
         alignItems: 'center',
-        borderColor: 'black',
+        borderColor: '#939393',
         marginRight: 10,
     },
     campoSerial: {
-        backgroundColor: '#D9D9D9',
         width: 296,
+        borderColor: '#939393',
+        borderWidth: 1,
         borderRadius: 8,
         height: 30,
     },
     latitudeLongitude: {
-        color: '#5A6BFF',
+        color: '#93E4F5',
     },
     campoObservacao: {
-        borderColor: "#000000",
+        borderColor: "#939393",
         width: 296,
         borderWidth: 1,
         borderRadius: 8,
@@ -312,10 +322,10 @@ const styles = StyleSheet.create({
     },
     hist: {
         flex: 1,
-        padding: 20,
         backgroundColor: '#fff',
     },
     historyItem: {
+        marginTop: 20,
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,

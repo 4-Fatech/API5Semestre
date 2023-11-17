@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, Image, Text, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Image, Text, ActivityIndicator, ScrollView } from "react-native";
 import CheckboxComponent from "../../Common/Checkbox";
 import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
@@ -15,7 +15,7 @@ export const RecuperarSenha = ({ navigation }: any) => {
     const [loading, setLoading] = useState(false)
     const context = useContext(GlobalContext);
     const token = context?.token || "";
-    
+
     function handleCheckboxChange(checkboxName: string) {
         if (checkboxName === "Email") {
             setIsCheckedEmail(true);
@@ -57,44 +57,49 @@ export const RecuperarSenha = ({ navigation }: any) => {
 
     }
     return (
-        <View style={{ backgroundColor: 'white', height: '75%', width: '100%' }}>
-            <View style={styles.background} >
-                <Image style={{ width: 200, height: 100 }} source={{ uri: LogoImagem }} />
-            </View>
-            <View style={styles.container}>
-                <CheckboxComponent value={isCheckedEmail} setValue={setIsCheckedEmail} onChange={() => handleCheckboxChange("Email")} label="Email" />
-                <CheckboxComponent value={isCheckedSenha} setValue={setIsCheckedSenha} onChange={() => handleCheckboxChange("SMS")} label="SMS" />
-            </View>
-            <View style={styles.botao}>
-                {isCheckedEmail || isCheckedSenha ?
-                    <>
-                        <View style={{ marginTop: -140 }} >
-                            <Input onChangeText={setEmail} value={email} placeholder="Insira seu email/telefone" />
-                        </View>
-                        {error ?
-                            <View style={styles.errorMessageContainer} >
-                                <Text style={styles.errorMessage}>{error}</Text>
-                            </View> : null
-                        }
-                        <View style={{ height: 50 }}>
-                            <CustomButton
-                                color='#5f781f'
-                                color2="#94C021"
-                                corTexto="white"
-                                title={loading ? <ActivityIndicator color={'white'} /> : "Enviar"}
-                                onPress={loading ? null : enviarCod} />
-                        </View>
-                    </>
-                    :
-                    <></>
-                }
-            </View>
+        <ScrollView style={styles.bg}>
+            <View style={{ backgroundColor: 'white', height: '75%', width: '100%' }}>
+                <View style={styles.background} >
+                    <Image style={{ width: 200, height: 100 }} source={{ uri: LogoImagem }} />
+                </View>
+                <View style={styles.container}>
+                    <CheckboxComponent value={isCheckedEmail} setValue={setIsCheckedEmail} onChange={() => handleCheckboxChange("Email")} label="Email" />
+                    <CheckboxComponent value={isCheckedSenha} setValue={setIsCheckedSenha} onChange={() => handleCheckboxChange("SMS")} label="SMS" />
+                </View>
+                <View style={styles.botao}>
+                    {isCheckedEmail || isCheckedSenha ?
+                        <>
+                            <View style={{ marginTop: -140 }} >
+                                <Input onChangeText={setEmail} value={email} placeholder="Insira seu email/telefone" />
+                            </View>
+                            {error ?
+                                <View style={styles.errorMessageContainer} >
+                                    <Text style={styles.errorMessage}>{error}</Text>
+                                </View> : null
+                            }
+                            <View style={{ height: 50 }}>
+                                <CustomButton
+                                    color='#5f781f'
+                                    color2="#94C021"
+                                    corTexto="white"
+                                    title={loading ? <ActivityIndicator color={'white'} /> : "Enviar"}
+                                    onPress={loading ? null : enviarCod} />
+                            </View>
+                        </>
+                        :
+                        <></>
+                    }
+                </View>
 
-        </View>
+            </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    },
     container: {
         display: "flex",
         flexDirection: 'row',

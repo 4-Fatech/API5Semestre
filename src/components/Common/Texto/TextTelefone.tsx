@@ -16,15 +16,10 @@ export const TextTelefone = ({ nome, estiloTexto, styleDiv2, titulo }: Props) =>
     return (
         <View style={styleDiv2}>
             <Text>
-                <Label titulo={titulo} />
+                <Label cor="white" titulo={titulo} />
             </Text>
             <Text style={estiloTexto}> {nome} </Text>
         </View>
-    //       <View style={styles.container2}>
-    //       <Text>
-    //           <Label titulo="Telefone Fixo/recado:" />
-    //       </Text>
-    //   </View>
     );
 }
 

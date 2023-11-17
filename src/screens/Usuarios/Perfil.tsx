@@ -287,111 +287,118 @@ export const Perfil = () => {
                     <>
                         {mostrarApenasTexto ? (
                             <>
-                                {valida ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
-                                    : ""
-                                }
-                                {validaSenha ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve ter entre 10 e 20 caracteres.</Text>
-                                    : ""
-                                }
-                                {validaSenhaRegex ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra maiúscula, um caractere especial e números entre 0 e 9.</Text>
-                                    : ""
-                                }
-                                {validarEmailRegex ?
-                                    <View>
-                                        <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
-                                        <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
-                                        <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
-                                        <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
-                                        <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
-                                    </View>
-                                    : ""
-                                }
-                                {validarTexto ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
-                                    : ""
-                                }
-                                {validaTelefoneCeleluar ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve conter o DDI, DDD e ao menos 9 números.</Text>
-                                    : ""
-                                }
-                                {validaTelefoneFixo ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
-                                    : ""
-                                }
-                                {validaMatricula ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
-                                    : ""
-                                }
-                                {validaMatriculaRegex ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
-                                    : ""
-                                }
-                                {validaCpfRegex ?
-                                    <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
-                                    : ""
-                                }
-                                <ScrollView>
-                                    <UsuariosComponente
-                                        form={form}
-                                        onChangeText={onChangeText}
-                                        onPress={loading ? null : showAlertUpdate}
-                                        onpress2={loading ? null : showAlertCancelar}
-                                        title={loadingButton ? <ActivityIndicator color={'white'} /> : 'Alterar'}
-                                        title2={'Cancelar'}
-                                        corTexto={'black'}
-                                        color={'#4682B4'}
-                                        color2={'#87CEFA'}
-                                        color4={'#ff524a'}
-                                        color3={'#ff4627'}
-                                        corTexto2={'white'}
-                                        perfil={1}
-                                    />
+                                <ScrollView style={styles.bg}>
+                                    {valida ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
+                                        : ""
+                                    }
+                                    {validaSenha ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve ter entre 10 e 20 caracteres.</Text>
+                                        : ""
+                                    }
+                                    {validaSenhaRegex ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra maiúscula, um caractere especial e números entre 0 e 9.</Text>
+                                        : ""
+                                    }
+                                    {validarEmailRegex ?
+                                        <View>
+                                            <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
+                                            <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
+                                            <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
+                                            <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
+                                            <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
+                                        </View>
+                                        : ""
+                                    }
+                                    {validarTexto ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
+                                        : ""
+                                    }
+                                    {validaTelefoneCeleluar ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve conter o DDI, DDD e ao menos 9 números.</Text>
+                                        : ""
+                                    }
+                                    {validaTelefoneFixo ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
+                                        : ""
+                                    }
+                                    {validaMatricula ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
+                                        : ""
+                                    }
+                                    {validaMatriculaRegex ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
+                                        : ""
+                                    }
+                                    {validaCpfRegex ?
+                                        <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
+                                        : ""
+                                    }
+                                    <ScrollView>
+                                        <UsuariosComponente
+                                            form={form}
+                                            onChangeText={onChangeText}
+                                            onPress={loading ? null : showAlertUpdate}
+                                            onpress2={loading ? null : showAlertCancelar}
+                                            title={loadingButton ? <ActivityIndicator color={'white'} /> : 'Alterar'}
+                                            title2={'Cancelar'}
+                                            corTexto={'#2D2D2D'}
+                                            color={'#4682B4'}
+                                            color2={'#87CEFA'}
+                                            color4={'#CCCCCC'}
+                                            color3={'#AAAAAA'}
+                                            corTexto2={'#2D2D2D'}
+                                            perfil={1}
+                                        />
+                                    </ScrollView>
                                 </ScrollView>
                             </>
 
                         ) :
-                            <ScrollView>
-                                <View style={styles.alinhamentoCentro}>
-                                    <ScrollView style={styles.imagens}>
-                                        <MostrarImagem
-                                            form={form}
-                                        />
-                                    </ScrollView>
-                                </View>
-                                <View style={styles.alinhamentoCentro}>
-                                    <View style={styles.container1}>
-                                        <TextComponent styleTexto={{ color: '#000000', textAlign: 'center', lineHeight: 28 }} nome={user.nome + " " + user.sobrenome} styleDiv={styles.campoNomeSobrenome} />
-                                    </View>
-                                </View>
-                                <View style={styles.alinhamentoCentro}>
-                                    <TextocTiutloComponent nome={user.email} styleDiv={styles.campoSerial} estiloTexto={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="E-mail:" />
-                                </View>
-                                <View style={styles.alinhamentoCentro}>
-                                    <ScrollView
-                                        horizontal={true}
-                                        contentContainerStyle={styles.scrollViewContent}
-                                    >
-                                        <View style={styles.containerTelefones}>
-                                            <TextTelefone nome={user.telefone1} estiloTexto={styles.telefones} styleDiv2={styles.container2} titulo="Telefone Celular:" />
-                                            <TextTelefone nome={user.telefone2} estiloTexto={styles.telefones} titulo="Telefone Fixo/recado:" styleDiv2={styles.container2} />
-                                        
+                            <ScrollView style={styles.bg}>
+                                <ScrollView>
+                                    <View style={styles.alinhamentoCentro}>
+                                        <View style={styles.alinhamentoCentro}>
+                                            <ScrollView style={styles.imagens}>
+                                                <MostrarImagem
+                                                    form={form}
+                                                />
+                                            </ScrollView>
                                         </View>
-                                    </ScrollView>
-                                </View>
-                                <View style={styles.alinhamentoCentro}>
-                                    <TextocTiutloComponent nome={user.matricula} styleDiv={styles.campoSerial} estiloTexto={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="Matrícula:" />
-                                </View>
-                                <View style={styles.alinhamentoCentro}>
-                                    <TextocTiutloComponent nome={user.cpf} styleDiv={styles.campoSerial} estiloTexto={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="CPF:" />
-                                </View>
-                                <View style={styles.alinhamentoCentro}>
-                                    <View style={styles.ativarDesativar}>
-                                        <CustomButton title="Editar" corTexto="#000000" onPress={editar} color='#9ACD32' color2="#94C021" />
+                                        <View style={styles.alinhamentoCentro}>
+                                            <View style={styles.container1}>
+                                                <TextComponent styleTexto={{ color: 'white', textAlign: 'center', lineHeight: 28 }} nome={user.nome + " " + user.sobrenome} styleDiv={styles.campoNomeSobrenome} />
+                                            </View>
+                                        </View>
+                                        <View style={styles.alinhamentoCentro}>
+                                            <TextocTiutloComponent nome={user.email} styleDiv={styles.campoSerial} estiloTexto={{ color: 'white', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="E-mail:" />
+                                        </View>
+                                        <View style={styles.alinhamentoCentro}>
+                                            <ScrollView
+                                                horizontal={true}
+                                                contentContainerStyle={styles.scrollViewContent}
+                                            >
+                                                <View style={styles.containerTelefones}>
+                                                    <TextTelefone nome={"+ " + user.telefone1} estiloTexto={styles.telefones} styleDiv2={styles.container2} titulo="Telefone Celular:" />
+                                                    {form.telefone2 ? <TextTelefone nome={"+" + user.telefone2} estiloTexto={styles.telefones} titulo="Telefone Fixo/recado:" styleDiv2={styles.container2} /> : <Text>Não possui telefone fixo</Text>}
+
+
+                                                </View>
+                                            </ScrollView>
+                                        </View>
+                                        <View style={styles.alinhamentoCentro}>
+                                            <TextocTiutloComponent nome={user.matricula} styleDiv={styles.campoSerial} estiloTexto={{ color: 'white', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="Matrícula:" />
+                                        </View>
+                                        <View style={styles.alinhamentoCentro}>
+                                            <TextocTiutloComponent nome={user.cpf} styleDiv={styles.campoSerial} estiloTexto={{ color: 'white', textAlign: 'left', lineHeight: 28, marginLeft: 5 }} styleDiv2={styles.container} titulo="CPF:" />
+                                        </View>
+                                        <View style={styles.alinhamentoCentro}>
+                                            <View style={styles.ativarDesativar}>
+                                                <CustomButton title="Editar" corTexto="#000000" onPress={editar} color='#5FA0CC' color2="#81c9fa" />
+                                            </View>
+                                        </View>
                                     </View>
-                                </View>
+                                </ScrollView>
                             </ScrollView>
                         }
                     </>
@@ -404,13 +411,15 @@ export const Perfil = () => {
 };
 
 const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    },
     alinhamentoCentro: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     imagens: {
-        width: 250
     },
     container: {
         flex: 1,
@@ -450,13 +459,13 @@ const styles = StyleSheet.create({
     },
     campoSerial: {
         borderColor: 'black',
-        borderWidth: 1 ,
+        borderWidth: 1,
         width: 296,
         borderRadius: 8,
         height: 30,
     },
     telefones: {
-        color: '#5A6BFF',
+        color: '#93E4F5',
     },
     campoObservacao: {
         borderColor: "#000000",

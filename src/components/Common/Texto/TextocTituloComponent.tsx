@@ -17,7 +17,7 @@ export const TextocTiutloComponent = ({ nome, estiloTexto, styleDiv,styleDiv2, t
     return (
         <View style={styleDiv2}>
             <Text style={{ marginBottom: 10 }}>
-                <Label titulo={titulo} />
+                <Label cor="white" titulo={titulo} />
             </Text>
             <TextComponent styleTexto={estiloTexto} nome={nome} styleDiv={styleDiv} />
         </View>

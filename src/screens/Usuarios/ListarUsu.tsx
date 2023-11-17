@@ -70,31 +70,33 @@ export const ListarUsu = ({ route, navigation }: any) => {
             {isLoading ? <LoadingComponent />
                 :
                 <>
-                    <TextInput
-                        style={styles.searchInput}
-                        placeholder="Pesquisar usuários"
-                        placeholderTextColor="black"
-                        value={searchText}
-                        onChangeText={(text) => setSearchText(text)}
-                    />
-                    <ScrollView>
-                        <View style={styles.container}>
-                            {filteredUsuarios.map((usuario) => (
-                                <CardUsu
-                                    key={usuario.id}
-                                    id={usuario.id}
-                                    matricula={usuario.matricula}
-                                    image={usuario.foto}
-                                    nome={usuario.nome}
-                                    onUsuPress={handleCardPress}
-                                />
-                            ))}
-                        </View>
-                        <View style={styles.algumacoisa}>
-                            <View style={styles.centeredView}>
-                                <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Usuários")} color={'#9ACD32'} color2={'#94C021'} />
+                    <ScrollView style={styles.bg}>
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Pesquisar usuários"
+                            placeholderTextColor="white"
+                            value={searchText}
+                            onChangeText={(text) => setSearchText(text)}
+                        />
+                        <ScrollView>
+                            <View style={styles.container}>
+                                {filteredUsuarios.map((usuario) => (
+                                    <CardUsu
+                                        key={usuario.id}
+                                        id={usuario.id}
+                                        matricula={usuario.matricula}
+                                        image={usuario.foto}
+                                        nome={usuario.nome}
+                                        onUsuPress={handleCardPress}
+                                    />
+                                ))}
                             </View>
-                        </View>
+                            <View style={styles.algumacoisa}>
+                                <View style={styles.centeredView}>
+                                    <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Usuários")} color={'#9ACD32'} color2={'#94C021'} />
+                                </View>
+                            </View>
+                        </ScrollView>
                     </ScrollView>
                 </>
             }
@@ -105,6 +107,9 @@ export const ListarUsu = ({ route, navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    },
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
