@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet, useWindowDimensions } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { Label } from "../../components/Common/Label/Label";
 import MostrarImagem from "../../components/Common/ImageInput/MostrarImagem";
@@ -7,6 +7,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { SwitchComponent } from "../../components/Common/Switch";
 import LoadingComponent from "../../components/Common/Loading/Loading";
 import { GlobalContext } from "../../Context/GlobalProvider";
+import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 
 export const DetalhesEquipamentos = ({ route, navigation }: any) => {
     const context = useContext(GlobalContext);
@@ -23,7 +24,13 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
         modelo: "",
         id: ""
     })
+    const layout = useWindowDimensions();
     const [loading, setLoading] = useState(false)
+    const [index, setIndex] = useState(0);
+    const [routes] = React.useState([
+        { key: 'Equipamento', title: 'Equipamento' },
+        { key: 'Historico', title: 'Histórico' },
+    ]);
 
     function getEquipamento() {
         const url = apiurl + '/equipment/get/' + id;
@@ -50,7 +57,82 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
             .finally(() => setLoading(false))
     }
 
+    const SecondRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
+    );
 
+    const Detalhes = () => (
+        <>
+            <ScrollView>
+                <View style={styles.alinhamentoCentro}>
+                    <ScrollView style={styles.imagens}>
+                        <Label titulo='Imagens do equipamento' />
+                        <MostrarImagem
+                            form={form}
+                        />
+                    </ScrollView>
+
+                </View>
+                <View style={styles.alinhamentoCentro}>
+                    <View style={styles.container1}>
+                        <View style={styles.campoTipoSerie}>
+                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.tipo}</Text>
+                        </View>
+                        <View style={styles.campoTipoSerie}>
+                            <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.modelo}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.alinhamentoCentro}>
+                    <View style={styles.container}>
+                        <View>
+                            <Text style={{ color: '#000000', lineHeight: 28, }}>Nº de série </Text>
+                        </View>
+                        <View style={styles.campoSerial}>
+                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {form.serial} </Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.alinhamentoCentro}>
+                    <ScrollView
+                        horizontal={true}
+                        contentContainerStyle={styles.scrollViewContent}
+                    >
+                        <View style={styles.containerLatitude}>
+                            <View style={styles.container2}>
+                                <Text>
+                                    <Label titulo="Latitude" />
+                                </Text>
+                                <Text style={styles.latitudeLongitude}> {form.latitude} </Text>
+                            </View>
+                            <View style={styles.container2}>
+                                <Text>
+                                    <Label titulo="Longitude" />
+                                </Text>
+                                <Text style={styles.latitudeLongitude}> {form.longitude} </Text>
+                            </View>
+                        </View>
+                    </ScrollView>
+                </View>
+                <View style={styles.alinhamentoCentro}>
+
+                    <View style={styles.container}>
+                        <Text>
+                            <Label titulo="Observações" />
+                        </Text>
+                        <View style={styles.campoObservacao}>
+                            <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}>{form.observacoes}</Text>
+                        </View>
+                    </View>
+
+
+                </View>
+                <View style={styles.ativarDesativar}>
+                    <SwitchComponent ativo={parseInt(form.status)} onChangeText={(): any => ''} disable={true} key={form.status} />
+                </View>
+            </ScrollView>
+        </>
+    );
 
     useEffect(() => {
         getEquipamento();
@@ -61,76 +143,23 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
             {loading ?
                 <LoadingComponent />
                 :
-                <>
-                    <ScrollView>
-                        <View style={styles.alinhamentoCentro}>
-                            <ScrollView style={styles.imagens}>
-                                <Label titulo='Imagens do equipamento' />
-                                <MostrarImagem
-                                    form={form}
-                                />
-                            </ScrollView>
-
-                        </View>
-                        <View style={styles.alinhamentoCentro}>
-                            <View style={styles.container1}>
-                                <View style={styles.campoTipoSerie}>
-                                    <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.tipo}</Text>
-                                </View>
-                                <View style={styles.campoTipoSerie}>
-                                    <Text style={{ color: '#000000', textAlign: 'center', lineHeight: 28 }}>{form.modelo}</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.alinhamentoCentro}>
-                            <View style={styles.container}>
-                                <View>
-                                    <Text style={{ color: '#000000', lineHeight: 28, }}>Nº de série </Text>
-                                </View>
-                                <View style={styles.campoSerial}>
-                                    <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}> {form.serial} </Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.alinhamentoCentro}>
-                            <ScrollView
-                                horizontal={true}
-                                contentContainerStyle={styles.scrollViewContent}
-                            >
-                                <View style={styles.containerLatitude}>
-                                    <View style={styles.container2}>
-                                        <Text>
-                                            <Label titulo="Latitude" />
-                                        </Text>
-                                        <Text style={styles.latitudeLongitude}> {form.latitude} </Text>
-                                    </View>
-                                    <View style={styles.container2}>
-                                        <Text>
-                                            <Label titulo="Longitude" />
-                                        </Text>
-                                        <Text style={styles.latitudeLongitude}> {form.longitude} </Text>
-                                    </View>
-                                </View>
-                            </ScrollView>
-                        </View>
-                        <View style={styles.alinhamentoCentro}>
-
-                            <View style={styles.container}>
-                                <Text>
-                                    <Label titulo="Observações" />
-                                </Text>
-                                <View style={styles.campoObservacao}>
-                                    <Text style={{ color: '#000000', textAlign: 'left', lineHeight: 28, marginLeft: 5 }}>{form.observacoes}</Text>
-                                </View>
-                            </View>
-
-
-                        </View>
-                        <View style={styles.ativarDesativar}>
-                            <SwitchComponent ativo={parseInt(form.status)} onChangeText={(): any => ''} disable={true} key={form.status} />
-                        </View>
-                    </ScrollView>
-                </>
+                <TabView
+                    navigationState={{ index, routes }}
+                    renderScene={SceneMap({
+                        Historico: SecondRoute,
+                        Equipamento: Detalhes,
+                    })}
+                    onIndexChange={setIndex}
+                    initialLayout={{ width: layout.width }}
+                    renderTabBar={(props) => (
+                        <TabBar
+                            {...props}
+                            indicatorStyle={{ backgroundColor: '#FFFFFF' }}
+                            style={{ backgroundColor: '#333333' }}
+                            labelStyle={{ fontSize: 16, fontWeight: 'bold', color: '#FFFFFF' }}
+                        />
+                    )}
+                />
             }
         </>
     );
