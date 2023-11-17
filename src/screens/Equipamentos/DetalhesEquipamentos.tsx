@@ -89,6 +89,12 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
         } else if (item.action === 'Create') {
             borderColor = 'orange';
             circleColor = 'orange';
+        } else if (item.action === 'Ativado') {
+            borderColor = 'green';
+            circleColor = 'green';
+        } else if (item.action === 'Desativado') {
+            borderColor = 'red';
+            circleColor = 'red';
         }
 
         return (
