@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Modal, StyleSheet, useWindowDimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet, useWindowDimensions, FlatList } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { Label } from "../../components/Common/Label/Label";
 import MostrarImagem from "../../components/Common/ImageInput/MostrarImagem";
@@ -8,6 +8,7 @@ import { SwitchComponent } from "../../components/Common/Switch";
 import LoadingComponent from "../../components/Common/Loading/Loading";
 import { GlobalContext } from "../../Context/GlobalProvider";
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
+import { format, parseISO } from 'date-fns';
 
 export const DetalhesEquipamentos = ({ route, navigation }: any) => {
     const context = useContext(GlobalContext);
@@ -31,11 +32,10 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
         { key: 'Equipamento', title: 'Equipamento' },
         { key: 'Historico', title: 'Histórico' },
     ]);
+    const [logs, setLogs] = React.useState()
 
     function getEquipamento() {
         const url = apiurl + '/equipment/get/' + id;
-
-
         setLoading(true)
         fetch(url, {
             method: 'GET',
@@ -57,9 +57,60 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
             .finally(() => setLoading(false))
     }
 
-    const SecondRoute = () => (
-        <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-    );
+    function getLogs() {
+        const url = apiurl + '/equipment/getLogs/' + id;
+        console.log(url)
+        setLoading(true)
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then((resposta) => resposta.json())
+            .then((data) => {
+                if (data !== null) {
+                    console.log(data)
+                    setLogs(data)
+                }
+            })
+            .finally(() => setLoading(false))
+    }
+
+    const HistoryItem = ({ item }: any) => {
+        const formattedDate = format(parseISO(item.date), "dd/MM/yyyy HH:mm:ss");
+        return (
+            <View style={styles.historyItem}>
+                <Text>Ação: {item.action}</Text>
+                <Text>Data: {formattedDate}</Text>
+                <Text>Usuário: {item.userEmail}</Text>
+                {item.details ? (
+                    <View>
+                        <Text>Mudanças:</Text>
+                        {item.details.map((detail: string, index: number) => (
+                            <Text key={index}>• {detail}</Text>
+                        ))}
+                    </View>
+                ) : (
+                    <Text>Mudanças: Sem informações disponíveis</Text>
+                )}
+
+            </View>
+        );
+    }
+
+    const HistoryScreen = () => {
+        return (
+            <View style={styles.hist}>
+                <FlatList
+                    data={logs}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => <HistoryItem item={item} />}
+                />
+            </View>
+        );
+    };
 
     const Detalhes = () => (
         <>
@@ -136,6 +187,7 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
 
     useEffect(() => {
         getEquipamento();
+        getLogs();
     }, []);
 
     return (
@@ -146,7 +198,7 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
                 <TabView
                     navigationState={{ index, routes }}
                     renderScene={SceneMap({
-                        Historico: SecondRoute,
+                        Historico: HistoryScreen,
                         Equipamento: Detalhes,
                     })}
                     onIndexChange={setIndex}
@@ -234,5 +286,17 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 30,
         marginLeft: 50
+    },
+    historyItem: {
+        padding: 10,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+    },
+    hist: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#fff',
     },
 });
