@@ -80,22 +80,39 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
 
     const HistoryItem = ({ item }: any) => {
         const formattedDate = format(parseISO(item.date), "dd/MM/yyyy HH:mm:ss");
+        let borderColor = '#ccc';
+        let circleColor = '#ccc';
+
+        if (item.action === 'Update') {
+            borderColor = 'blue';
+            circleColor = 'blue';
+        } else if (item.action === 'Create') {
+            borderColor = 'orange';
+            circleColor = 'orange';
+        }
+
         return (
             <View style={styles.historyItem}>
-                <Text>Ação: {item.action}</Text>
-                <Text>Data: {formattedDate}</Text>
-                <Text>Usuário: {item.userEmail}</Text>
-                {item.details ? (
-                    <View>
-                        <Text>Mudanças:</Text>
-                        {item.details.map((detail: string, index: number) => (
-                            <Text key={index}>• {detail}</Text>
-                        ))}
-                    </View>
-                ) : (
-                    <Text>Mudanças: Sem informações disponíveis</Text>
-                )}
+                <View style={[styles.line, { backgroundColor: borderColor }]} />
+                <View style={[styles.circle, { backgroundColor: circleColor }]} />
+                <View style={[styles.detailsContainer, { borderColor }]}>
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', textTransform: 'uppercase', color: '#696969' }}> {item.action} - {formattedDate}</Text>
 
+                    <Text style={{ marginLeft: 5, fontSize: 16 }}>
+                        Usuário:{' '}
+                        <Text style={{ color: '#4F4F4F', textDecorationLine: 'underline' }}>{item.userEmail}</Text>
+                    </Text>
+                    {item.details ? (
+                        <View>
+                            <Text style={{ marginLeft: 5, fontSize: 16 }}>Detalhes:</Text>
+                            {item.details.map((detail: any, index: any) => (
+                                <Text style={{ marginLeft: 5, fontSize: 16 }} key={index}>- {detail}</Text>
+                            ))}
+                        </View>
+                    ) : (
+                        <Text style={{ marginLeft: 5, fontSize: 16 }}>Detalhes: Sem informações disponíveis</Text>
+                    )}
+                </View>
             </View>
         );
     }
@@ -287,16 +304,36 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         marginLeft: 50
     },
-    historyItem: {
-        padding: 10,
-        marginBottom: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-    },
     hist: {
         flex: 1,
         padding: 20,
         backgroundColor: '#fff',
+    },
+    historyItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+        position: 'relative',
+    },
+    circle: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        marginRight: 10,
+        zIndex: 1,
+    },
+    line: {
+        position: 'absolute',
+        left: 5,
+        top: 5,
+        bottom: 5,
+        width: 2,
+        zIndex: 0,
+    },
+    detailsContainer: {
+        flex: 1,
+        padding: 10,
+        borderWidth: 1,
+        borderRadius: 5,
     },
 });
