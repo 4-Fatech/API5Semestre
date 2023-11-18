@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import MapView, { PROVIDER_GOOGLE, Marker, Region } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Region, Circle } from "react-native-maps";
 import { Dimensions, Text, View, TextInput, StyleSheet } from "react-native";
 import Geolocation from "@react-native-community/geolocation";
 import { apiurl } from "../../../Helpers/ApiUrl";
@@ -25,6 +25,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
   const [region, setRegion] = useState<Region | undefined>(undefined);
   const [filterText, setFilterText] = useState("");
   const [locationLoaded, setLocationLoaded] = useState(false);
+  const [circleRadius, setCircleRadius] = useState(10000); // 10 km em metros
 
 
   const newMarker = (e: any) => {
@@ -187,10 +188,10 @@ export const MapaComponente = ({ route, navigation }: any) => {
 
 
   useEffect(() => {
-   
-      setMarkers([]);
-      getEquipamentos();
-    
+
+    setMarkers([]);
+    getEquipamentos();
+
   }, [filterText]);
 
 
@@ -213,7 +214,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
           zoomEnabled={true}
           // minZoomLevel={17}
           loadingEnabled={true}
-          onPress={(e) => newMarker(e)}
+          //onPress={(e) => newMarker(e)}
           region={region}
           initialRegion={region}
         >
@@ -225,6 +226,19 @@ export const MapaComponente = ({ route, navigation }: any) => {
               pinColor={marker.pinColor}
             />
           ))}
+
+          {profile !== 'admin' && locationLoaded && (
+            <Circle
+              center={{
+                latitude: region?.latitude || 0,
+                longitude: region?.longitude || 0,
+              }}
+              radius={circleRadius}
+              strokeWidth={1}
+              strokeColor="rgba(0, 0, 255, 0.5)"
+              fillColor="rgba(0, 0, 255, 0.1)"
+            />
+          )}
 
 
         </MapView>
