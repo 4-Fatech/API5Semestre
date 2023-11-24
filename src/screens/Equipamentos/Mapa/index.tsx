@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import MapView, { PROVIDER_GOOGLE, Marker, Region, Circle } from "react-native-maps";
-import { Dimensions, Text, View, TextInput, StyleSheet } from "react-native";
+import MapView, { PROVIDER_GOOGLE, Marker, Region, Circle, Callout } from "react-native-maps";
+import { Dimensions, Text, View, TextInput, StyleSheet, Button, Alert } from "react-native";
 import Geolocation from "@react-native-community/geolocation";
 import { apiurl } from "../../../Helpers/ApiUrl";
 import { GlobalContext } from "../../../Context/GlobalProvider";
@@ -8,6 +8,8 @@ import { GlobalContext } from "../../../Context/GlobalProvider";
 const { width, height } = Dimensions.get("window");
 
 interface MarkerData {
+  id: string;
+  name: string;
   key: string;
   coords: {
     latitude: number;
@@ -30,8 +32,9 @@ export const MapaComponente = ({ route, navigation }: any) => {
 
 
   const newMarker = (e: any) => {
-
     const newMarkerData: MarkerData = {
+      id: '555555',
+      name: 'me',
       key: `marker_${markerCounter.current}`,
       coords: {
         latitude: e.nativeEvent.coordinate.latitude,
@@ -68,9 +71,6 @@ export const MapaComponente = ({ route, navigation }: any) => {
     return deg * (Math.PI / 180);
   }
 
-
-
-
   function getEquipamentos() {
     const url = apiurl + "/equipment/list";
 
@@ -105,6 +105,8 @@ export const MapaComponente = ({ route, navigation }: any) => {
           filteredEquipment.forEach((element: any) => {
             if (element.latitude && element.longitude) {
               const newMarkerData: MarkerData = {
+                id: element.id,
+                name: element.tipo,
                 key: `marker_${uniqueKey}`,
                 coords: {
                   latitude: Number.parseFloat(element.latitude),
@@ -134,6 +136,8 @@ export const MapaComponente = ({ route, navigation }: any) => {
                   key: `marker_${uniqueKey}`,
                   coords: equipmentLocation,
                   pinColor: "#FF0000",
+                  id: element.id,
+                  name: element.tipo
                 };
                 newMarkersArray.push(newMarkerData);
                 uniqueKey++;
@@ -176,24 +180,37 @@ export const MapaComponente = ({ route, navigation }: any) => {
     );
   }
 
-  
-
   useEffect(() => {
     getMyLocation();
   }, [region]);
 
   useEffect(() => {
-    if(region){
+    if (region) {
       getEquipamentos();
     }
-    
+
   }, [locationLoaded, filterText, region]);
- 
+
 
   useEffect(() => {
     setMarkers([]);
   }, [filterText]);
 
+  const showPopUp = (id: string, name: string) => {
+    Alert.alert(
+      `Equipamento: ${name}`,
+      'O que deseja fazer?',
+      [
+        {
+          text: 'Editar',
+          onPress: () => navigation.navigate("Atualizar Equipamento", { id }),
+          style: 'cancel',
+        },
+        { text: 'Visualizar', onPress: () => navigation.navigate("Detalhes Equipamento", { id }) },
+      ],
+      { cancelable: true }
+    );
+  };
 
   return (
     <>
@@ -224,6 +241,7 @@ export const MapaComponente = ({ route, navigation }: any) => {
               key={marker.key}
               coordinate={marker.coords}
               pinColor={marker.pinColor}
+              onPress={() => showPopUp(marker.id, marker.name)}
             />
           ))}
 
