@@ -135,4 +135,5 @@ equipamentos cadastrados no banco de dados.
 - <a href="https://youtu.be/7IwTFC6wEow" target="_blank">Sprint 1</a>
 - <a href="https://drive.google.com/drive/folders/11m6BLnfmjWWsncNbc60ojM_Wov3OA-3b" target="_blank">Sprint 2</a>
 - <a href="https://drive.google.com/drive/folders/1Og0b9FWHXi99MZtWmJ52ujNFEWB1odoa" target="_blank">Sprint 3</a>
+- <a href="https://drive.google.com/drive/folders/1cvoMvq2u3farbBhSBFmU_LWQBoIW2UhX?usp=sharing" target="_blank">Sprint 4</a>
 </br>
