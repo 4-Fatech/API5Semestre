@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, Region, Circle } from "react-native-maps";
 import { Dimensions, Text, View, TextInput, StyleSheet } from "react-native";
 import Geolocation from "@react-native-community/geolocation";
@@ -26,18 +26,19 @@ export const MapaComponente = ({ route, navigation }: any) => {
   const [filterText, setFilterText] = useState("");
   const [locationLoaded, setLocationLoaded] = useState(false);
   const [circleRadius, setCircleRadius] = useState(10000); // 10 km em metros
+  const markerCounter = useRef(0);
 
 
   const newMarker = (e: any) => {
+
     const newMarkerData: MarkerData = {
-      key: String(markers.length + 1),
+      key: `marker_${markerCounter.current}`,
       coords: {
         latitude: e.nativeEvent.coordinate.latitude,
         longitude: e.nativeEvent.coordinate.longitude,
       },
       pinColor: "#FF0000",
     };
-
     setRegion({
       latitude: e.nativeEvent.coordinate.latitude,
       longitude: e.nativeEvent.coordinate.longitude,
@@ -45,6 +46,8 @@ export const MapaComponente = ({ route, navigation }: any) => {
       longitudeDelta: 0.0421,
     });
     setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
+    markerCounter.current += 1;
+
   };
 
   // função é usada para verificar se um equipamento está dentro do raio de 10 km do usuário comum.
@@ -67,8 +70,8 @@ export const MapaComponente = ({ route, navigation }: any) => {
 
 
 
-  function getEquipamentos() {
 
+  function getEquipamentos() {
     const url = apiurl + "/equipment/list";
 
     fetch(url, {
@@ -78,7 +81,6 @@ export const MapaComponente = ({ route, navigation }: any) => {
         'Authorization': `Bearer ${token}`
       }
     })
-
       .then((resposta) => {
         if (!resposta.ok) {
           throw new Error('Erro na solicitação à API');
@@ -86,8 +88,9 @@ export const MapaComponente = ({ route, navigation }: any) => {
         return resposta.json();
       })
       .then((data) => {
+        let uniqueKey = markers.length + 1;
+        const newMarkersArray: MarkerData[] = [];
 
-        let uniqueKey = markers.length;
         const filteredEquipment = data.filter((element: any) => {
           const tipoFiltrado = element.tipo.toLowerCase();
           const serialFiltrado = element.serial;
@@ -102,29 +105,20 @@ export const MapaComponente = ({ route, navigation }: any) => {
           filteredEquipment.forEach((element: any) => {
             if (element.latitude && element.longitude) {
               const newMarkerData: MarkerData = {
-                key: uniqueKey.toString(),
+                key: `marker_${uniqueKey}`,
                 coords: {
                   latitude: Number.parseFloat(element.latitude),
                   longitude: Number.parseFloat(element.longitude)
                 },
                 pinColor: "#FF0000",
               };
-              setRegion({
-                latitude: Number.parseFloat(element.latitude),
-                longitude: Number.parseFloat(element.longitude),
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              });
-
-              setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
+              newMarkersArray.push(newMarkerData);
               uniqueKey++;
             }
           });
         } else {
           // Listar os equipamentos em até 10Km
-          const userLocation = region || { latitude: 0, longitude: 0 }; // Use região se disponível, caso contrário, o padrão é (0,0)
-          console.log(region);
-
+          const userLocation = region || { latitude: 0, longitude: 0 };
 
           filteredEquipment.forEach((element: any) => {
             if (element.latitude && element.longitude) {
@@ -135,26 +129,25 @@ export const MapaComponente = ({ route, navigation }: any) => {
 
               const distance = calcularDistancia(userLocation, equipmentLocation);
 
-              if (distance <= 10) { // Verifica se o equipamento está num raio de 10 km
+              if (distance <= 10) {
                 const newMarkerData: MarkerData = {
-                  key: uniqueKey.toString(),
+                  key: `marker_${uniqueKey}`,
                   coords: equipmentLocation,
                   pinColor: "#FF0000",
                 };
-
-                setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
+                newMarkersArray.push(newMarkerData);
                 uniqueKey++;
               }
             }
           });
-
         }
+
+        setMarkers(newMarkersArray);
       })
       .catch((error) => {
         console.error(error);
       });
   }
-
   function getMyLocation() {
     Geolocation.getCurrentPosition(
       (info) => {
@@ -164,11 +157,12 @@ export const MapaComponente = ({ route, navigation }: any) => {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         };
+
         setLocationLoaded(true); // Indica que a localização foi carregada
+
         if (region?.latitude !== userRegion.latitude || region?.longitude !== userRegion.longitude) {
           setRegion(userRegion);
         }
-
 
       },
       (error) => {
@@ -188,10 +182,8 @@ export const MapaComponente = ({ route, navigation }: any) => {
 
 
   useEffect(() => {
-
     setMarkers([]);
     getEquipamentos();
-
   }, [filterText]);
 
 

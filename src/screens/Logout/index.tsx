@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadingComponent from '../../components/Common/Loading/Loading';
 
 const Logout = () => {
-  const { setLogIn } = useContext(GlobalContext);
+  const { setLogIn }: any = useContext(GlobalContext);
 
   useEffect(() => {
     const doLogout = async () => {
@@ -18,7 +18,7 @@ const Logout = () => {
         });
 
         if (response.ok) {
-          
+
           await AsyncStorage.removeItem('token');
           setLogIn(false);
         } else {
@@ -31,7 +31,7 @@ const Logout = () => {
 
     doLogout();
   }, [setLogIn]);
-  
+
   return <LoadingComponent />;
 };
 
