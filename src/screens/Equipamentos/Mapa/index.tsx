@@ -176,14 +176,22 @@ export const MapaComponente = ({ route, navigation }: any) => {
     );
   }
 
+  
+
   useEffect(() => {
     getMyLocation();
   }, [region]);
 
+  useEffect(() => {
+    if(region){
+      getEquipamentos();
+    }
+    
+  }, [locationLoaded, filterText, region]);
+ 
 
   useEffect(() => {
     setMarkers([]);
-    getEquipamentos();
   }, [filterText]);
 
 
