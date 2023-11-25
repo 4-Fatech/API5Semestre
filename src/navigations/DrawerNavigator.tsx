@@ -19,11 +19,11 @@ export default function DrawerNavigator() {
   return (
     <Drawer.Navigator
       screenOptions={{
-        drawerActiveTintColor: 'blue',
-        drawerInactiveTintColor: 'gray',
-        drawerActiveBackgroundColor: 'lightblue',
+        drawerActiveTintColor: '#9ACD32',
+        drawerInactiveTintColor: '#9ACD32',
+        drawerActiveBackgroundColor: '#d0f2e7',
         drawerStyle: {
-          backgroundColor: 'lightgray',
+          backgroundColor: '#43586A',
         }
       }}
       initialRouteName='Equipamentos ' >
@@ -32,7 +32,7 @@ export default function DrawerNavigator() {
         component={UsuarioStackNavigatorPerfil}
         options={({ route }) => ({
           headerShown: false,
-          drawerIcon: ({ color, size }: any) => <Icon name="user-circle-o" size={45} color={"black"} />,
+          drawerIcon: ({ color, size }: any) => <Icon name="user-circle-o" size={45} color={"#77AC0C"} />,
           title: user.nome +" " + user.sobrenome,
           headerStyle: {
             backgroundColor: 'lightgreen',
@@ -46,7 +46,7 @@ export default function DrawerNavigator() {
           title: "EQUIPAMENTOS",
           headerShown: false,
           drawerLabelStyle: styles.text2,
-          drawerIcon: ({ color, size }: any) => <Icon2 name="tools" size={18} color={"black"} />,
+          drawerIcon: ({ color, size }: any) => <Icon2 name="tools" size={18} color={"#77AC0C"} />,
 
         }} />
       {profile === "admin" && (
@@ -57,7 +57,7 @@ export default function DrawerNavigator() {
             title: "USUÁRIOS",
             headerShown: false,
             drawerLabelStyle: styles.text2,
-            drawerIcon: ({ color, size }: any) => <Icon name="users" size={18} color={"black"} />
+            drawerIcon: ({ color, size }: any) => <Icon name="users" size={18} color={"#77AC0C"} />
           }}
         />
       )}
@@ -69,7 +69,7 @@ export default function DrawerNavigator() {
           headerShown: false,
           drawerLabelStyle: styles.text,
           drawerItemStyle: styles.mapa,
-          drawerIcon: ({ color, size }: any) => <Icon name="map-marker" size={18} color={"black"} />,
+          drawerIcon: ({ color, size }: any) => <Icon name="map-marker" size={18} color={"#77AC0C"} />,
           title: "MAPA"
         }} />
       <Drawer.Screen
@@ -79,7 +79,7 @@ export default function DrawerNavigator() {
           headerShown: false,
           drawerItemStyle: styles.box1,
           drawerLabelStyle: styles.text2,
-          drawerIcon: ({ color, size }: any) => <Entypo name="log-out" size={18} color={"black"} />,
+          drawerIcon: ({ color, size }: any) => <Entypo name="log-out" size={18} color={"#77AC0C"} />,
           title: "SAIR"
         }} />
 
