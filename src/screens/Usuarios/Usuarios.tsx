@@ -1,7 +1,7 @@
 
 import React, { useContext, useState } from "react";
 import { UsuariosComponente } from "../../components/Usuarios";
-import { Text, View, Alert, ActivityIndicator } from 'react-native';
+import { Text, View, Alert, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import { apiurl } from "../../Helpers/ApiUrl";
 import { validador } from "../../utils/validador";
 import { GlobalContext } from "../../Context/GlobalProvider";
@@ -241,66 +241,69 @@ export const Usuarios = ({ navigation }: any) => {
 
     return (
         <>
-            {valida ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
-                : ""
-            }
-            {validaSenha ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve ter entre 10 e 20 caracteres.</Text>
-                : ""
-            }
-            {validaSenhaRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra maiúscula, um caractere especial e números entre 0 e 9.</Text>
-                : ""
-            }
-            {validarEmailRegex ?
-                <View>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
-                    <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
-                </View>
-                : ""
-            }
-            {validarTexto ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
-                : ""
-            }
-            {validaTelefoneCeleluar ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve ter 11 números.</Text>
-                : ""
-            }
-            {validaTelefoneFixo ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
-                : ""
-            }
-            {validaMatricula ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
-                : ""
-            }
-            {validaMatriculaRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
-                : ""
-            }
-            {validaCpfRegex ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx.</Text>
-                : ""
-            }
-            <UsuariosComponente
-                form={form}
-                onChangeText={onChangeText}
-                onPress={loading ? null : showAlertCadastrar}
-                onpress2={cancelar}
-                title2={'Cancelar'}
-                title={loading ? <ActivityIndicator color={'white'} /> : 'Cadastrar'}
-                corTexto={'black'}
-                color={'#9ACD32'}
-                color2={'#94C021'}
-                color4={'#ff2d15'}
-                color3={'#ff4627'}
-                perfil={0}
-            />
+            <ScrollView style={styles.bg}>
+
+                {valida ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
+                    : ""
+                }
+                {validaSenha ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve ter entre 10 e 20 caracteres.</Text>
+                    : ""
+                }
+                {validaSenhaRegex ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>A senha deve conter uma letra maiúscula, um caractere especial e números entre 0 e 9.</Text>
+                    : ""
+                }
+                {validarEmailRegex ?
+                    <View>
+                        <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
+                        <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
+                        <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
+                        <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
+                        <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
+                    </View>
+                    : ""
+                }
+                {validarTexto ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
+                    : ""
+                }
+                {validaTelefoneCeleluar ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve ter 11 números.</Text>
+                    : ""
+                }
+                {validaTelefoneFixo ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
+                    : ""
+                }
+                {validaMatricula ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
+                    : ""
+                }
+                {validaMatriculaRegex ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
+                    : ""
+                }
+                {validaCpfRegex ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx.</Text>
+                    : ""
+                }
+                <UsuariosComponente
+                    form={form}
+                    onChangeText={onChangeText}
+                    onPress={loading ? null : showAlertCadastrar}
+                    onpress2={cancelar}
+                    title2={'Cancelar'}
+                    title={loading ? <ActivityIndicator color={'white'} /> : 'Cadastrar'}
+                    corTexto={'black'}
+                    color={'#9ACD32'}
+                    color2={'#94C021'}
+                    color4={'#ff2d15'}
+                    color3={'#ff4627'}
+                    perfil={0}
+                />
+            </ScrollView>
         </>
 
 
@@ -308,3 +311,9 @@ export const Usuarios = ({ navigation }: any) => {
 };
 
 
+const styles = StyleSheet.create({
+    bg: {
+      backgroundColor: '#1F303E'
+  }
+  
+  })
