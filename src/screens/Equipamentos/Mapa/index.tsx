@@ -31,27 +31,27 @@ export const MapaComponente = ({ route, navigation }: any) => {
   const markerCounter = useRef(0);
 
 
-  const newMarker = (e: any) => {
-    const newMarkerData: MarkerData = {
-      id: '555555',
-      name: 'me',
-      key: `marker_${markerCounter.current}`,
-      coords: {
-        latitude: e.nativeEvent.coordinate.latitude,
-        longitude: e.nativeEvent.coordinate.longitude,
-      },
-      pinColor: "#FF0000",
-    };
-    setRegion({
-      latitude: e.nativeEvent.coordinate.latitude,
-      longitude: e.nativeEvent.coordinate.longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    });
-    setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
-    markerCounter.current += 1;
+  // const newMarker = (e: any) => {
+  //   const newMarkerData: MarkerData = {
+  //     id: '555555',
+  //     name: 'me',
+  //     key: `marker_${markerCounter.current}`,
+  //     coords: {
+  //       latitude: e.nativeEvent.coordinate.latitude,
+  //       longitude: e.nativeEvent.coordinate.longitude,
+  //     },
+  //     pinColor: "#FF0000",
+  //   };
+  //   setRegion({
+  //     latitude: e.nativeEvent.coordinate.latitude,
+  //     longitude: e.nativeEvent.coordinate.longitude,
+  //     latitudeDelta: 0.0922,
+  //     longitudeDelta: 0.0421,
+  //   });
+  //   setMarkers((oldMarkers) => [...oldMarkers, newMarkerData]);
+  //   markerCounter.current += 1;
 
-  };
+  // };
 
   // função é usada para verificar se um equipamento está dentro do raio de 10 km do usuário comum.
   function calcularDistancia(coord1: { latitude: number, longitude: number }, coord2: { latitude: number, longitude: number }): number {

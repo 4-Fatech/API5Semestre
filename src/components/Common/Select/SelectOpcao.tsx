@@ -69,9 +69,9 @@ const styles = StyleSheet.create({
   },
   optionTextStyle: {
     // Estilo do texto dos itens na lista suspensa
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 20
+    color: 'black',
+    fontWeight: '500',
+    fontSize: 18
   },
 });
 
