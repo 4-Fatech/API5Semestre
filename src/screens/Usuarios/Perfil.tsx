@@ -380,7 +380,7 @@ export const Perfil = () => {
                                             >
                                                 <View style={styles.containerTelefones}>
                                                     <TextTelefone nome={"+ " + user.telefone1} estiloTexto={styles.telefones} styleDiv2={styles.container2} titulo="Telefone Celular:" />
-                                                    {form.telefone2 ? <TextTelefone nome={"+" + user.telefone2} estiloTexto={styles.telefones} titulo="Telefone Fixo/recado:" styleDiv2={styles.container2} /> : <Text>Não possui telefone fixo</Text>}
+                                                    {form.telefone2 ? <TextTelefone nome={"+" + user.telefone2} estiloTexto={styles.telefones} titulo="Telefone Fixo/recado:" styleDiv2={styles.container2} /> : <Text style={{color:'white'}}>Não possui telefone fixo</Text>}
 
 
                                                 </View>
