@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import StackNavigator from './StackNavigator';
 import UsuarioStackNavigator from './UsuarioStackNavigator';
 import Logout from '../screens/Logout';
-import { StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import UsuarioStackNavigatorPerfil from './UsuarioStackNavigatorPerfil';
 import { MapaComponente } from '../screens/Equipamentos/Mapa';
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -15,17 +15,30 @@ export default function DrawerNavigator() {
   const Drawer = createDrawerNavigator();
   const { user }: any = useContext(GlobalContext);
   const profile = user.profile;
-
+  
   return (
-    <Drawer.Navigator initialRouteName='Equipamentos ' >
+    <Drawer.Navigator
+      screenOptions={{
+        drawerActiveTintColor: 'blue',
+        drawerInactiveTintColor: 'gray',
+        drawerActiveBackgroundColor: 'lightblue',
+        drawerStyle: {
+          backgroundColor: 'lightgray',
+        }
+      }}
+      initialRouteName='Equipamentos ' >
       <Drawer.Screen
         name='Perfil '
         component={UsuarioStackNavigatorPerfil}
-        options={{
+        options={({ route }) => ({
           headerShown: false,
           drawerIcon: ({ color, size }: any) => <Icon name="user-circle-o" size={45} color={"black"} />,
-          title: ""
-        }} />
+          title: user.nome +" " + user.sobrenome,
+          headerStyle: {
+            backgroundColor: 'lightgreen',
+          },
+        })}
+      />
       <Drawer.Screen
         name='Equipamentos '
         component={StackNavigator}
@@ -33,9 +46,10 @@ export default function DrawerNavigator() {
           title: "EQUIPAMENTOS",
           headerShown: false,
           drawerLabelStyle: styles.text2,
-          drawerIcon: ({ color, size }: any) => <Icon2 name="tools" size={18} color={"black"} />
+          drawerIcon: ({ color, size }: any) => <Icon2 name="tools" size={18} color={"black"} />,
+
         }} />
-        {profile === "admin" && (
+      {profile === "admin" && (
         <Drawer.Screen
           name='Usuários '
           component={UsuarioStackNavigator}
@@ -46,7 +60,7 @@ export default function DrawerNavigator() {
             drawerIcon: ({ color, size }: any) => <Icon name="users" size={18} color={"black"} />
           }}
         />
-        )}
+      )}
 
       <Drawer.Screen
         name='Mapa'
@@ -77,12 +91,15 @@ export default function DrawerNavigator() {
 const styles = StyleSheet.create({
 
   box1: {
-    marginTop: '135%'
+    marginTop: '135%',
   },
   text: { marginLeft: "-6%" },
-  text2: { marginLeft: "-10%" },
+  text2: { marginLeft: "-10%", },
   mapa: {
     paddingLeft: "2%"
+  },
+  bg: {
+    backgroundColor: '#1F303E'
   }
 
 })
