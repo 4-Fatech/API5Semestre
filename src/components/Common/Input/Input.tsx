@@ -15,7 +15,7 @@ export const Input: React.FC<InputProps> = ({ placeholder, onChangeText, value, 
             onChangeText={onChangeText}
             value={value}
             placeholder={placeholder}
-            placeholderTextColor='gray'
+            placeholderTextColor='white'
             secureTextEntry={password}
         />
     );
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        color: 'black',
-        borderColor: '#A9A9A9',
+        color: 'white',
+        borderColor: '#939393',
         borderRadius: 5
     }
 });

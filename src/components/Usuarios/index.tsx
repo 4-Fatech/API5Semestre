@@ -19,7 +19,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
   return (
     <ScrollView>
       <View >
-        <Label titulo='Nome' requirido='*' />
+        <Label cor='white' titulo='Nome' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('nome', value);
@@ -29,7 +29,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
         />
 
         {/*  */}
-        <Label titulo='Sobrenome' requirido='*' />
+        <Label cor='white' titulo='Sobrenome' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('sobrenome', value);
@@ -39,7 +39,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
         />
 
         {/*  */}
-        <Label titulo='E-mail' requirido='*' />
+        <Label cor='white' titulo='E-mail' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('email', value);
@@ -49,7 +49,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
         />
 
         {/*  */}
-        <Label titulo='Telefone Celular' requirido='*' />
+        <Label cor='white' titulo='Telefone Celular' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('telefone1', value);
@@ -58,7 +58,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
           placeholder="Ex.: +551298648785142"
         />
         {/*  */}
-        <Label titulo='Telefone de recado' requirido="" />
+        <Label cor='white' titulo='Telefone de recado' requirido="" />
         <Input
           onChangeText={(value: any) => {
             onChangeText('telefone2', value);
@@ -67,7 +67,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
           placeholder="Ex.: 1287654321" />
 
         {/*  */}
-        <Label titulo='Matrícula' requirido='*' />
+        <Label cor='white' titulo='Matrícula' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('matricula', value);
@@ -76,7 +76,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
           placeholder="Ex.: 1613459" />
 
         {/*  */}
-        <Label titulo='CPF' requirido='*' />
+        <Label cor='white' titulo='CPF' requirido='*' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('cpf', value);
@@ -87,7 +87,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
         {/*  */}
         {perfil === 2 || perfil === 0 ?
           <>
-            <Label titulo="Tipo do usuário" requirido="*" />
+            <Label cor='white' titulo="Tipo do usuário" requirido="*" />
 
             <Select
               selectedTipo={form.profile}
@@ -104,7 +104,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
         {/*  */}
         {
         perfil === 1 || perfil === 0 ? <>
-          <Label titulo='Senha' requirido='*' />
+          <Label cor='white' titulo='Senha' requirido='*' />
           <Input
             onChangeText={(value: any) => {
               onChangeText('senha', value);
@@ -115,7 +115,7 @@ export const UsuariosComponente = ({ onChangeText, form, onPress, onpress2, titl
         </> : <></>}
 
         {/*  */}
-        <Label titulo='Foto Usuário' requirido="" />
+        <Label cor='white' titulo='Foto Usuário' requirido="" />
         <ImageInput
           form={form}
           onChange={onChangeText} />

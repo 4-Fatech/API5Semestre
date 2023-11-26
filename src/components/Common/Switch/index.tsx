@@ -37,7 +37,7 @@ export const SwitchComponent: React.FC<SwitchProps> = ({ ativo, onChangeText, di
 const styles = StyleSheet.create({
     label: {
         height: 20,
-        color: 'black',
+        color: 'white',
         marginTop: 4
     },
     container: {

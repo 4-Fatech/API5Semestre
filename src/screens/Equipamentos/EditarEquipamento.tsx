@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CadastrarEquipamento } from "../../components/Equipamentos/CadastrarEquipamento";
-import { Text, Alert, ActivityIndicator } from 'react-native';
+import { Text, Alert, ActivityIndicator, StyleSheet, ScrollView } from 'react-native';
+
 import { apiurl } from "../../Helpers/ApiUrl";
 import LoadingComponent from "../../components/Common/Loading/Loading";
 import { GlobalContext } from "../../Context/GlobalProvider";
@@ -192,29 +193,37 @@ export const EditarEquipamentos = ({ route, navigation }: any) => {
                 <LoadingComponent />
                 :
                 <>
-                    {validaVazio ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
-                        : ""
-                    }
-                    {validaTipo ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>O tipo de equipamento deve conter apenas letras.</Text>
-                        : ""
-                    }
-                    {validaLatLong ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números.</Text>
-                        : ""
-                    }
-                    <CadastrarEquipamento
-                        form={form}
-                        onChangeText={onChangeText}
-                        onPress3={loading ? null : showAlertEditar}
-                        title3={loadingButton ? <ActivityIndicator color={'white'} /> : 'Alterar'}
-                        corTexto={'black'}
-                        color5={'#4682B4'}
-                        color6={'#87CEFA'}
-                    />
+                    <ScrollView style={styles.bg}>
+                        {validaVazio ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
+                            : ""
+                        }
+                        {validaTipo ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>O tipo de equipamento deve conter apenas letras.</Text>
+                            : ""
+                        }
+                        {validaLatLong ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>Latitude e Longitude devem conter apenas números.</Text>
+                            : ""
+                        }
+                        <CadastrarEquipamento
+                            form={form}
+                            onChangeText={onChangeText}
+                            onPress3={loading ? null : showAlertEditar}
+                            title3={loadingButton ? <ActivityIndicator color={'white'} /> : 'Alterar'}
+                            corTexto={'black'}
+                            color5={'5FA0CC'}
+                            color6={'#81c9fa'}
+                        />
+                    </ScrollView>
                 </>
             }
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    },
+})

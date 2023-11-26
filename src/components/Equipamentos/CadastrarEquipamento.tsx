@@ -12,7 +12,7 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, on
   return (
     <ScrollView>
       <View >
-        <Label titulo='Tipo do Equipamento' requirido="*" />
+        <Label cor="white" titulo='Tipo do Equipamento' requirido="*" />
         <Input
           onChangeText={(value: any) => {
             onChangeText('tipo', value);
@@ -22,17 +22,18 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, on
         />
 
         {/*  */}
-        <Label titulo='Modelo do Equipamento' requirido="*" />
+        <Label cor="white" titulo='Modelo do Equipamento' requirido="*" />
         <Input
           onChangeText={(value: any) => {
             onChangeText('modelo', value);
           }}
           value={form.modelo}
           placeholder="Ex.: NBXL-5686G"
+
         />
 
         {/*  */}
-        <Label titulo='N° de Série' requirido="*" />
+        <Label cor="white" titulo='N° de Série' requirido="*" />
         <Input
           onChangeText={(value: any) => {
             onChangeText('serial', value);
@@ -42,7 +43,7 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, on
         />
 
         {/*  */}
-        <Label titulo='Latitude' requirido="*" />
+        <Label cor="white" titulo='Latitude' requirido="*" />
         <Input
           onChangeText={(value: any) => {
             onChangeText('latitude', value);
@@ -52,7 +53,7 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, on
         />
 
         {/*  */}
-        <Label titulo='Longitude' requirido="*" />
+        <Label cor="white" titulo='Longitude' requirido="*" />
         <Input
           onChangeText={(value: any) => {
             onChangeText('longitude', value);
@@ -61,7 +62,7 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, on
           placeholder="Ex.: 45.22837"
         />
         {/*  */}
-        <Label titulo='Observações' />
+        <Label cor="white" titulo='Observações' />
         <Input
           onChangeText={(value: any) => {
             onChangeText('observacoes', value);
@@ -80,7 +81,7 @@ export const CadastrarEquipamento = ({ onChangeText, form, onPress, onpress2, on
         </View>
 
         {/*  */}
-        <Label titulo='Imagens do equipamento' />
+        <Label cor="white" titulo='Imagens do equipamento' />
         <ImageInput
           form={form}
           onChange={onChangeText}

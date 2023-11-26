@@ -15,7 +15,7 @@ Esta ferramenta desempenha um papel fundamental em processos de manutenção, no
 
 <img src="docs/images/OBJETIVO.png" >
 
-> Status do Projeto: Em Desenvolvimento.
+> Status do Projeto: Concluído.
 
 </br>
 
@@ -60,7 +60,7 @@ visualização dos detalhes de forma que possa ter seus atributos atualizados, o
 seja reativado.
 - [X] Na tela inicial pode ser feito o cadastramento de um novo equipamento, onde devem 
 ser registradas todas as informações dele.
-- [ ] Caso o dispositivo do usuário não esteja conectado, os dados devem ser salvos para que 
+- [X] Caso o dispositivo do usuário não esteja conectado, os dados devem ser salvos para que 
 sejam sincronizados com o banco de dados corporativo posteriormente.
 
 > Requisitos Não Funcionais
@@ -81,7 +81,7 @@ só exibidas após usuário da aplicação estar autenticado.
 - [X] Todos os atributos cadastrais da aplicação devem passar por validação de dados.
 - [X] Deve ser realizada uma sincronia com o banco de dados corporativo através de uma API 
 que receberá os dados e o armazenará no banco de dados.
-- [ ] Quando os dados forem sincronizados, o banco de dados mobile deve ser limpo para que 
+- [X] Quando os dados forem sincronizados, o banco de dados mobile deve ser limpo para que 
 sejam realizadas novas atividades de inspeção e cadastramento em campo.
 - [X] O banco de dados mobile deve armazenar somente os dados que foram atualizados dos 
 equipamentos cadastrados no banco de dados.
@@ -90,7 +90,7 @@ equipamentos cadastrados no banco de dados.
 
  - - [X] <a href="https://github.com/4-Fatech/API5Semestre/tree/sprint_1">**1° Sprint:**</a> 04/09/2023 a 24/09/2023<br>
  - - [X] <a href="https://github.com/4-Fatech/API5Semestre/tree/sprint_2">**2° Sprint:**</a> 25/09/2023 a 15/10/2023
- - - [X] <a href="https://github.com/4-Fatech/API5Semestre/tree/sprint_3">**3° Sprint:**</a> 16/10/2023 a 05/11/2023
+ - - [ ] <a href="">**3° Sprint:**</a> 16/10/2023 a 05/11/2023
  - - [ ] <a href="">**4°Sprint:**</a> 06/11/2023 a 26/11/2023
  - - [ ] **Feira de Soluções:** 12/12/2023
  

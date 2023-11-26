@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UsuariosComponente } from "../../components/Usuarios";
 import { apiurl } from '../../Helpers/ApiUrl';
-import { Text, View, Alert, ActivityIndicator } from 'react-native';
+import { Text, View, Alert, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import LoadingComponent from '../../components/Common/Loading/Loading';
 import { GlobalContext } from '../../Context/GlobalProvider';
 
@@ -319,62 +319,64 @@ export const UpdateUsu = ({ route, navigation }: any) => {
                 <LoadingComponent />
                 :
                 <>
-                    {valida ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
-                        : ""
-                    }
+                    <ScrollView style={styles.bg}>
+                        {valida ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>Campos com * são obrigatórios.</Text>
+                            : ""
+                        }
 
-                    {validarEmailRegex ?
-                        <View>
-                            <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
-                            <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
-                            <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
-                            <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
-                            <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
-                        </View>
-                        : ""
-                    }
-                    {validarTexto ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
-                        : ""
-                    }
-                    {validaTelefoneCeleluar ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve conter o DDI, DDD e ao menos 9 números.</Text>
-                        : ""
-                    }
-                    {validaTelefoneFixo ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
-                        : ""
-                    }
-                    {validaMatricula ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
-                        : ""
-                    }
-                    {validaMatriculaRegex ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
-                        : ""
-                    }
-                    {validaCpfRegex ?
-                        <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
-                        : ""
-                    }
+                        {validarEmailRegex ?
+                            <View>
+                                <Text style={{ color: "red", paddingLeft: 12 }}>O e-mail deve conter os seguintes itens:</Text>
+                                <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do '@'</Text>
+                                <Text style={{ color: "red", paddingLeft: 12 }}>Pelo menos um caractere antes do ponto '.' no domínio</Text>
+                                <Text style={{ color: "red", paddingLeft: 12 }}>O domínio deve conter pelo menos duas letras (por exemplo, 'com', 'org', 'net')</Text>
+                                <Text style={{ color: "red", paddingLeft: 12 }}>Não deve conter espaços em branco</Text>
+                            </View>
+                            : ""
+                        }
+                        {validarTexto ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>Nome ou sobrenome deve conter apenas letras.</Text>
+                            : ""
+                        }
+                        {validaTelefoneCeleluar ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>O número do celular deve conter o DDI, DDD e ao menos 9 números.</Text>
+                            : ""
+                        }
+                        {validaTelefoneFixo ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>O telefone de recado deve ter 10 números.</Text>
+                            : ""
+                        }
+                        {validaMatricula ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter no minimo 5 números.</Text>
+                            : ""
+                        }
+                        {validaMatriculaRegex ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>A matricula deve conter apenas números.</Text>
+                            : ""
+                        }
+                        {validaCpfRegex ?
+                            <Text style={{ color: "red", paddingLeft: 12 }}>O CPF deve conter o padrão xxx.xxx.xxx-xx e não pode possuir letras.</Text>
+                            : ""
+                        }
 
-                    <UsuariosComponente
-                        form={form}
-                        onChangeText={onChangeText}
-                        onPress={loadingButton ? null : showAlertUpdate}
-                        onpress2={loadingButton ? null : showAlertDelete}
-                        title={loadingButton ? <ActivityIndicator color={'white'} /> : 'Alterar'}
-                        title2={loadingButtonDelete ? <ActivityIndicator color={'white'} /> : 'Deletar'}
-                        corTexto={'black'}
-                        color={'#4682B4'}
-                        color2={'#87CEFA'}
-                        color4={'#ff524a'}
-                        color3={'#ff4627'}
-                        corTexto2={'white'}
-                        perfil={2}
+                        <UsuariosComponente
+                            form={form}
+                            onChangeText={onChangeText}
+                            onPress={loadingButton ? null : showAlertUpdate}
+                            onpress2={loadingButton ? null : showAlertDelete}
+                            title={loadingButton ? <ActivityIndicator color={'white'} /> : 'Alterar'}
+                            title2={loadingButtonDelete ? <ActivityIndicator color={'white'} /> : 'Deletar'}
+                            corTexto={'#2D2D2D'}
+                            color={'#4682B4'}
+                            color2={'#87CEFA'}
+                            color4={'#ff524a'}
+                            color3={'#ff4627'}
+                            corTexto2={'#2D2D2D'}
+                            perfil={2}
 
-                    />
+                        />
+                    </ScrollView>
                 </>
             }
         </>
@@ -382,3 +384,8 @@ export const UpdateUsu = ({ route, navigation }: any) => {
     );
 };
 
+const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    },
+})

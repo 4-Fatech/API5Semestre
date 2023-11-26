@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
   modalSelector: {
     // Estilo do componente ModalSelector
-    color: 'black',
+    color: 'white',
   },
   selectStyle: {
     // Estilo do botão seletor
@@ -65,13 +65,13 @@ const styles = StyleSheet.create({
   },
   selectTextStyle: {
     // Estilo do texto do botão seletor
-    color: 'black'
+    color: 'white'
   },
   optionTextStyle: {
     // Estilo do texto dos itens na lista suspensa
     color: 'black',
-    fontWeight: 'bold',
-    fontSize: 20
+    fontWeight: '500',
+    fontSize: 18
   },
 });
 

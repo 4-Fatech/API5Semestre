@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View, TouchableOpacity, Text, Alert } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import DemoButton from './DemoButton';
+import Icon from "react-native-vector-icons/FontAwesome";
 import ImgToBase64 from 'react-native-image-base64';
 
 const includeExtra = true;
@@ -68,7 +69,7 @@ export default function ImageInput({ form, onChange }: any) {
                   source={{ uri: uri }}
                 />
 
-                <TouchableOpacity
+                  <Icon 
                   onPress={() => {
                     Alert.alert(
                       'Remover imagem',
@@ -86,9 +87,7 @@ export default function ImageInput({ form, onChange }: any) {
                   }
                   }
                   style={styles.deleteButton}
-                >
-                  <Text style={styles.deleteButtonText}>Remover</Text>
-                </TouchableOpacity>
+                  name="trash" size={35} color={"#FE6565"} />
 
               </View>
 
@@ -128,7 +127,6 @@ const styles = StyleSheet.create({
     height: 200,
   },
   deleteButton: {
-    backgroundColor: '#C0C0C0',
     padding: 10,
     borderRadius: 5,
     marginTop: 8,

@@ -25,7 +25,7 @@ export const Home = ({ route, navigation }: any) => {
     const [equipamento, setEquipamento] = React.useState<Props[]>([]);
     const [searchText, setSearchText] = useState<string>('');
     const { equipAlterada, equipCadastrada } = route.params || {};
-    const [isLoading, setLoading] = useState(false) 
+    const [isLoading, setLoading] = useState(false)
 
 
     function getEquipamentos() {
@@ -79,8 +79,8 @@ export const Home = ({ route, navigation }: any) => {
                     text: 'Ver no mapa',
                     //Passo o id e a variavel como true para a tela mapa
                     onPress: () => navigation.navigate("Mapa", { id, equipUnico: true })
-                        
-                    
+
+
                 }
             ],
             { cancelable: true }
@@ -91,7 +91,6 @@ export const Home = ({ route, navigation }: any) => {
         const tipoFiltrado = equip.tipo.toLowerCase();
         const serialFiltrado = equip.serial;
         const modeloFiltrado = equip.modelo.toLowerCase();
-    
         return tipoFiltrado.includes(searchText.toLowerCase()) || serialFiltrado.includes(searchText.toLowerCase()) || modeloFiltrado.includes(searchText.toLowerCase());
     });
     return (
@@ -99,32 +98,34 @@ export const Home = ({ route, navigation }: any) => {
             {isLoading ? <LoadingComponent />
                 :
                 <>
-                    <TextInput
-                        style={styles.searchInput}
-                        placeholder="Pesquisar equipamentos"
-                        placeholderTextColor="black"
-                        value={searchText}
-                        onChangeText={(text) => setSearchText(text)}
-                    />
-                    <ScrollView>
-                        <View style={styles.container}>
-                            {filteredEquipamento.map(e =>
-                                <Card
-                                    key={e.id}
-                                    title={e.tipo}
-                                    nserie={e.serial}
-                                    id={e.id}
-                                    image={e.foto}
-                                    ativo={e.status}
-                                    onCardPress={showAlert}>
-                                </Card>
-                            )}
-                        </View>
-                        <View style={styles.algumacoisa}>
-                            <View style={styles.centeredView}>
-                                <CustomButton title={"Cadastrar"} corTexto={'black'} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={'#9ACD32'} color2={'#94C021'} />
+                    <ScrollView style={styles.bg}>
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Pesquisar equipamentos"
+                            placeholderTextColor="white"
+                            value={searchText}
+                            onChangeText={(text) => setSearchText(text)}
+                        />
+                        <ScrollView>
+                            <View style={styles.container}>
+                                {filteredEquipamento.map(e =>
+                                    <Card
+                                        key={e.id}
+                                        title={e.tipo}
+                                        nserie={e.serial}
+                                        id={e.id}
+                                        image={e.foto}
+                                        ativo={e.status}
+                                        onCardPress={showAlert}>
+                                    </Card>
+                                )}
                             </View>
-                        </View>
+                            <View style={styles.algumacoisa}>
+                                <View style={styles.centeredView}>
+                                    <CustomButton title={"Cadastrar"} corTexto={'#2D2D2D'} onPress={() => navigation.navigate("Cadastro de Equipamento")} color={'#94C021'} color2={'#C0F458'} />
+                                </View>
+                            </View>
+                        </ScrollView>
                     </ScrollView>
                 </>
             }
@@ -134,6 +135,9 @@ export const Home = ({ route, navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    },
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',

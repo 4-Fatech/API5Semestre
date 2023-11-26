@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Text, ActivityIndicator, ScrollView} from "react-native";
 import { CustomButton } from "../../Common/Button";
 import { Input } from "../../Common/Input/Input";
 import { apiurl } from "../../../Helpers/ApiUrl";
@@ -25,7 +25,7 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
         return false;
     }
     const validaCamposVazios = (senhaNova: string, confirmarSenha: string) => {
-        if (!senhaNova || !confirmarSenha){
+        if (!senhaNova || !confirmarSenha) {
             setCampoVazio(true)
             return true
         }
@@ -69,46 +69,52 @@ export const AtualizarSenha = ({ route, navigation }: any) => {
 
     return (
         <>
-        {validarSenha ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>As senhas são diferentes.</Text>
-                : ""
-            }
-        {campoVazio ?
-                <Text style={{ color: "red", paddingLeft: 12 }}>Os campos com * não podem estar vazios.</Text>
-                : ""
-            }
-            <View style={styles.container}>
-                <View style={styles.content}>
-                    <Text style={styles.text}>Atualize sua senha <Text style={{color:'red'}}>*</Text></Text>
-                    <View style={styles.inputContainer}>
-                        <Input onChangeText={setSenha} value={senha} placeholder="Insira sua senha" password={true} />
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <Text style={styles.label}>Confirme sua senha <Text style={{color:'red'}}>*</Text></Text>
-                        <Input onChangeText={setSenhaConfirma} value={senhaconfirma} placeholder="Confirme sua senha" password={true} />
-                    </View>
-                    {error ?
-                        <View style={styles.errorMessageContainer} >
-                            <Text style={styles.errorMessage}>{error}</Text>
-                        </View> : null
-                    }
-                    <View style={styles.buttonContainer}>
-                        <CustomButton
-                            color='#5f781f'
-                            color2="#94C021"
-                            corTexto="white"
-                            title={loading ? <ActivityIndicator color={'white'} /> : "Atualizar"}
-                            onPress={loading ? null : atualizar}
-                        />
-                    </View>
-                </View>
+            <ScrollView style={styles.bg}>
 
-            </View>
+                {validarSenha ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>As senhas são diferentes.</Text>
+                    : ""
+                }
+                {campoVazio ?
+                    <Text style={{ color: "red", paddingLeft: 12 }}>Os campos com * não podem estar vazios.</Text>
+                    : ""
+                }
+                <View style={styles.container}>
+                    <View style={styles.content}>
+                        <Text style={styles.text}>Atualize sua senha <Text style={{ color: 'red' }}>*</Text></Text>
+                        <View style={styles.inputContainer}>
+                            <Input onChangeText={setSenha} value={senha} placeholder="Insira sua senha" password={true} />
+                        </View>
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>Confirme sua senha <Text style={{ color: 'red' }}>*</Text></Text>
+                            <Input onChangeText={setSenhaConfirma} value={senhaconfirma} placeholder="Confirme sua senha" password={true} />
+                        </View>
+                        {error ?
+                            <View style={styles.errorMessageContainer} >
+                                <Text style={styles.errorMessage}>{error}</Text>
+                            </View> : null
+                        }
+                        <View style={styles.buttonContainer}>
+                            <CustomButton
+                                color='#5f781f'
+                                color2="#94C021"
+                                corTexto="white"
+                                title={loading ? <ActivityIndicator color={'white'} /> : "Atualizar"}
+                                onPress={loading ? null : atualizar}
+                            />
+                        </View>
+                    </View>
+
+                </View>
+            </ScrollView>
         </>
     );
 };
 
 const styles = StyleSheet.create({
+    bg: {
+        backgroundColor: '#1F303E'
+    },
     container: {
         flex: 1,
         alignItems: 'center',
