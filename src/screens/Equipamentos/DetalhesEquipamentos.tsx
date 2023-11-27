@@ -105,19 +105,19 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
                     <View style={[styles.detailsContainer, { borderColor }]}>
                         <Text style={{ fontSize: 21, fontWeight: 'bold', textTransform: 'uppercase', color: 'white' }}> {item.action} - {formattedDate}</Text>
 
-                        <Text style={{ marginLeft: 5, fontSize: 16 }}>
+                        <Text style={{ marginLeft: 5, fontSize: 16, color: 'white' }}>
                             Usuário:{' '}
                             <Text style={{ color: '#94C021', textDecorationLine: 'underline' }}>{item.userEmail}</Text>
                         </Text>
                         {item.details ? (
                             <View>
-                                <Text style={{ marginLeft: 5, fontSize: 16 }}>Detalhes:</Text>
+                                <Text style={{ marginLeft: 5, fontSize: 16, color: 'white' }}>Detalhes:</Text>
                                 {item.details.map((detail: any, index: any) => (
-                                    <Text style={{ marginLeft: 5, fontSize: 16 }} key={index}>- {detail}</Text>
+                                    <Text style={{ marginLeft: 5, fontSize: 16, color: 'white' }} key={index}>- {detail}</Text>
                                 ))}
                             </View>
                         ) : (
-                            <Text style={{ marginLeft: 5, fontSize: 16 }}>Detalhes: Sem informações disponíveis</Text>
+                            <Text style={{ marginLeft: 5, fontSize: 16, color: 'white' }}>Detalhes: Sem informações disponíveis</Text>
                         )}
                     </View>
                 </View>
@@ -127,15 +127,15 @@ export const DetalhesEquipamentos = ({ route, navigation }: any) => {
 
     const HistoryScreen = () => {
         return (
-            <ScrollView style={styles.bg}>
-                <View style={styles.hist}>
-                    <FlatList
-                        data={logs}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => <HistoryItem item={item} />}
-                    />
-                </View>
-            </ScrollView>
+
+            <View style={styles.hist}>
+                <FlatList
+                    data={logs}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => <HistoryItem item={item} />}
+                />
+            </View>
+
         );
     };
 
